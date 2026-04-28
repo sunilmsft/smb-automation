@@ -57,6 +57,9 @@
             z-index: 100;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
+        .tab-nav.pinned {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
         .tab-btn {
             padding: 0.85rem 1.3rem;
             border: none;
@@ -1616,6 +1619,18 @@
 </div>
 
 <script>
+    const nav = document.querySelector('.tab-nav');
+    const header = document.querySelector('.header');
+
+    // Add pinned shadow when nav sticks to top
+    const observer = new IntersectionObserver(
+        ([entry]) => {
+            nav.classList.toggle('pinned', !entry.isIntersecting);
+        },
+        { threshold: 0, rootMargin: '0px' }
+    );
+    observer.observe(header);
+
     function switchTab(tabId) {
         // Remove active from all tabs and content
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -1628,6 +1643,12 @@
                 btn.classList.add('active');
             }
         });
+
+        // Scroll so content starts right below the sticky nav
+        const navHeight = nav.offsetHeight;
+        const tabEl = document.getElementById(tabId);
+        const tabTop = tabEl.getBoundingClientRect().top + window.scrollY - navHeight - 4;
+        window.scrollTo({ top: tabTop, behavior: 'smooth' });
 
         // Update URL hash for bookmarking
         history.replaceState(null, null, '#' + tabId);

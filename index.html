@@ -1311,6 +1311,189 @@
         <h4 style="margin-top: 1.5rem; color: var(--primary);">Killer Sales Pitch</h4>
         <p style="margin-top: 0.5rem; font-style: italic;">"We help you fill your slow nights and get more 5-star reviews — for less than the cost of one DoorDash commission."</p>
     </div>
+
+    <!-- ======= GOTCHAS SECTION ======= -->
+    <h2 class="section-title" style="margin-top: 2.5rem;">⚠️ Technical Gotchas &amp; Real-World Challenges</h2>
+    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">These are the things that can sink a product even when the idea is great. Know them before you build.</p>
+
+    <!-- Gotcha: Calendar Integration -->
+    <div class="card" style="border-left: 4px solid var(--yellow);">
+        <h3><span class="emoji">📅</span> Calendar Integration (Affects #1 v2, #3, #6)</h3>
+        <p style="margin-bottom: 0.75rem;"><strong>The problem:</strong> If you're booking appointments, you need to know when the business is free. But SMBs use wildly different calendar systems — or none at all.</p>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>What SMBs Use</th><th>% of Market</th><th>Integration Difficulty</th></tr></thead>
+                <tbody>
+                    <tr><td>Google Calendar</td><td>~40%</td><td><span class="badge badge-green">Easy</span> — free API, good docs</td></tr>
+                    <tr><td>Outlook / Microsoft 365</td><td>~15%</td><td><span class="badge badge-yellow">Medium</span> — MS Graph API, needs app registration</td></tr>
+                    <tr><td>Industry tools (Jobber, ServiceTitan, Vagaro, Square)</td><td>~10%</td><td><span class="badge badge-red">Hard</span> — each has its own API (or none)</td></tr>
+                    <tr><td>Paper / whiteboard / nothing</td><td>~35%</td><td><span class="badge badge-green">Easy</span> — YOU become their calendar</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <h4 style="margin-top: 1rem; color: var(--primary);">The Pragmatic 3-Phase Approach</h4>
+        <div class="table-wrap" style="margin-top: 0.5rem;">
+            <table>
+                <thead><tr><th>Phase</th><th>When</th><th>How It Works</th><th>Calendar Needed?</th></tr></thead>
+                <tbody>
+                    <tr style="background: var(--green-bg);"><td><strong>MVP</strong></td><td>Week 1–2</td><td>AI captures request, texts owner: "John wants Sat 2pm. Reply Y/N." Owner is the human-in-the-loop.</td><td><span class="badge badge-green">None</span></td></tr>
+                    <tr><td><strong>v2</strong></td><td>Week 3–4</td><td>Owner sets availability in your app ("Mon–Fri 8am–5pm, 1hr slots"). AI books within those windows. You ARE the calendar.</td><td><span class="badge badge-green">Built-in</span></td></tr>
+                    <tr><td><strong>v3</strong></td><td>Month 2+</td><td>Google Calendar sync first (40% of users). Then Outlook via MS Graph. Rest stay on built-in scheduler.</td><td><span class="badge badge-yellow">Google first</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 0.75rem; padding: 0.65rem; background: var(--yellow-bg); border-radius: 8px; font-size: 0.88rem;">💡 <strong>Skip Nylas/Cronofy</strong> (universal calendar APIs) for now — $8–$15/user/month kills your margins. Only consider after 50+ paying customers.</p>
+    </div>
+
+    <!-- Gotcha: AI Voice Quality -->
+    <div class="card" style="border-left: 4px solid var(--yellow);">
+        <h3><span class="emoji">🎙️</span> AI Voice Quality &amp; Latency (Affects #6)</h3>
+        <p style="margin-bottom: 0.75rem;"><strong>The problem:</strong> Callers expect instant, natural responses. Any noticeable delay or robotic tone → they hang up and the magic is gone.</p>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Gotcha</th><th>Why It Matters</th><th>Mitigation</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Latency &gt; 800ms</strong></td><td>Feels like lag on a bad phone connection. Callers say "hello? hello?"</td><td>Use streaming TTS (ElevenLabs, Deepgram). Pre-cache common responses. Aim for &lt;500ms first-byte.</td></tr>
+                    <tr><td><strong>Accent/dialect handling</strong></td><td>Heavy accents, construction site background noise, speakerphone in a car</td><td>Use Deepgram Nova-2 or Whisper for STT — best noise handling. Test with real background noise.</td></tr>
+                    <tr><td><strong>"Uncanny valley" voice</strong></td><td>Too perfect = creepy. Too robotic = annoying.</td><td>Pick voices with slight imperfections. Add natural "ums" and pauses. ElevenLabs v3 handles this well.</td></tr>
+                    <tr><td><strong>Interruption handling</strong></td><td>Caller talks over the AI or corrects mid-sentence</td><td>Implement barge-in detection. AI stops talking immediately and listens. Test this heavily.</td></tr>
+                    <tr><td><strong>Edge cases</strong></td><td>"I need to speak to a human NOW" / angry caller / emergency</td><td>Always have an escalation path. Detect anger/urgency keywords → instant transfer to owner's cell.</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 0.75rem; padding: 0.65rem; background: var(--red-bg); border-radius: 8px; font-size: 0.88rem;">🚨 <strong>Non-negotiable:</strong> If a caller says "talk to a person," "real person," "human," or "emergency" — the AI must immediately transfer. Never trap someone in a bot loop.</p>
+    </div>
+
+    <!-- Gotcha: Twilio Costs -->
+    <div class="card" style="border-left: 4px solid var(--yellow);">
+        <h3><span class="emoji">💸</span> Twilio &amp; Telecom Costs at Scale (Affects #1, #2, #6)</h3>
+        <p style="margin-bottom: 0.75rem;"><strong>The problem:</strong> Twilio costs feel cheap in dev ($0.0079/SMS) but add up fast with real customers.</p>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Cost Item</th><th>Per Unit</th><th>At 50 Customers</th><th>At 200 Customers</th></tr></thead>
+                <tbody>
+                    <tr><td>Phone numbers</td><td>$1.15/mo each</td><td>$57/mo</td><td>$230/mo</td></tr>
+                    <tr><td>SMS (outbound)</td><td>$0.0079 each</td><td>~$200/mo (500 texts/customer)</td><td>~$800/mo</td></tr>
+                    <tr><td>Voice (inbound)</td><td>$0.0085/min</td><td>~$85/mo (200 min/customer)</td><td>~$340/mo</td></tr>
+                    <tr><td>AI API (OpenAI/Anthropic)</td><td>~$0.01–0.03/call</td><td>~$50–150/mo</td><td>~$200–600/mo</td></tr>
+                    <tr style="background: var(--yellow-bg);"><td><strong>Total telecom + AI</strong></td><td></td><td><strong>~$390–490/mo</strong></td><td><strong>~$1,570–1,970/mo</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 0.75rem; padding: 0.65rem; background: var(--green-bg); border-radius: 8px; font-size: 0.88rem;">✅ <strong>Still great margins:</strong> 50 customers × $149/mo = $7,450 revenue vs ~$490 cost = <strong>93% gross margin</strong>. But track per-customer costs from day 1 — some "chatty" businesses will be 3× average cost.</p>
+    </div>
+
+    <!-- Gotcha: SMS Compliance -->
+    <div class="card" style="border-left: 4px solid var(--red);">
+        <h3><span class="emoji">⚖️</span> SMS Compliance &amp; A2P 10DLC (Affects #1, #2, #6)</h3>
+        <p style="margin-bottom: 0.75rem;"><strong>The problem:</strong> You can't just blast texts from a Twilio number anymore. Carriers cracked down hard in 2023–2024. Unregistered = messages silently dropped.</p>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Requirement</th><th>What It Means</th><th>Cost / Time</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>A2P 10DLC registration</strong></td><td>Register your brand + each campaign (messaging use case) with The Campaign Registry</td><td>$4/brand one-time + $0.75–$15/campaign. Takes 1–5 business days</td></tr>
+                    <tr><td><strong>Opt-in consent</strong></td><td>Every person you text must have explicitly opted in. "We found your number online" = illegal</td><td>Build opt-in flows into every entry point</td></tr>
+                    <tr><td><strong>Opt-out handling</strong></td><td>STOP/UNSUBSCRIBE must instantly stop all messages. Required by TCPA.</td><td>Twilio handles basic STOP, but add your own logic</td></tr>
+                    <tr><td><strong>Message throughput limits</strong></td><td>Unregistered: ~1 msg/sec. Registered low-volume: 15 msg/sec. High-volume: 75+ msg/sec</td><td>Register early — don't wait until messages start failing</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 0.75rem; padding: 0.65rem; background: var(--red-bg); border-radius: 8px; font-size: 0.88rem;">🚨 <strong>Do this on Day 1:</strong> Register for A2P 10DLC through Twilio before your first pilot. If you skip this, carriers will silently filter your messages and you'll wonder why customers aren't getting texts. Approval takes days, not hours.</p>
+    </div>
+
+    <!-- Gotcha: AI Hallucination -->
+    <div class="card" style="border-left: 4px solid var(--red);">
+        <h3><span class="emoji">🤥</span> AI Hallucination &amp; Wrong Answers (Affects #6, #1 v2, #8)</h3>
+        <p style="margin-bottom: 0.75rem;"><strong>The problem:</strong> The AI confidently tells a caller "Yes, we're open Sunday" when the shop is closed. Or quotes $150 for a job that costs $500. One wrong answer can destroy a business's trust in your product.</p>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Scenario</th><th>Risk Level</th><th>Mitigation</th></tr></thead>
+                <tbody>
+                    <tr><td>Wrong business hours</td><td><span class="badge badge-red">High</span></td><td>Source hours from structured data (Google Business Profile API), not LLM memory. Hard-code per client.</td></tr>
+                    <tr><td>Wrong pricing / quotes</td><td><span class="badge badge-red">High</span></td><td>Never let AI give exact prices unless explicitly configured. Default: "I'd love to get you a quote — let me take your info and have [owner] follow up."</td></tr>
+                    <tr><td>Booking wrong service</td><td><span class="badge badge-yellow">Medium</span></td><td>Confirm back: "Just to confirm — you want a haircut with Sarah on Saturday at 2pm?" Wait for yes.</td></tr>
+                    <tr><td>Making up services</td><td><span class="badge badge-yellow">Medium</span></td><td>Restrict AI to a whitelist of services per business. Anything not on the list → "Let me connect you with [owner]."</td></tr>
+                    <tr><td>HIPAA/legal mistakes</td><td><span class="badge badge-red">Critical</span></td><td>For dental/medical: AI must NEVER discuss treatment, diagnosis, or medical info. Only scheduling + FAQs.</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 0.75rem; padding: 0.65rem; background: var(--yellow-bg); border-radius: 8px; font-size: 0.88rem;">💡 <strong>Golden rule:</strong> When in doubt, the AI should say "Let me have [owner name] get back to you on that" rather than guess. A missed answer is forgivable. A wrong answer is not.</p>
+    </div>
+
+    <!-- Gotcha: Onboarding Friction -->
+    <div class="card" style="border-left: 4px solid var(--yellow);">
+        <h3><span class="emoji">🚪</span> Customer Onboarding Friction (Affects ALL ideas)</h3>
+        <p style="margin-bottom: 0.75rem;"><strong>The problem:</strong> The business owner said "yes" — but setup requires their hours, services, pricing, forwarding number, etc. If onboarding takes more than 15 minutes, you'll lose them.</p>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Onboarding Step</th><th>Friction Level</th><th>Fix</th></tr></thead>
+                <tbody>
+                    <tr><td>Collecting business info</td><td><span class="badge badge-yellow">Medium</span></td><td>Scrape their Google Business Profile for hours, address, phone, reviews. Pre-fill everything. "Does this look right?"</td></tr>
+                    <tr><td>Phone number porting / forwarding</td><td><span class="badge badge-red">High</span></td><td>Don't port. Use call forwarding: their existing number → your Twilio number → AI → back to them. Zero disruption.</td></tr>
+                    <tr><td>Service list / pricing</td><td><span class="badge badge-yellow">Medium</span></td><td>Start with "What are your top 5 services?" — don't try to catalog everything. Expand later.</td></tr>
+                    <tr><td>Calendar / availability</td><td><span class="badge badge-yellow">Medium</span></td><td>Phase 1: no calendar needed (see above). Phase 2: simple time slots. Phase 3: calendar sync.</td></tr>
+                    <tr><td>Testing / going live</td><td><span class="badge badge-green">Low</span></td><td>Do a live test call WITH the owner on the phone. Let them hear the AI answer. This is also your best sales moment.</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 0.75rem; padding: 0.65rem; background: var(--green-bg); border-radius: 8px; font-size: 0.88rem;">✅ <strong>Target:</strong> "Sold to live in under 30 minutes." If you can demo, sign up, and have the AI answering their phone within one visit — you win. Most competitors take days/weeks for setup.</p>
+    </div>
+
+    <!-- Gotcha: Churn -->
+    <div class="card" style="border-left: 4px solid var(--yellow);">
+        <h3><span class="emoji">📉</span> Churn &amp; the "Set It and Forget It" Trap (Affects ALL ideas)</h3>
+        <p style="margin-bottom: 0.75rem;"><strong>The problem:</strong> SMB owner signs up, sees it work for a week, then forgets about it. Month 3: "What am I paying for again?" → cancels.</p>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Churn Trigger</th><th>When It Happens</th><th>Prevention</th></tr></thead>
+                <tbody>
+                    <tr><td>No visible ROI</td><td>Month 1–2</td><td>Weekly text/email: "This week: 7 calls answered, 3 appointments booked, ~$1,200 in leads saved." Make ROI undeniable.</td></tr>
+                    <tr><td>Slow month = "don't need it"</td><td>Seasonal dips</td><td>Discount seasonal months. Or: "We handled 12 calls this month even in the slow season — without you, they'd be missed."</td></tr>
+                    <tr><td>Owner changes phone habits</td><td>Anytime</td><td>The product must work even if the owner never logs into a dashboard. SMS-based reporting, not app-based.</td></tr>
+                    <tr><td>One bad AI interaction</td><td>Anytime</td><td>Flag failed/escalated calls for review. Proactively reach out: "We noticed a call didn't go perfectly — here's what we fixed."</td></tr>
+                    <tr><td>Payment failure</td><td>Month 2+</td><td>Retry failed payments 3×. Text the owner before canceling. Many SMBs have spotty card situations.</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 0.75rem; padding: 0.65rem; background: var(--yellow-bg); border-radius: 8px; font-size: 0.88rem;">💡 <strong>Industry benchmark:</strong> SMB SaaS monthly churn is 3–7%. If you can stay under 5%, you're healthy. The #1 retention lever: proactive ROI reporting. They need to SEE the value every week without logging in.</p>
+    </div>
+
+    <!-- Gotcha: Multi-language -->
+    <div class="card" style="border-left: 4px solid var(--primary);">
+        <h3><span class="emoji">🌐</span> Multi-Language Support (Affects #6, #1)</h3>
+        <p style="margin-bottom: 0.75rem;"><strong>The problem:</strong> In Seattle, 15%+ of service calls come in Spanish. If your AI only speaks English, you're leaving money on the table — and your competitors (human receptionists at Smith.ai) already offer bilingual.</p>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Challenge</th><th>Approach</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Language detection</strong></td><td>Detect language in the first 2–3 seconds of speech. Deepgram and Whisper both support auto-detection.</td></tr>
+                    <tr><td><strong>Spanish voice quality</strong></td><td>ElevenLabs has strong Spanish voices. Test with native speakers — accent matters. Latin American Spanish ≠ Castilian.</td></tr>
+                    <tr><td><strong>Code-switching (Spanglish)</strong></td><td>Common in Seattle service businesses. LLMs handle this well. Prompt the AI to mirror the caller's language style.</td></tr>
+                    <tr><td><strong>Business info in both languages</strong></td><td>Services, hours, and FAQ responses need to be in English AND Spanish. Double the onboarding content (or auto-translate).</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 0.75rem; padding: 0.65rem; background: var(--blue-bg); border-radius: 8px; font-size: 0.88rem;">💡 <strong>Sales angle:</strong> "Your AI receptionist speaks English and Spanish — try getting that from a $15/hr front desk hire." This alone can justify $50–$100/mo premium for businesses in diverse neighborhoods.</p>
+    </div>
+
+    <!-- Gotcha: Data Privacy -->
+    <div class="card" style="border-left: 4px solid var(--red);">
+        <h3><span class="emoji">🔒</span> Data Privacy &amp; Call Recording Laws (Affects #6)</h3>
+        <p style="margin-bottom: 0.75rem;"><strong>The problem:</strong> Washington State is a <strong>two-party consent</strong> state for call recording. You must inform the caller before recording or transcribing.</p>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Requirement</th><th>What To Do</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>WA two-party consent (RCW 9.73.030)</strong></td><td>AI must say at the start: "This call may be recorded for quality purposes." Standard, everyone does it.</td></tr>
+                    <tr><td><strong>AI disclosure</strong></td><td>Increasingly required/expected: "Hi, I'm [name]'s virtual assistant." Don't pretend to be human — it backfires.</td></tr>
+                    <tr><td><strong>Storing customer data</strong></td><td>Phone numbers, names, call transcripts = PII. Encrypt at rest, access controls, data retention policy. Don't store what you don't need.</td></tr>
+                    <tr><td><strong>HIPAA (dental, medical clients)</strong></td><td>If ANY health info is discussed on calls → HIPAA applies to you. Either avoid medical clients initially, or use HIPAA-compliant infra from day 1.</td></tr>
+                    <tr><td><strong>Payment info</strong></td><td>If AI ever takes payment info over phone → PCI-DSS compliance. <strong>Don't do this.</strong> Redirect to a payment link instead.</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 0.75rem; padding: 0.65rem; background: var(--red-bg); border-radius: 8px; font-size: 0.88rem;">🚨 <strong>Day 1 decisions:</strong> (1) Always disclose the AI + recording. (2) Don't target medical/dental until you have HIPAA sorted. (3) Never take payment info over voice — send a secure link via text instead.</p>
+    </div>
 </div>
 
 <!-- ============================================ -->

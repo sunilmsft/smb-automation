@@ -7,6 +7,38 @@
 
 ## Conversation Log
 
+### Session 2 — April 28, 2026 (later)
+
+**Participants:** Sunil + AI assistant
+
+#### What We Discussed
+1. Explored out-of-the-box ideas beyond the original 5 — looking for untapped gaps
+2. Identified 6 new ideas, rated by opportunity size, gap, buildability, and "holy shit" factor
+3. Sunil flagged that bank integration (Bookkeeper, Cash Flow) and operational control (Ghost Kitchen) require too much trust for day 1
+4. Applied a "trust barrier" filter — separated ideas into "actionable now" vs "Phase 2/3"
+
+#### Decisions Made
+| Decision | Rationale |
+|---|---|
+| Ideas needing bank access are Phase 2/3 | SMBs won't hand over bank login to strangers. Need established relationship first |
+| Ghost Kitchen is complex + high-trust | Requires delivery platform integration AND operational control of their kitchen |
+| AI Phone Receptionist is the new frontrunner | Biggest gap, highest "holy shit" factor, subsumes original Idea #1, low trust barrier |
+| Added all 6 ideas to the dashboard | Keep everything visible for Tim & Sunil alignment discussion |
+
+#### Key Findings
+- AI voice quality in 2026 is now indistinguishable from human — unlocks the AI Receptionist category
+- Human receptionist costs $2,500–$4,000/mo; AI version could charge $199–$399/mo (90% savings)
+- Only <5% of 33M US small businesses can afford a receptionist — massive addressable market
+- Permit/compliance tracking is a low-complexity, low-trust-barrier niche nobody is solving
+- Social media autopilot: posting on Google Business Profile alone can increase calls 30–50%
+- 82% of SMB failures are due to cash flow problems — huge problem but needs trust
+
+#### New Open Questions
+- [ ] Does AI Phone Receptionist change the #1 pick? (more complex to build but strictly better)
+- [ ] Phase 2 strategy: which high-trust ideas to pursue once customer relationships are established?
+
+---
+
 ### Session 1 — April 28, 2026
 
 **Participants:** Sunil + AI assistant

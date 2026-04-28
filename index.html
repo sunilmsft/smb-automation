@@ -278,7 +278,8 @@
 <!-- Tab Navigation -->
 <nav class="tab-nav">
     <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
-    <button class="tab-btn" onclick="switchTab('ideas')">Ideas (Top 5)</button>
+    <button class="tab-btn" onclick="switchTab('ideas')">Core Ideas (5)</button>
+    <button class="tab-btn" onclick="switchTab('out-of-box')">Out-of-Box Ideas (6)</button>
     <button class="tab-btn" onclick="switchTab('comparison')">Comparison Matrix</button>
     <button class="tab-btn" onclick="switchTab('deep-dives')">Deep Dives</button>
     <button class="tab-btn" onclick="switchTab('go-to-market')">Go-to-Market</button>
@@ -340,7 +341,13 @@
         <h3><span class="emoji">🏆</span> Current Recommendation</h3>
         <p><strong>Idea #1 — "Never Miss a Lead"</strong> for home service businesses is the top pick based on ease of build, ease of sale, and clear ROI story.</p>
         <p style="margin-top:0.5rem;"><strong>Idea #2 — "Restaurant Customer Engine"</strong> is the strong alternative if you want a bigger long-term play in a market you're passionate about.</p>
+        <p style="margin-top:0.5rem;"><strong>NEW — AI Phone Receptionist</strong> is the biggest untapped opportunity. Subsumes Idea #1 and has a massive "holy shit" factor.</p>
         <p style="margin-top: 0.5rem; color: var(--text-muted); font-size: 0.88rem;"><em>Final decision pending discussion between Tim &amp; Sunil.</em></p>
+    </div>
+
+    <div class="card">
+        <h3><span class="emoji">⚠️</span> Trust Barrier Note</h3>
+        <p>Ideas requiring <strong>bank account access</strong> (Invisible Bookkeeper, Cash Flow Crystal Ball) or <strong>operational control</strong> (Ghost Kitchen) need significant trust-building before SMBs will adopt. These are better as Phase 2/3 products once you have an established relationship with customers.</p>
     </div>
 </div>
 
@@ -428,6 +435,128 @@
             <div><div class="meta-label">Year 1 Revenue</div> $100K–$300K</div>
             <div><div class="meta-label">Competitors</div> GoHighLevel, Jobber, HubSpot — $300–$1,000/mo. Too complex for starting point</div>
         </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB: Out-of-Box Ideas -->
+<!-- ============================================ -->
+<div id="out-of-box" class="tab-content">
+    <h2 class="section-title">Out-of-the-Box Ideas</h2>
+    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Bigger-swing ideas exploring untapped gaps in the SMB market. Ordered by opportunity size and feasibility.</p>
+
+    <!-- OOB Idea 1 -->
+    <div class="card idea-card recommended">
+        <h3><span class="emoji">🤖</span> #6 — AI Phone Receptionist <span class="badge badge-green">Biggest Opportunity</span></h3>
+        <p><strong>Target:</strong> Every small business — start with dental offices, auto shops, law offices, med spas (where a missed call = $500+ lost)</p>
+        <p style="margin-top:0.5rem;"><strong>Problem:</strong> A human receptionist costs $2,500–$4,000/mo. Small businesses can't afford one. So the owner answers while on a job, or nobody answers. AI voice quality in 2026 is now indistinguishable from human.</p>
+        <p style="margin-top:0.5rem;"><strong>Solution:</strong> AI voice agent answers 24/7 — takes messages, answers FAQs ("What are your hours?", "Do you do free estimates?"), books appointments, routes urgent calls to owner's cell. English + Spanish.</p>
+        <p style="margin-top:0.5rem;"><strong>Sales pitch:</strong> <em>"We'll answer your phone like a real receptionist, 24/7, for less than you spend on coffee for the office."</em></p>
+        <div class="idea-meta">
+            <div><div class="meta-label">Price</div> $199–$399/mo (vs $3K/mo human — 90% savings)</div>
+            <div><div class="meta-label">Market Size</div> 33 million US small businesses; &lt;5% can afford a receptionist</div>
+            <div><div class="meta-label">Build Complexity</div> <span class="stars">★★★</span>☆☆ Medium</div>
+            <div><div class="meta-label">Time to MVP</div> 3–4 weeks</div>
+            <div><div class="meta-label">Competitors</div> Smith.ai, Ruby ($300–$700/mo, human). Bland.ai, Synthflow (dev tools, not plug-and-play)</div>
+            <div><div class="meta-label">Trust Barrier</div> <span class="badge badge-green">Low</span> — no bank access, no sensitive data</div>
+        </div>
+        <p style="margin-top: 1rem; padding: 0.75rem; background: #f0fdf4; border-radius: 8px; font-size: 0.9rem;"><strong>Why this is huge:</strong> The tech just crossed the threshold where this is possible for &lt;$200/mo. Nobody has made it dead-simple for a non-technical business owner. This also <strong>subsumes Idea #1</strong> — the receptionist answers the call instead of just texting back. It's strictly better.</p>
+    </div>
+
+    <!-- OOB Idea 2 -->
+    <div class="card idea-card">
+        <h3><span class="emoji">📱</span> #7 — Hyperlocal Social Media on Autopilot</h3>
+        <p><strong>Target:</strong> Restaurants, bakeries, salons, boutique retail — visually-driven businesses</p>
+        <p style="margin-top:0.5rem;"><strong>Problem:</strong> Every SMB owner knows they "should be posting on Instagram/Facebook." Almost none do consistently. Hiring a social media manager costs $1,000–$3,000/mo. Most have a dead Instagram with a post from 8 months ago.</p>
+        <p style="margin-top:0.5rem;"><strong>Solution:</strong> Owner texts or snaps a photo → AI generates caption, hashtags, posts to Instagram, Facebook, Google Business Profile → AI generates weekly content ideas → handles comment/DM responses</p>
+        <div class="idea-meta">
+            <div><div class="meta-label">Price</div> $79–$149/mo</div>
+            <div><div class="meta-label">Impact</div> Posting consistently on Google Business Profile alone can increase calls 30–50%</div>
+            <div><div class="meta-label">Build Complexity</div> <span class="stars">★★★</span>☆☆ Medium</div>
+            <div><div class="meta-label">Time to MVP</div> 3–4 weeks</div>
+            <div><div class="meta-label">Trust Barrier</div> <span class="badge badge-green">Low</span> — social media access only</div>
+        </div>
+    </div>
+
+    <!-- OOB Idea 3 -->
+    <div class="card idea-card">
+        <h3><span class="emoji">📋</span> #8 — Permit &amp; Compliance Autopilot</h3>
+        <p><strong>Target:</strong> Restaurants (health permits, liquor license, fire inspection), contractors (trade licenses, insurance certs, bonding)</p>
+        <p style="margin-top:0.5rem;"><strong>Problem:</strong> Small businesses juggle 5–15 permits/licenses/certifications that expire at different times. Miss one → fines, forced closure, lost work days. Most track these on sticky notes or not at all.</p>
+        <p style="margin-top:0.5rem;"><strong>Solution:</strong> Snap photos of all permits → AI extracts expiry dates → automated reminders at 90/60/30/7 days → pre-filled renewal forms → compliance status dashboard</p>
+        <div class="idea-meta">
+            <div><div class="meta-label">Price</div> $39–$79/mo</div>
+            <div><div class="meta-label">Impact</div> A single missed health inspection can shut down a restaurant</div>
+            <div><div class="meta-label">Build Complexity</div> <span class="stars">★★</span>☆☆☆ Low</div>
+            <div><div class="meta-label">Time to MVP</div> 2–3 weeks</div>
+            <div><div class="meta-label">Trust Barrier</div> <span class="badge badge-green">Low</span> — just document photos</div>
+        </div>
+    </div>
+
+    <!-- OOB Idea 4 - HIGH TRUST -->
+    <div class="card idea-card" style="border-left-color: var(--yellow);">
+        <h3><span class="emoji">📒</span> #9 — "Invisible Bookkeeper" <span class="badge badge-yellow">High Trust Required</span></h3>
+        <p><strong>Target:</strong> Any small business doing &lt;$1M/yr revenue with no bookkeeper</p>
+        <p style="margin-top:0.5rem;"><strong>Problem:</strong> 60%+ of small business owners do their own bookkeeping (badly) or stuff receipts in a shoebox. A bookkeeper costs $300–$800/mo.</p>
+        <p style="margin-top:0.5rem;"><strong>Solution:</strong> Connect to bank (Plaid) → AI auto-categorizes transactions → monthly P&amp;L and cash flow reports → flags anomalies → exports clean data for CPA at tax time</p>
+        <div class="idea-meta">
+            <div><div class="meta-label">Price</div> $49–$99/mo</div>
+            <div><div class="meta-label">Build Complexity</div> <span class="stars">★★★★</span>☆ High</div>
+            <div><div class="meta-label">Time to MVP</div> 5–6 weeks</div>
+            <div><div class="meta-label">Trust Barrier</div> <span class="badge badge-red">High</span> — bank account access required</div>
+        </div>
+        <p style="margin-top: 0.75rem; padding: 0.5rem; background: var(--yellow-bg); border-radius: 6px; font-size: 0.85rem;">⚠️ <strong>Trust barrier:</strong> Requires bank account integration (Plaid). SMBs won't hand this over to someone they just met. Better as a Phase 2 product once trust is established.</p>
+    </div>
+
+    <!-- OOB Idea 5 - HIGH TRUST -->
+    <div class="card idea-card" style="border-left-color: var(--yellow);">
+        <h3><span class="emoji">💰</span> #10 — "Cash Flow Crystal Ball" <span class="badge badge-yellow">High Trust Required</span></h3>
+        <p><strong>Target:</strong> Restaurants and retail — businesses with high variability in daily revenue</p>
+        <p style="margin-top:0.5rem;"><strong>Problem:</strong> The #1 reason small businesses fail: they run out of cash. Not because they're unprofitable — because they don't see the crunch coming 3 weeks ahead. 82% of SMB failures are cash flow related.</p>
+        <p style="margin-top:0.5rem;"><strong>Solution:</strong> Connect to POS/bank → AI models cash flow patterns → predicts position 2–4 weeks out → alerts: "You'll be $2,300 short on May 15th" → suggests actions</p>
+        <div class="idea-meta">
+            <div><div class="meta-label">Price</div> $99–$199/mo</div>
+            <div><div class="meta-label">Build Complexity</div> <span class="stars">★★★★</span>☆ High</div>
+            <div><div class="meta-label">Time to MVP</div> 5–6 weeks</div>
+            <div><div class="meta-label">Trust Barrier</div> <span class="badge badge-red">High</span> — financial data access required</div>
+        </div>
+        <p style="margin-top: 0.75rem; padding: 0.5rem; background: var(--yellow-bg); border-radius: 6px; font-size: 0.85rem;">⚠️ <strong>Trust barrier:</strong> Requires POS/bank integration. Massive value prop but needs established customer relationship first.</p>
+    </div>
+
+    <!-- OOB Idea 6 - HIGH TRUST -->
+    <div class="card idea-card" style="border-left-color: var(--yellow);">
+        <h3><span class="emoji">👻</span> #11 — "Ghost Kitchen Lite" <span class="badge badge-yellow">High Trust + Complexity</span></h3>
+        <p><strong>Target:</strong> Independent restaurants with slow afternoon periods (2–5 PM)</p>
+        <p style="margin-top:0.5rem;"><strong>Problem:</strong> Kitchen is idle during dead hours. Staff on the clock. Fixed costs don't stop. Meanwhile, delivery demand for specific items (cookies, wings, smoothies) peaks in the afternoon.</p>
+        <p style="margin-top:0.5rem;"><strong>Solution:</strong> Help restaurants create a delivery-only "virtual brand" that operates from their kitchen during dead hours. Handle online listing, menu optimization, order routing.</p>
+        <div class="idea-meta">
+            <div><div class="meta-label">Price</div> $149/mo + 5% of virtual brand revenue</div>
+            <div><div class="meta-label">Build Complexity</div> <span class="stars">★★★★</span>☆ High</div>
+            <div><div class="meta-label">Time to MVP</div> 5–6 weeks</div>
+            <div><div class="meta-label">Trust Barrier</div> <span class="badge badge-red">High</span> — operational control of their kitchen/brand</div>
+        </div>
+        <p style="margin-top: 0.75rem; padding: 0.5rem; background: var(--yellow-bg); border-radius: 6px; font-size: 0.85rem;">⚠️ <strong>Trust + complexity barrier:</strong> Requires delivery platform integration, menu strategy, and restaurant ops involvement. Cool concept but heavy lift for a starting point.</p>
+    </div>
+
+    <!-- Summary card -->
+    <div class="card">
+        <h3><span class="emoji">🎯</span> Out-of-Box Ideas — Quick Assessment</h3>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Idea</th><th>Opportunity</th><th>Gap Size</th><th>Buildability</th><th>Trust Barrier</th><th>"Holy Shit" Factor</th></tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #f0fdf4;"><td><strong>#6 AI Phone Receptionist</strong></td><td>Enormous</td><td>Huge</td><td><span class="badge badge-yellow">Medium</span></td><td><span class="badge badge-green">Low</span></td><td>🔥🔥🔥🔥🔥</td></tr>
+                    <tr><td>#7 Social Media Autopilot</td><td>Large</td><td>Medium</td><td><span class="badge badge-yellow">Medium</span></td><td><span class="badge badge-green">Low</span></td><td>🔥🔥🔥</td></tr>
+                    <tr><td>#8 Permit Autopilot</td><td>Medium</td><td>Huge</td><td><span class="badge badge-green">Easy</span></td><td><span class="badge badge-green">Low</span></td><td>🔥🔥</td></tr>
+                    <tr><td>#9 Invisible Bookkeeper</td><td>Large</td><td>Large</td><td><span class="badge badge-red">Hard</span></td><td><span class="badge badge-red">High</span></td><td>🔥🔥🔥</td></tr>
+                    <tr><td>#10 Cash Flow Crystal Ball</td><td>Large</td><td>Huge</td><td><span class="badge badge-red">Hard</span></td><td><span class="badge badge-red">High</span></td><td>🔥🔥🔥🔥</td></tr>
+                    <tr><td>#11 Ghost Kitchen Lite</td><td>Medium</td><td>Large</td><td><span class="badge badge-red">Hard</span></td><td><span class="badge badge-red">High</span></td><td>🔥🔥🔥</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);"><strong>Bottom line:</strong> Ideas #6–#8 are actionable now (low trust barrier). Ideas #9–#11 are better as Phase 2/3 products once you have established customer relationships.</p>
     </div>
 </div>
 
@@ -784,6 +913,18 @@
         <span class="log-type finding">Finding</span>
         <div class="log-text"><strong>Top pick identified:</strong> "Never Miss a Lead" for home services scores highest across all criteria. Restaurant Engine is strong alternative. Final decision pending Tim &amp; Sunil discussion.</div>
     </div>
+
+    <div class="log-entry">
+        <span class="log-date">April 28, 2026</span>
+        <span class="log-type finding">Finding</span>
+        <div class="log-text"><strong>6 out-of-box ideas explored:</strong> AI Phone Receptionist, Social Media Autopilot, Permit Autopilot, Invisible Bookkeeper, Cash Flow Crystal Ball, Ghost Kitchen Lite. AI Phone Receptionist rated highest overall — "biggest untapped opportunity in SMB tech right now."</div>
+    </div>
+
+    <div class="log-entry">
+        <span class="log-date">April 28, 2026</span>
+        <span class="log-type decision">Decision</span>
+        <div class="log-text"><strong>Trust barrier filter applied:</strong> Ideas requiring bank integration (Bookkeeper, Cash Flow) or operational control (Ghost Kitchen) flagged as Phase 2/3 — too much trust needed for day 1. Focus on low-trust-barrier ideas first (#6 AI Receptionist, #7 Social Media, #8 Permits).</div>
+    </div>
 </div>
 
 <!-- ============================================ -->
@@ -838,6 +979,22 @@
         <div>
             <strong>Which Seattle neighborhoods first?</strong>
             <p style="font-size: 0.88rem; color: var(--text-muted);">Ballard + Capitol Hill seem strongest — confirm based on where Tim &amp; Sunil are based</p>
+        </div>
+    </div>
+
+    <div class="question-item">
+        <div class="question-status open"></div>
+        <div>
+            <strong>Does AI Phone Receptionist change the top pick?</strong>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">It subsumes Idea #1 and has higher price point ($199–$399/mo). But it's more complex to build (3–4 wks vs 1–2). Worth the extra build time?</p>
+        </div>
+    </div>
+
+    <div class="question-item">
+        <div class="question-status open"></div>
+        <div>
+            <strong>Phase 2 product strategy?</strong>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Once trust is built with customers, which high-trust ideas (#9–#11) to pursue first?</p>
         </div>
     </div>
 </div>

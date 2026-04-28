@@ -29,7 +29,7 @@
 
 ---
 
-## The 5 Ideas Under Consideration
+## The 5 Core Ideas
 
 | # | Idea | Target | Score |
 |---|---|---|---|
@@ -38,6 +38,21 @@
 | 3 | "Booked Solid" — booking + reminders + no-show follow-up | Salons, barbers, med spas | ★★★ |
 | 4 | Bakery/Retail Order Manager — order intake + confirmations + reorder nudges | Bakeries, specialty food shops | ★★★ |
 | 5 | "Neighborhood CRM" — unified inbox + customer profiles + campaigns | Any local SMB (broad) | ★★ |
+
+---
+
+## Out-of-Box Ideas (added April 28)
+
+| # | Idea | Target | Trust Barrier | "Holy Shit" Factor |
+|---|---|---|---|---|
+| 6 | **AI Phone Receptionist** — AI answers calls 24/7, takes messages, books appointments | Any SMB (start with dental, auto, law, med spa) | Low | 🔥🔥🔥🔥🔥 |
+| 7 | Social Media Autopilot — snap a photo, AI posts everywhere | Restaurants, bakeries, salons, retail | Low | 🔥🔥🔥 |
+| 8 | Permit & Compliance Autopilot — OCR permits, auto-reminders | Restaurants, contractors | Low | 🔥🔥 |
+| 9 | "Invisible Bookkeeper" — AI auto-categorizes bank transactions | Any SMB <$1M revenue | **High (bank access)** | 🔥🔥🔥 |
+| 10 | "Cash Flow Crystal Ball" — predict cash crunches 2–4 weeks out | Restaurants, retail | **High (bank/POS access)** | 🔥🔥🔥🔥 |
+| 11 | "Ghost Kitchen Lite" — virtual brand during dead kitchen hours | Restaurants | **High (operational control)** | 🔥🔥🔥 |
+
+**Key learning:** Ideas #9–11 need trust-building first. Better as Phase 2/3 after establishing customer relationships. Ideas #6–8 are actionable now.
 
 ---
 

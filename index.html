@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tim &amp; Sunil — SMB Automation Project</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --green: #22c55e;
+            --yellow: #eab308;
+            --red: #ef4444;
+            --green-bg: #f0fdf4;
+            --yellow-bg: #fefce8;
+            --red-bg: #fef2f2;
+            --blue-bg: #eff6ff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+        .header p { opacity: 0.85; font-size: 0.95rem; }
+        .header .last-updated {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            flex-wrap: wrap;
+            background: var(--card-bg);
+            border-bottom: 2px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .tab-btn {
+            padding: 0.85rem 1.3rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { color: var(--primary); background: var(--blue-bg); }
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background: var(--blue-bg);
+        }
+
+        /* Tab Content */
+        .tab-content { display: none; padding: 2rem; max-width: 1100px; margin: 0 auto; }
+        .tab-content.active { display: block; }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+        .card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card h3 .emoji { font-size: 1.3rem; }
+
+        /* Tables */
+        .table-wrap { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+        th, td {
+            padding: 0.7rem 0.9rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: var(--text-muted);
+            position: sticky;
+            top: 0;
+        }
+        tr:hover td { background: #f8fafc; }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.55rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-green { background: var(--green-bg); color: #15803d; }
+        .badge-yellow { background: var(--yellow-bg); color: #a16207; }
+        .badge-red { background: var(--red-bg); color: #dc2626; }
+        .badge-blue { background: var(--blue-bg); color: var(--primary); }
+
+        /* Stars */
+        .stars { color: #f59e0b; letter-spacing: 1px; }
+
+        /* Section headers */
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        /* Idea detail cards */
+        .idea-card {
+            border-left: 4px solid var(--primary);
+        }
+        .idea-card.recommended {
+            border-left-color: var(--green);
+            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+        }
+        .idea-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .meta-item { font-size: 0.88rem; }
+        .meta-label { font-weight: 600; color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; }
+
+        /* Timeline */
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.75rem;
+            top: 1.25rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        .timeline-day {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+        }
+        .timeline-title { font-weight: 600; margin-bottom: 0.35rem; }
+        .timeline-desc { font-size: 0.88rem; color: var(--text-muted); }
+
+        /* Decision log */
+        .log-entry {
+            padding: 1rem;
+            border-left: 3px solid var(--border);
+            margin-bottom: 1rem;
+            background: #fafafa;
+            border-radius: 0 8px 8px 0;
+        }
+        .log-date { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; }
+        .log-type {
+            display: inline-block;
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-left: 0.5rem;
+        }
+        .log-type.decision { background: #dbeafe; color: #1e40af; }
+        .log-type.finding { background: #fef3c7; color: #92400e; }
+        .log-type.question { background: #fce7f3; color: #9d174d; }
+        .log-text { margin-top: 0.4rem; font-size: 0.9rem; }
+
+        /* Open Questions */
+        .question-item {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+        .question-status {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .question-status.open { border-color: var(--yellow); background: var(--yellow-bg); }
+        .question-status.resolved { border-color: var(--green); background: var(--green); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tab-btn { padding: 0.7rem 0.8rem; font-size: 0.8rem; }
+            .tab-content { padding: 1rem; }
+            .idea-meta { grid-template-columns: 1fr; }
+            table { font-size: 0.8rem; }
+            th, td { padding: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Tim &amp; Sunil — SMB Automation Project</h1>
+    <p>Helping small businesses with simple automation &amp; AI</p>
+    <div class="last-updated">Last updated: April 28, 2026</div>
+</div>
+
+<!-- Tab Navigation -->
+<nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
+    <button class="tab-btn" onclick="switchTab('ideas')">Ideas (Top 5)</button>
+    <button class="tab-btn" onclick="switchTab('comparison')">Comparison Matrix</button>
+    <button class="tab-btn" onclick="switchTab('deep-dives')">Deep Dives</button>
+    <button class="tab-btn" onclick="switchTab('go-to-market')">Go-to-Market</button>
+    <button class="tab-btn" onclick="switchTab('two-week-plan')">2-Week Plan</button>
+    <button class="tab-btn" onclick="switchTab('decision-log')">Decision Log</button>
+    <button class="tab-btn" onclick="switchTab('open-questions')">Open Questions</button>
+</nav>
+
+<!-- ============================================ -->
+<!-- TAB: Overview -->
+<!-- ============================================ -->
+<div id="overview" class="tab-content active">
+    <h2 class="section-title">Project Overview</h2>
+
+    <div class="card">
+        <h3><span class="emoji">🎯</span> Mission</h3>
+        <p>Find <strong>one real problem</strong> that small (mom-and-pop) businesses face and build a <strong>simple, affordable solution</strong> they will actually pay for.</p>
+    </div>
+
+    <div class="card">
+        <h3><span class="emoji">📋</span> Constraints</h3>
+        <ul style="margin-left: 1.2rem;">
+            <li>Keep it simple — no over-engineering</li>
+            <li>Low cost to build and operate</li>
+            <li>Test with 2–5 real businesses quickly</li>
+            <li>Not trying to build a big startup right away</li>
+            <li>Starting in <strong>Seattle</strong>, expand based on traction</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3><span class="emoji">💡</span> Key Insight — Packaging Matters</h3>
+        <p>SMB owners don't buy features — they buy solutions. We need to either:</p>
+        <div class="idea-meta">
+            <div>
+                <div class="meta-label">Option A</div>
+                <p>Bundle 3–4 features under one theme (e.g., "Never Lose a Customer Again")</p>
+                <span class="badge badge-green">Recommended</span>
+            </div>
+            <div>
+                <div class="meta-label">Option B</div>
+                <p>Pick one very specific problem and absolutely nail it</p>
+                <span class="badge badge-yellow">Viable</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><span class="emoji">📍</span> Seattle-First Strategy</h3>
+        <ul style="margin-left: 1.2rem;">
+            <li><strong>In-person sales</strong> — walk in, shake hands, demo on a phone</li>
+            <li><strong>Target neighborhoods:</strong> Ballard, Capitol Hill, Fremont, Columbia City, University District</li>
+            <li><strong>Word of mouth</strong> travels fast in tight business communities</li>
+            <li><strong>Expansion path:</strong> Seattle → Eastside (Bellevue, Kirkland, Redmond) → Tacoma → Portland</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3><span class="emoji">🏆</span> Current Recommendation</h3>
+        <p><strong>Idea #1 — "Never Miss a Lead"</strong> for home service businesses is the top pick based on ease of build, ease of sale, and clear ROI story.</p>
+        <p style="margin-top:0.5rem;"><strong>Idea #2 — "Restaurant Customer Engine"</strong> is the strong alternative if you want a bigger long-term play in a market you're passionate about.</p>
+        <p style="margin-top: 0.5rem; color: var(--text-muted); font-size: 0.88rem;"><em>Final decision pending discussion between Tim &amp; Sunil.</em></p>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB: Ideas (Top 5) -->
+<!-- ============================================ -->
+<div id="ideas" class="tab-content">
+    <h2 class="section-title">Top 5 Ideas</h2>
+
+    <!-- Idea 1 -->
+    <div class="card idea-card recommended">
+        <h3><span class="emoji">📞</span> #1 — "Never Miss a Lead" Package <span class="badge badge-green">Top Pick</span></h3>
+        <p><strong>Target:</strong> Home services — plumbers, HVAC, electricians, locksmiths, cleaners</p>
+        <p style="margin-top:0.5rem;"><strong>Problem:</strong> They miss 40%+ of calls while on jobs. Leads go cold. They have 12 Google reviews while competitors have 200. No system to follow up.</p>
+        <p style="margin-top:0.5rem;"><strong>Solution (v1):</strong> Missed call → auto SMS reply → lead logged → auto follow-up sequence (day 1, 3, 7) → post-job Google review request</p>
+        <div class="idea-meta">
+            <div><div class="meta-label">Price</div> $79–$149/mo</div>
+            <div><div class="meta-label">Seattle Market</div> ~4,000+ businesses</div>
+            <div><div class="meta-label">Build Complexity</div> <span class="stars">★★</span>☆☆☆ Low</div>
+            <div><div class="meta-label">Time to MVP</div> 1–2 weeks</div>
+            <div><div class="meta-label">Year 1 Revenue</div> $50K–$150K (50–100 customers)</div>
+            <div><div class="meta-label">Competitors</div> Podium, Housecall Pro ($300–$500/mo) — we win on price + simplicity</div>
+        </div>
+    </div>
+
+    <!-- Idea 2 -->
+    <div class="card idea-card">
+        <h3><span class="emoji">🍽️</span> #2 — "Full House" Restaurant Customer Engine <span class="badge badge-blue">Strong Alternative</span></h3>
+        <p><strong>Target:</strong> Independent restaurants, cafes, fast-casual (NOT chains)</p>
+        <p style="margin-top:0.5rem;"><strong>Problem:</strong> Paper waitlists, lose walk-aways, never collect customer data, can't fill slow nights (Tue/Wed), get crushed by chains with loyalty apps.</p>
+        <p style="margin-top:0.5rem;"><strong>Solution (v1):</strong> SMS waitlist ("Text JOIN to get in line") → auto-build customer database → post-visit review request → weekly promo blast for slow nights → birthday offers</p>
+        <div class="idea-meta">
+            <div><div class="meta-label">Price</div> $99–$199/mo</div>
+            <div><div class="meta-label">Seattle Market</div> ~5,000+ restaurants</div>
+            <div><div class="meta-label">Build Complexity</div> <span class="stars">★★★</span>☆☆ Medium</div>
+            <div><div class="meta-label">Time to MVP</div> 3–4 weeks</div>
+            <div><div class="meta-label">Year 1 Revenue</div> $60K–$180K</div>
+            <div><div class="meta-label">Competitors</div> Toast, Yelp Waitlist, OpenTable — but all costly. Nobody owns post-visit relationship affordably</div>
+        </div>
+    </div>
+
+    <!-- Idea 3 -->
+    <div class="card idea-card">
+        <h3><span class="emoji">📅</span> #3 — "Booked Solid" Appointment Package</h3>
+        <p><strong>Target:</strong> Barbershops, salons, med spas, tattoo studios, personal trainers</p>
+        <p style="margin-top:0.5rem;"><strong>Problem:</strong> 20–30% no-show rate = $500–$2,000/mo lost. Paper books or Instagram DMs for scheduling. Reminders are manual or nonexistent.</p>
+        <p style="margin-top:0.5rem;"><strong>Solution (v1):</strong> Simple booking page → SMS confirm → auto reminders (24hr + 2hr) → no-show "we missed you" text → post-visit review request</p>
+        <div class="idea-meta">
+            <div><div class="meta-label">Price</div> $69–$129/mo</div>
+            <div><div class="meta-label">Seattle Market</div> ~3,000+ businesses</div>
+            <div><div class="meta-label">Build Complexity</div> <span class="stars">★★★</span>☆☆ Medium</div>
+            <div><div class="meta-label">Time to MVP</div> 3–4 weeks</div>
+            <div><div class="meta-label">Year 1 Revenue</div> $40K–$120K</div>
+            <div><div class="meta-label">Competitors</div> Vagaro, Fresha, Square Appointments — overkill for most small shops</div>
+        </div>
+    </div>
+
+    <!-- Idea 4 -->
+    <div class="card idea-card">
+        <h3><span class="emoji">🧁</span> #4 — "Bakery/Retail Order Manager"</h3>
+        <p><strong>Target:</strong> Bakeries, specialty food shops, flower shops, gift stores</p>
+        <p style="margin-top:0.5rem;"><strong>Problem:</strong> Custom orders via phone/Instagram DMs/paper. Orders get lost, details wrong, no confirmation system. No reorder reminders.</p>
+        <p style="margin-top:0.5rem;"><strong>Solution (v1):</strong> Web order form → SMS confirmation with details → pickup reminder → "order again?" nudge at intervals</p>
+        <div class="idea-meta">
+            <div><div class="meta-label">Price</div> $59–$99/mo</div>
+            <div><div class="meta-label">Seattle Market</div> ~1,500+ businesses</div>
+            <div><div class="meta-label">Build Complexity</div> <span class="stars">★★</span>☆☆☆ Low</div>
+            <div><div class="meta-label">Time to MVP</div> 2–3 weeks</div>
+            <div><div class="meta-label">Year 1 Revenue</div> $25K–$75K</div>
+            <div><div class="meta-label">Competitors</div> Square, Toast — not built for custom order workflows. High niche defensibility</div>
+        </div>
+    </div>
+
+    <!-- Idea 5 -->
+    <div class="card idea-card">
+        <h3><span class="emoji">🗂️</span> #5 — "Neighborhood CRM"</h3>
+        <p><strong>Target:</strong> Any local SMB (broad: retail, services, food, health & wellness)</p>
+        <p style="margin-top:0.5rem;"><strong>Problem:</strong> Managing customers across 6 different apps. Nothing connected. Forget who called, lose conversations, can't do targeted outreach.</p>
+        <p style="margin-top:0.5rem;"><strong>Solution (v1):</strong> Unified inbox (SMS + calls + social) → auto-build customer profiles → segment → targeted campaigns → review dashboard</p>
+        <div class="idea-meta">
+            <div><div class="meta-label">Price</div> $149–$249/mo</div>
+            <div><div class="meta-label">Seattle Market</div> 15,000+ SMBs</div>
+            <div><div class="meta-label">Build Complexity</div> <span class="stars">★★★★★</span> High</div>
+            <div><div class="meta-label">Time to MVP</div> 6–8 weeks</div>
+            <div><div class="meta-label">Year 1 Revenue</div> $100K–$300K</div>
+            <div><div class="meta-label">Competitors</div> GoHighLevel, Jobber, HubSpot — $300–$1,000/mo. Too complex for starting point</div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB: Comparison Matrix -->
+<!-- ============================================ -->
+<div id="comparison" class="tab-content">
+    <h2 class="section-title">Side-by-Side Comparison</h2>
+
+    <div class="card">
+        <h3><span class="emoji">📊</span> Full Comparison Table</h3>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Criteria</th>
+                        <th>1. Never Miss a Lead</th>
+                        <th>2. Restaurant Engine</th>
+                        <th>3. Booked Solid</th>
+                        <th>4. Bakery Order Mgr</th>
+                        <th>5. Neighborhood CRM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Target Customer</strong></td>
+                        <td>Home services</td>
+                        <td>Independent restaurants</td>
+                        <td>Salons, barbers, spas</td>
+                        <td>Bakeries, specialty shops</td>
+                        <td>Any local SMB</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Monthly Price</strong></td>
+                        <td>$79–$149</td>
+                        <td>$99–$199</td>
+                        <td>$69–$129</td>
+                        <td>$59–$99</td>
+                        <td>$149–$249</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Seattle Market Size</strong></td>
+                        <td>4,000+</td>
+                        <td>5,000+</td>
+                        <td>3,000+</td>
+                        <td>1,500+</td>
+                        <td>15,000+</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Build Time</strong></td>
+                        <td>1–2 weeks</td>
+                        <td>3–4 weeks</td>
+                        <td>3–4 weeks</td>
+                        <td>2–3 weeks</td>
+                        <td>6–8 weeks</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Year 1 Revenue</strong></td>
+                        <td>$50K–$150K</td>
+                        <td>$60K–$180K</td>
+                        <td>$40K–$120K</td>
+                        <td>$25K–$75K</td>
+                        <td>$100K–$300K</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ease of Build</strong></td>
+                        <td><span class="badge badge-green">Easy</span></td>
+                        <td><span class="badge badge-yellow">Medium</span></td>
+                        <td><span class="badge badge-yellow">Medium</span></td>
+                        <td><span class="badge badge-green">Easy</span></td>
+                        <td><span class="badge badge-red">Hard</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ease of Sale</strong></td>
+                        <td><span class="badge badge-green">Easy</span></td>
+                        <td><span class="badge badge-yellow">Medium</span></td>
+                        <td><span class="badge badge-green">Easy</span></td>
+                        <td><span class="badge badge-yellow">Medium</span></td>
+                        <td><span class="badge badge-red">Hard</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Willingness to Pay</strong></td>
+                        <td><span class="badge badge-green">High</span></td>
+                        <td><span class="badge badge-yellow">Medium</span></td>
+                        <td><span class="badge badge-green">High</span></td>
+                        <td><span class="badge badge-yellow">Medium</span></td>
+                        <td><span class="badge badge-yellow">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Competitive Moat</strong></td>
+                        <td><span class="badge badge-yellow">Medium</span></td>
+                        <td><span class="badge badge-yellow">Medium</span></td>
+                        <td><span class="badge badge-red">Low</span></td>
+                        <td><span class="badge badge-green">High</span></td>
+                        <td><span class="badge badge-red">Low</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Expansion Potential</strong></td>
+                        <td><span class="badge badge-green">High</span></td>
+                        <td><span class="badge badge-green">High</span></td>
+                        <td><span class="badge badge-yellow">Medium</span></td>
+                        <td><span class="badge badge-yellow">Medium</span></td>
+                        <td><span class="badge badge-green">High</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Key Risk</strong></td>
+                        <td>"My nephew can do this"</td>
+                        <td>Thin margins, high churn</td>
+                        <td>Easy to replicate</td>
+                        <td>Small addressable market</td>
+                        <td>Scope creep, long build</td>
+                    </tr>
+                    <tr style="background: #f0fdf4;">
+                        <td><strong>Overall Score</strong></td>
+                        <td><span class="stars">★★★★★</span></td>
+                        <td><span class="stars">★★★★</span>☆</td>
+                        <td><span class="stars">★★★</span>☆☆</td>
+                        <td><span class="stars">★★★</span>☆☆</td>
+                        <td><span class="stars">★★</span>☆☆☆</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><span class="emoji">⚖️</span> Packaging Approach Comparison</h3>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Approach</th>
+                        <th>Pros</th>
+                        <th>Cons</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Single problem, nail it</strong></td>
+                        <td>Easier to build, easier to pitch, faster to test</td>
+                        <td>Harder to justify monthly fee for "just one thing"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bundled solution package</strong></td>
+                        <td>Higher perceived value, stickier, higher price point</td>
+                        <td>More to build, more to explain, longer sales cycle</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB: Deep Dives -->
+<!-- ============================================ -->
+<div id="deep-dives" class="tab-content">
+    <h2 class="section-title">Deep Dives</h2>
+
+    <div class="card">
+        <h3><span class="emoji">📞</span> Deep Dive: Idea #1 — Never Miss a Lead</h3>
+        <h4 style="margin-top: 1rem; color: var(--primary);">Why It Wins</h4>
+        <div class="table-wrap" style="margin-top: 0.5rem;">
+            <table>
+                <tr><td><strong>Simplest to build</strong></td><td>Twilio number + webhook + SMS. No calendar, no CRM, no UI for v1</td></tr>
+                <tr><td><strong>Easiest to prove ROI</strong></td><td>"You missed 47 calls last month. We saved 12." Dead simple</td></tr>
+                <tr><td><strong>Fastest to sell</strong></td><td>Every service business owner <em>knows</em> they miss calls. Zero education</td></tr>
+                <tr><td><strong>Low cost</strong></td><td>Twilio: ~$1/mo per number + $0.0079/SMS. 5 pilots for under $20/mo</td></tr>
+                <tr><td><strong>Expandable</strong></td><td>Once trusted, bolt on reviews, follow-ups, scheduling → full platform</td></tr>
+            </table>
+        </div>
+        <h4 style="margin-top: 1.5rem; color: var(--primary);">Tech Stack (v1)</h4>
+        <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
+            <li>Twilio — phone number + SMS</li>
+            <li>Simple webhook (Node.js or Python on a free tier)</li>
+            <li>Google Sheets — lead log (v1, replace with DB later)</li>
+            <li>No frontend needed for MVP</li>
+        </ul>
+        <h4 style="margin-top: 1.5rem; color: var(--primary);">Pricing Model</h4>
+        <p style="margin-top: 0.5rem;">$49–$99/mo per business. They're losing $500+/mo in missed leads — it's a no-brainer.</p>
+    </div>
+
+    <div class="card">
+        <h3><span class="emoji">🍽️</span> Deep Dive: Idea #2 — Restaurant Customer Engine</h3>
+        <h4 style="margin-top: 1rem; color: var(--primary);">Why It's Interesting</h4>
+        <div class="table-wrap" style="margin-top: 0.5rem;">
+            <table>
+                <tr><td><strong>Volume</strong></td><td>5,000+ independent restaurants in Seattle. Easy to find prospects</td></tr>
+                <tr><td><strong>Universal pain</strong></td><td>Slow Tuesdays, no customer database, review anxiety, losing walk-aways</td></tr>
+                <tr><td><strong>Low-tech owners</strong></td><td>Most still operate on paper, whiteboards, and gut feel</td></tr>
+                <tr><td><strong>Viral potential</strong></td><td>Diners who get a "leave a review" text tell friends. Owners notice</td></tr>
+                <tr><td><strong>The gap</strong></td><td>Toast handles POS. Yelp handles reservations. Nobody owns the post-visit relationship affordably</td></tr>
+            </table>
+        </div>
+        <h4 style="margin-top: 1.5rem; color: var(--primary);">Killer Sales Pitch</h4>
+        <p style="margin-top: 0.5rem; font-style: italic;">"We help you fill your slow nights and get more 5-star reviews — for less than the cost of one DoorDash commission."</p>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB: Go-to-Market -->
+<!-- ============================================ -->
+<div id="go-to-market" class="tab-content">
+    <h2 class="section-title">Go-to-Market: Seattle Strategy</h2>
+
+    <div class="card">
+        <h3><span class="emoji">📍</span> Target Neighborhoods (Phase 1)</h3>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Neighborhood</th>
+                        <th>Why</th>
+                        <th>Business Density</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Ballard</td><td>Strong independent business community, walkable, tight-knit</td><td>High</td></tr>
+                    <tr><td>Capitol Hill</td><td>Dense mix of restaurants, salons, services</td><td>Very High</td></tr>
+                    <tr><td>Fremont</td><td>Quirky, independent-minded business owners</td><td>Medium</td></tr>
+                    <tr><td>Columbia City</td><td>Growing, diverse, lots of new small businesses</td><td>Medium</td></tr>
+                    <tr><td>University District</td><td>High turnover = businesses hungry for leads</td><td>High</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><span class="emoji">🗣️</span> Sales Approach</h3>
+        <ol style="margin-left: 1.2rem;">
+            <li><strong>Walk in</strong> during non-peak hours (2–4 PM for restaurants, mornings for services)</li>
+            <li><strong>Demo on phone</strong> — call the Twilio number in front of them, show the auto-text</li>
+            <li><strong>Free for 2 weeks</strong> — zero risk for them</li>
+            <li><strong>Show results</strong> after trial — "You missed X calls, we saved Y leads"</li>
+            <li><strong>Convert</strong> to $49–$99/mo</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h3><span class="emoji">📈</span> Expansion Roadmap</h3>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Phase</th><th>Market</th><th>Timeline</th><th>Goal</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Seattle core neighborhoods</td><td>Weeks 1–4</td><td>5 paying customers</td></tr>
+                    <tr><td>2</td><td>Eastside (Bellevue, Kirkland, Redmond)</td><td>Month 2–3</td><td>20 paying customers</td></tr>
+                    <tr><td>3</td><td>Tacoma / South Sound</td><td>Month 3–4</td><td>40 paying customers</td></tr>
+                    <tr><td>4</td><td>Portland, OR</td><td>Month 5+</td><td>Scale beyond PNW</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB: 2-Week Plan -->
+<!-- ============================================ -->
+<div id="two-week-plan" class="tab-content">
+    <h2 class="section-title">2-Week Validation Plan</h2>
+    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Based on <strong>Idea #1 — Never Miss a Lead</strong>. Adjust if we pick a different idea.</p>
+
+    <div class="card">
+        <h3><span class="emoji">🔨</span> Week 1 — Build + Find Businesses</h3>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-day">Day 1–2</div>
+                <div class="timeline-title">Build MVP</div>
+                <div class="timeline-desc">Twilio number → missed call detection → auto-SMS reply → log to Google Sheet. No app, no dashboard.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-day">Day 3</div>
+                <div class="timeline-title">Landing Page + Demo Setup</div>
+                <div class="timeline-desc">Simple 1-page site explaining the service. Get a burner Twilio number for live demos.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-day">Day 4–5</div>
+                <div class="timeline-title">Pound the Pavement</div>
+                <div class="timeline-desc">Walk into 10 local service businesses. Pitch: "I'll make sure you never lose a customer from a missed call again. Free for 2 weeks, then $49/mo." Goal: sign up 3–5.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-day">Day 6–7</div>
+                <div class="timeline-title">Onboard Pilot Customers</div>
+                <div class="timeline-desc">Set up call forwarding on no-answer to Twilio number. Customize each business's auto-reply message.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><span class="emoji">🔬</span> Week 2 — Run + Learn</h3>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-day">Day 8–10</div>
+                <div class="timeline-title">Monitor &amp; Fix</div>
+                <div class="timeline-desc">Track daily: calls caught, texts sent, replies received. Fix edge cases — voicemail conflicts, after-hours timing, spam calls.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-day">Day 11–12</div>
+                <div class="timeline-title">Check-In With Businesses</div>
+                <div class="timeline-desc">"You missed 18 calls this week. 7 people texted back. Did any turn into jobs?" Collect stories and feedback.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-day">Day 13–14</div>
+                <div class="timeline-title">Decision Time</div>
+                <div class="timeline-desc">Do businesses see value? Will they pay $49/mo? If 2+ say yes → we have a business. If 0 → pivot to Idea #2 or #4.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><span class="emoji">✅</span> Success Criteria</h3>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Signal</th><th>Threshold</th><th>Meaning</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="badge badge-green">Green Light</span></td><td>2+ businesses willing to pay after trial</td><td>We have a business — keep going</td></tr>
+                    <tr><td><span class="badge badge-yellow">Yellow Light</span></td><td>1 business willing to pay, others unsure</td><td>Iterate on pitch/product, extend trial</td></tr>
+                    <tr><td><span class="badge badge-red">Red Light</span></td><td>0 businesses willing to pay</td><td>Pivot to Idea #2 or #4</td></tr>
+                    <tr><td><span class="badge badge-green">Bonus Signal</span></td><td>A business owner refers you unprompted</td><td>Product-market fit confirmed</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB: Decision Log -->
+<!-- ============================================ -->
+<div id="decision-log" class="tab-content">
+    <h2 class="section-title">Decision Log</h2>
+    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Chronological record of decisions, findings, and key discussions.</p>
+
+    <div class="log-entry">
+        <span class="log-date">April 28, 2026</span>
+        <span class="log-type decision">Decision</span>
+        <div class="log-text"><strong>Focus area confirmed:</strong> SMB automation &amp; AI — helping mom-and-pop businesses with simple, affordable tools.</div>
+    </div>
+
+    <div class="log-entry">
+        <span class="log-date">April 28, 2026</span>
+        <span class="log-type finding">Finding</span>
+        <div class="log-text"><strong>Packaging insight:</strong> SMB owners don't buy features, they buy solutions. Need to bundle 3–4 features under one theme rather than selling individual tools.</div>
+    </div>
+
+    <div class="log-entry">
+        <span class="log-date">April 28, 2026</span>
+        <span class="log-type decision">Decision</span>
+        <div class="log-text"><strong>Seattle-first strategy:</strong> Start in Seattle with in-person sales, expand based on traction. Target neighborhoods: Ballard, Capitol Hill, Fremont, Columbia City, University District.</div>
+    </div>
+
+    <div class="log-entry">
+        <span class="log-date">April 28, 2026</span>
+        <span class="log-type finding">Finding</span>
+        <div class="log-text"><strong>Top pick identified:</strong> "Never Miss a Lead" for home services scores highest across all criteria. Restaurant Engine is strong alternative. Final decision pending Tim &amp; Sunil discussion.</div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB: Open Questions -->
+<!-- ============================================ -->
+<div id="open-questions" class="tab-content">
+    <h2 class="section-title">Open Questions</h2>
+    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Items to resolve before moving forward. Update status as questions get answered.</p>
+
+    <div class="question-item">
+        <div class="question-status open"></div>
+        <div>
+            <strong>Which idea to start with?</strong>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">#1 (Never Miss a Lead) vs #2 (Restaurant Engine) — needs Tim &amp; Sunil alignment</p>
+        </div>
+    </div>
+
+    <div class="question-item">
+        <div class="question-status open"></div>
+        <div>
+            <strong>Business name / brand?</strong>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Need a name for the product/company before pitching to businesses</p>
+        </div>
+    </div>
+
+    <div class="question-item">
+        <div class="question-status open"></div>
+        <div>
+            <strong>Single feature vs. bundled package?</strong>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Start with missed-call-only for speed, or bundle call + follow-up + reviews from day 1?</p>
+        </div>
+    </div>
+
+    <div class="question-item">
+        <div class="question-status open"></div>
+        <div>
+            <strong>Who owns sales vs. product?</strong>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Tim &amp; Sunil — divide and conquer? Or both do everything together initially?</p>
+        </div>
+    </div>
+
+    <div class="question-item">
+        <div class="question-status open"></div>
+        <div>
+            <strong>Legal entity needed for pilot?</strong>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Can run free pilots informally, but need LLC/business account before collecting payment</p>
+        </div>
+    </div>
+
+    <div class="question-item">
+        <div class="question-status open"></div>
+        <div>
+            <strong>Which Seattle neighborhoods first?</strong>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Ballard + Capitol Hill seem strongest — confirm based on where Tim &amp; Sunil are based</p>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- JavaScript -->
+<!-- ============================================ -->
+<div class="footer">
+    Tim &amp; Sunil — SMB Automation Project &bull; Hosted on GitHub Pages
+</div>
+
+<script>
+    function switchTab(tabId) {
+        // Remove active from all tabs and content
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+        // Activate selected
+        document.getElementById(tabId).classList.add('active');
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            if (btn.getAttribute('onclick').includes(tabId)) {
+                btn.classList.add('active');
+            }
+        });
+
+        // Update URL hash for bookmarking
+        history.replaceState(null, null, '#' + tabId);
+    }
+
+    // Load tab from URL hash on page load
+    window.addEventListener('load', () => {
+        const hash = window.location.hash.replace('#', '');
+        if (hash && document.getElementById(hash)) {
+            switchTab(hash);
+        }
+    });
+</script>
+
+</body>
+</html>

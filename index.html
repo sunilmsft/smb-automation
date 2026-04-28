@@ -84,31 +84,35 @@
         .card {
             background: var(--card-bg);
             border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            padding: 1.75rem 2rem;
+            margin-bottom: 1.75rem;
             border: 1px solid var(--border);
             box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
         .card h3 {
-            font-size: 1.15rem;
-            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
         .card h3 .emoji { font-size: 1.3rem; }
+        .card p { margin-bottom: 0.4rem; line-height: 1.7; }
+        .card ul, .card ol { margin-top: 0.5rem; }
+        .card li { margin-bottom: 0.4rem; line-height: 1.7; }
 
         /* Tables */
-        .table-wrap { overflow-x: auto; }
+        .table-wrap { overflow-x: auto; margin-top: 0.5rem; }
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.88rem;
+            font-size: 0.9rem;
         }
         th, td {
-            padding: 0.7rem 0.9rem;
+            padding: 0.75rem 1rem;
             text-align: left;
             border-bottom: 1px solid var(--border);
+            line-height: 1.6;
         }
         th {
             background: #f1f5f9;
@@ -157,12 +161,52 @@
         }
         .idea-meta {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+        }
+        .idea-meta > div {
+            background: var(--bg);
+            padding: 0.85rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            line-height: 1.6;
+        }
+        .meta-item { font-size: 0.9rem; }
+        .meta-label {
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Option cards (for A/B choices) */
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1rem;
             margin-top: 1rem;
         }
-        .meta-item { font-size: 0.88rem; }
-        .meta-label { font-weight: 600; color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; }
+        .option-card {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            transition: border-color 0.2s;
+        }
+        .option-card:hover { border-color: var(--primary); }
+        .option-card.recommended-opt { border-color: var(--green); background: var(--green-bg); }
+        .option-card .opt-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .option-card p { font-size: 0.95rem; line-height: 1.65; margin-bottom: 0.5rem; }
 
         /* Timeline */
         .timeline { position: relative; padding-left: 2rem; }
@@ -206,16 +250,16 @@
 
         /* Decision log */
         .log-entry {
-            padding: 1rem;
-            border-left: 3px solid var(--border);
-            margin-bottom: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-left: 4px solid var(--border);
+            margin-bottom: 1.25rem;
             background: #fafafa;
             border-radius: 0 8px 8px 0;
         }
-        .log-date { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; }
+        .log-date { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
         .log-type {
             display: inline-block;
-            padding: 0.1rem 0.5rem;
+            padding: 0.15rem 0.6rem;
             border-radius: 4px;
             font-size: 0.72rem;
             font-weight: 700;
@@ -225,28 +269,32 @@
         .log-type.decision { background: #dbeafe; color: #1e40af; }
         .log-type.finding { background: #fef3c7; color: #92400e; }
         .log-type.question { background: #fce7f3; color: #9d174d; }
-        .log-text { margin-top: 0.4rem; font-size: 0.9rem; }
+        .log-text { margin-top: 0.5rem; font-size: 0.92rem; line-height: 1.65; }
 
         /* Open Questions */
         .question-item {
-            padding: 0.75rem 1rem;
+            padding: 1rem 1.25rem;
             border: 1px solid var(--border);
             border-radius: 8px;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.85rem;
             display: flex;
-            gap: 0.75rem;
+            gap: 1rem;
             align-items: flex-start;
+            background: var(--card-bg);
         }
+        .question-item:hover { border-color: #cbd5e1; }
         .question-status {
             width: 24px;
             height: 24px;
             border-radius: 50%;
             border: 2px solid var(--border);
             flex-shrink: 0;
-            margin-top: 2px;
+            margin-top: 3px;
         }
         .question-status.open { border-color: var(--yellow); background: var(--yellow-bg); }
         .question-status.resolved { border-color: var(--green); background: var(--green); }
+        .question-item strong { font-size: 0.95rem; }
+        .question-item p { font-size: 0.9rem; line-height: 1.6; margin-top: 0.25rem; }
 
         /* Footer */
         .footer {
@@ -260,10 +308,12 @@
         /* Responsive */
         @media (max-width: 768px) {
             .tab-btn { padding: 0.7rem 0.8rem; font-size: 0.8rem; }
-            .tab-content { padding: 1rem; }
+            .tab-content { padding: 1.25rem; }
+            .card { padding: 1.25rem; }
             .idea-meta { grid-template-columns: 1fr; }
-            table { font-size: 0.8rem; }
-            th, td { padding: 0.5rem; }
+            .option-grid { grid-template-columns: 1fr; }
+            table { font-size: 0.82rem; }
+            th, td { padding: 0.6rem 0.7rem; }
         }
     </style>
 </head>
@@ -314,15 +364,15 @@
     <div class="card">
         <h3><span class="emoji">💡</span> Key Insight — Packaging Matters</h3>
         <p>SMB owners don't buy features — they buy solutions. We need to either:</p>
-        <div class="idea-meta">
-            <div>
-                <div class="meta-label">Option A</div>
-                <p>Bundle 3–4 features under one theme (e.g., "Never Lose a Customer Again")</p>
+        <div class="option-grid">
+            <div class="option-card recommended-opt">
+                <div class="opt-label">Option A</div>
+                <p>Bundle 3–4 features under <strong>one theme</strong> (e.g., "Never Lose a Customer Again") so it feels like a single solution, not a grab bag of tools.</p>
                 <span class="badge badge-green">Recommended</span>
             </div>
-            <div>
-                <div class="meta-label">Option B</div>
-                <p>Pick one very specific problem and absolutely nail it</p>
+            <div class="option-card">
+                <div class="opt-label">Option B</div>
+                <p>Pick <strong>one very specific problem</strong> and absolutely nail it. Simpler to build and pitch, but harder to justify a monthly fee.</p>
                 <span class="badge badge-yellow">Viable</span>
             </div>
         </div>

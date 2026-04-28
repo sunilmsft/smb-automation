@@ -24,6 +24,8 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg);
@@ -411,8 +413,28 @@
 <div id="ideas" class="tab-content">
     <h2 class="section-title">Top 5 Ideas</h2>
 
+    <!-- Quick Assessment -->
+    <div class="card">
+        <h3><span class="emoji">🎯</span> Core Ideas — Quick Assessment</h3>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Idea</th><th>Target</th><th>Price</th><th>Build Time</th><th>Complexity</th><th>Year 1 Revenue</th></tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #f0fdf4;"><td><a href="#idea-1" style="color: var(--primary); text-decoration: none; font-weight: 600;">📞 #1 Never Miss a Lead</a></td><td>Home services</td><td>$79–$149/mo</td><td>1–2 weeks</td><td><span class="badge badge-green">Low</span></td><td>$50K–$150K</td></tr>
+                    <tr><td><a href="#idea-2" style="color: var(--primary); text-decoration: none; font-weight: 600;">🍽️ #2 Restaurant Engine</a></td><td>Restaurants &amp; cafes</td><td>$99–$199/mo</td><td>3–4 weeks</td><td><span class="badge badge-yellow">Medium</span></td><td>$60K–$180K</td></tr>
+                    <tr><td><a href="#idea-3" style="color: var(--primary); text-decoration: none; font-weight: 600;">📅 #3 Booked Solid</a></td><td>Salons &amp; barbershops</td><td>$69–$129/mo</td><td>3–4 weeks</td><td><span class="badge badge-yellow">Medium</span></td><td>$40K–$120K</td></tr>
+                    <tr><td><a href="#idea-4" style="color: var(--primary); text-decoration: none; font-weight: 600;">🧁 #4 Bakery Order Mgr</a></td><td>Bakeries &amp; specialty shops</td><td>$59–$99/mo</td><td>2–3 weeks</td><td><span class="badge badge-green">Low</span></td><td>$25K–$75K</td></tr>
+                    <tr><td><a href="#idea-5" style="color: var(--primary); text-decoration: none; font-weight: 600;">🗂️ #5 Neighborhood CRM</a></td><td>Any local SMB</td><td>$149–$249/mo</td><td>6–8 weeks</td><td><span class="badge badge-red">High</span></td><td>$100K–$300K</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 0.75rem; font-size: 0.88rem; color: var(--text-muted);">👆 Click any idea to jump directly to its details below.</p>
+    </div>
+
     <!-- Idea 1 -->
-    <div class="card idea-card recommended">
+    <div id="idea-1" class="card idea-card recommended">
         <h3><span class="emoji">📞</span> #1 — "Never Miss a Lead" Package <span class="badge badge-green">Top Pick</span></h3>
         <p><strong>Target:</strong> Home services — plumbers, HVAC, electricians, locksmiths, cleaners</p>
         <p style="margin-top:0.5rem;"><strong>Problem:</strong> They miss 40%+ of calls while on jobs. Leads go cold. They have 12 Google reviews while competitors have 200. No system to follow up.</p>
@@ -428,7 +450,7 @@
     </div>
 
     <!-- Idea 2 -->
-    <div class="card idea-card">
+    <div id="idea-2" class="card idea-card">
         <h3><span class="emoji">🍽️</span> #2 — "Full House" Restaurant Customer Engine <span class="badge badge-blue">Strong Alternative</span></h3>
         <p><strong>Target:</strong> Independent restaurants, cafes, fast-casual (NOT chains)</p>
         <p style="margin-top:0.5rem;"><strong>Problem:</strong> Paper waitlists, lose walk-aways, never collect customer data, can't fill slow nights (Tue/Wed), get crushed by chains with loyalty apps.</p>
@@ -444,7 +466,7 @@
     </div>
 
     <!-- Idea 3 -->
-    <div class="card idea-card">
+    <div id="idea-3" class="card idea-card">
         <h3><span class="emoji">📅</span> #3 — "Booked Solid" Appointment Package</h3>
         <p><strong>Target:</strong> Barbershops, salons, med spas, tattoo studios, personal trainers</p>
         <p style="margin-top:0.5rem;"><strong>Problem:</strong> 20–30% no-show rate = $500–$2,000/mo lost. Paper books or Instagram DMs for scheduling. Reminders are manual or nonexistent.</p>
@@ -460,7 +482,7 @@
     </div>
 
     <!-- Idea 4 -->
-    <div class="card idea-card">
+    <div id="idea-4" class="card idea-card">
         <h3><span class="emoji">🧁</span> #4 — "Bakery/Retail Order Manager"</h3>
         <p><strong>Target:</strong> Bakeries, specialty food shops, flower shops, gift stores</p>
         <p style="margin-top:0.5rem;"><strong>Problem:</strong> Custom orders via phone/Instagram DMs/paper. Orders get lost, details wrong, no confirmation system. No reorder reminders.</p>
@@ -476,7 +498,7 @@
     </div>
 
     <!-- Idea 5 -->
-    <div class="card idea-card">
+    <div id="idea-5" class="card idea-card">
         <h3><span class="emoji">🗂️</span> #5 — "Neighborhood CRM"</h3>
         <p><strong>Target:</strong> Any local SMB (broad: retail, services, food, health & wellness)</p>
         <p style="margin-top:0.5rem;"><strong>Problem:</strong> Managing customers across 6 different apps. Nothing connected. Forget who called, lose conversations, can't do targeted outreach.</p>
@@ -499,8 +521,30 @@
     <h2 class="section-title">Out-of-the-Box Ideas</h2>
     <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Bigger-swing ideas exploring untapped gaps in the SMB market. Ordered by opportunity size and feasibility.</p>
 
+    <!-- Quick Assessment -->
+    <div class="card">
+        <h3><span class="emoji">🎯</span> Out-of-Box Ideas — Quick Assessment</h3>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Idea</th><th>Opportunity</th><th>Gap Size</th><th>Buildability</th><th>Trust Barrier</th><th>"Holy Shit" Factor</th></tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #f0fdf4;"><td><a href="#idea-6" style="color: var(--primary); text-decoration: none; font-weight: 600;">🤖 #6 AI Phone Receptionist</a></td><td>Enormous</td><td>Huge</td><td><span class="badge badge-yellow">Medium</span></td><td><span class="badge badge-green">Low</span></td><td>🔥🔥🔥🔥🔥</td></tr>
+                    <tr><td><a href="#idea-7" style="color: var(--primary); text-decoration: none; font-weight: 600;">📱 #7 Social Media Autopilot</a></td><td>Large</td><td>Medium</td><td><span class="badge badge-yellow">Medium</span></td><td><span class="badge badge-green">Low</span></td><td>🔥🔥🔥</td></tr>
+                    <tr><td><a href="#idea-8" style="color: var(--primary); text-decoration: none; font-weight: 600;">📋 #8 Permit Autopilot</a></td><td>Medium</td><td>Huge</td><td><span class="badge badge-green">Easy</span></td><td><span class="badge badge-green">Low</span></td><td>🔥🔥</td></tr>
+                    <tr><td><a href="#idea-9" style="color: var(--primary); text-decoration: none; font-weight: 600;">📒 #9 Invisible Bookkeeper</a></td><td>Large</td><td>Large</td><td><span class="badge badge-red">Hard</span></td><td><span class="badge badge-red">High</span></td><td>🔥🔥🔥</td></tr>
+                    <tr><td><a href="#idea-10" style="color: var(--primary); text-decoration: none; font-weight: 600;">💰 #10 Cash Flow Crystal Ball</a></td><td>Large</td><td>Huge</td><td><span class="badge badge-red">Hard</span></td><td><span class="badge badge-red">High</span></td><td>🔥🔥🔥🔥</td></tr>
+                    <tr><td><a href="#idea-11" style="color: var(--primary); text-decoration: none; font-weight: 600;">👻 #11 Ghost Kitchen Lite</a></td><td>Medium</td><td>Large</td><td><span class="badge badge-red">Hard</span></td><td><span class="badge badge-red">High</span></td><td>🔥🔥🔥</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 0.75rem; font-size: 0.88rem; color: var(--text-muted);">👆 Click any idea to jump directly to its details below.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted);"><strong>Bottom line:</strong> Ideas #6–#8 are actionable now (low trust barrier). Ideas #9–#11 are better as Phase 2/3 products once you have established customer relationships.</p>
+    </div>
+
     <!-- OOB Idea 1 -->
-    <div class="card idea-card recommended">
+    <div id="idea-6" class="card idea-card recommended">
         <h3><span class="emoji">🤖</span> #6 — AI Phone Receptionist <span class="badge badge-green">Biggest Opportunity</span></h3>
         <p><strong>Target:</strong> Every small business — start with dental offices, auto shops, law offices, med spas (where a missed call = $500+ lost)</p>
         <p style="margin-top:0.5rem;"><strong>Problem:</strong> A human receptionist costs $2,500–$4,000/mo. Small businesses can't afford one. So the owner answers while on a job, or nobody answers. AI voice quality in 2026 is now indistinguishable from human.</p>
@@ -518,7 +562,7 @@
     </div>
 
     <!-- OOB Idea 2 -->
-    <div class="card idea-card">
+    <div id="idea-7" class="card idea-card">
         <h3><span class="emoji">📱</span> #7 — Hyperlocal Social Media on Autopilot</h3>
         <p><strong>Target:</strong> Restaurants, bakeries, salons, boutique retail — visually-driven businesses</p>
         <p style="margin-top:0.5rem;"><strong>Problem:</strong> Every SMB owner knows they "should be posting on Instagram/Facebook." Almost none do consistently. Hiring a social media manager costs $1,000–$3,000/mo. Most have a dead Instagram with a post from 8 months ago.</p>
@@ -533,7 +577,7 @@
     </div>
 
     <!-- OOB Idea 3 -->
-    <div class="card idea-card">
+    <div id="idea-8" class="card idea-card">
         <h3><span class="emoji">📋</span> #8 — Permit &amp; Compliance Autopilot</h3>
         <p><strong>Target:</strong> Restaurants (health permits, liquor license, fire inspection), contractors (trade licenses, insurance certs, bonding)</p>
         <p style="margin-top:0.5rem;"><strong>Problem:</strong> Small businesses juggle 5–15 permits/licenses/certifications that expire at different times. Miss one → fines, forced closure, lost work days. Most track these on sticky notes or not at all.</p>
@@ -548,7 +592,7 @@
     </div>
 
     <!-- OOB Idea 4 - HIGH TRUST -->
-    <div class="card idea-card" style="border-left-color: var(--yellow);">
+    <div id="idea-9" class="card idea-card" style="border-left-color: var(--yellow);">
         <h3><span class="emoji">📒</span> #9 — "Invisible Bookkeeper" <span class="badge badge-yellow">High Trust Required</span></h3>
         <p><strong>Target:</strong> Any small business doing &lt;$1M/yr revenue with no bookkeeper</p>
         <p style="margin-top:0.5rem;"><strong>Problem:</strong> 60%+ of small business owners do their own bookkeeping (badly) or stuff receipts in a shoebox. A bookkeeper costs $300–$800/mo.</p>
@@ -563,7 +607,7 @@
     </div>
 
     <!-- OOB Idea 5 - HIGH TRUST -->
-    <div class="card idea-card" style="border-left-color: var(--yellow);">
+    <div id="idea-10" class="card idea-card" style="border-left-color: var(--yellow);">
         <h3><span class="emoji">💰</span> #10 — "Cash Flow Crystal Ball" <span class="badge badge-yellow">High Trust Required</span></h3>
         <p><strong>Target:</strong> Restaurants and retail — businesses with high variability in daily revenue</p>
         <p style="margin-top:0.5rem;"><strong>Problem:</strong> The #1 reason small businesses fail: they run out of cash. Not because they're unprofitable — because they don't see the crunch coming 3 weeks ahead. 82% of SMB failures are cash flow related.</p>
@@ -578,7 +622,7 @@
     </div>
 
     <!-- OOB Idea 6 - HIGH TRUST -->
-    <div class="card idea-card" style="border-left-color: var(--yellow);">
+    <div id="idea-11" class="card idea-card" style="border-left-color: var(--yellow);">
         <h3><span class="emoji">👻</span> #11 — "Ghost Kitchen Lite" <span class="badge badge-yellow">High Trust + Complexity</span></h3>
         <p><strong>Target:</strong> Independent restaurants with slow afternoon periods (2–5 PM)</p>
         <p style="margin-top:0.5rem;"><strong>Problem:</strong> Kitchen is idle during dead hours. Staff on the clock. Fixed costs don't stop. Meanwhile, delivery demand for specific items (cookies, wings, smoothies) peaks in the afternoon.</p>
@@ -590,27 +634,6 @@
             <div><div class="meta-label">Trust Barrier</div> <span class="badge badge-red">High</span> — operational control of their kitchen/brand</div>
         </div>
         <p style="margin-top: 0.75rem; padding: 0.5rem; background: var(--yellow-bg); border-radius: 6px; font-size: 0.85rem;">⚠️ <strong>Trust + complexity barrier:</strong> Requires delivery platform integration, menu strategy, and restaurant ops involvement. Cool concept but heavy lift for a starting point.</p>
-    </div>
-
-    <!-- Summary card -->
-    <div class="card">
-        <h3><span class="emoji">🎯</span> Out-of-Box Ideas — Quick Assessment</h3>
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr><th>Idea</th><th>Opportunity</th><th>Gap Size</th><th>Buildability</th><th>Trust Barrier</th><th>"Holy Shit" Factor</th></tr>
-                </thead>
-                <tbody>
-                    <tr style="background: #f0fdf4;"><td><strong>#6 AI Phone Receptionist</strong></td><td>Enormous</td><td>Huge</td><td><span class="badge badge-yellow">Medium</span></td><td><span class="badge badge-green">Low</span></td><td>🔥🔥🔥🔥🔥</td></tr>
-                    <tr><td>#7 Social Media Autopilot</td><td>Large</td><td>Medium</td><td><span class="badge badge-yellow">Medium</span></td><td><span class="badge badge-green">Low</span></td><td>🔥🔥🔥</td></tr>
-                    <tr><td>#8 Permit Autopilot</td><td>Medium</td><td>Huge</td><td><span class="badge badge-green">Easy</span></td><td><span class="badge badge-green">Low</span></td><td>🔥🔥</td></tr>
-                    <tr><td>#9 Invisible Bookkeeper</td><td>Large</td><td>Large</td><td><span class="badge badge-red">Hard</span></td><td><span class="badge badge-red">High</span></td><td>🔥🔥🔥</td></tr>
-                    <tr><td>#10 Cash Flow Crystal Ball</td><td>Large</td><td>Huge</td><td><span class="badge badge-red">Hard</span></td><td><span class="badge badge-red">High</span></td><td>🔥🔥🔥🔥</td></tr>
-                    <tr><td>#11 Ghost Kitchen Lite</td><td>Medium</td><td>Large</td><td><span class="badge badge-red">Hard</span></td><td><span class="badge badge-red">High</span></td><td>🔥🔥🔥</td></tr>
-                </tbody>
-            </table>
-        </div>
-        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);"><strong>Bottom line:</strong> Ideas #6–#8 are actionable now (low trust barrier). Ideas #9–#11 are better as Phase 2/3 products once you have established customer relationships.</p>
     </div>
 </div>
 

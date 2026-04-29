@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Laptop Setup Guide — SMB Automation</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --green-bg: #f0fdf4;
+            --blue-bg: #eff6ff;
+            --yellow-bg: #fefce8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .header h1 { font-size: 1.6rem; margin-bottom: 0.25rem; }
+        .header p { opacity: 0.85; font-size: 0.95rem; }
+        h2 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--border);
+        }
+        h3 { font-size: 1.05rem; margin: 1.25rem 0 0.5rem; }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .card h3 { margin-top: 0; }
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+        .step p { margin: 0; }
+        ul { margin: 0.5rem 0 0.5rem 1.5rem; }
+        li { margin-bottom: 0.35rem; }
+        code {
+            background: #f1f5f9;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88rem;
+            font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
+        }
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.88rem;
+            margin: 0.75rem 0;
+            font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
+            line-height: 1.6;
+        }
+        a { color: var(--primary); }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin: 0.75rem 0;
+        }
+        th, td {
+            padding: 0.6rem 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: var(--text-muted);
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+        .badge-green { background: var(--green-bg); color: #15803d; }
+        .badge-blue { background: var(--blue-bg); color: var(--primary); }
+        .badge-yellow { background: var(--yellow-bg); color: #a16207; }
+        .recommend {
+            background: var(--green-bg);
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin: 0.75rem 0;
+            font-size: 0.92rem;
+        }
+        .note {
+            background: var(--blue-bg);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin: 0.75rem 0;
+            font-size: 0.9rem;
+        }
+        .warn {
+            background: var(--yellow-bg);
+            border: 1px solid #fef08a;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin: 0.75rem 0;
+            font-size: 0.9rem;
+        }
+        .check { color: #22c55e; font-weight: 700; }
+        .cross { color: #ef4444; font-weight: 700; }
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+        .link-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
+            text-decoration: none;
+            color: var(--text);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .link-card:hover { border-color: var(--primary); box-shadow: 0 2px 8px rgba(37,99,235,0.1); }
+        .link-card .link-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+        .link-card .link-title { font-weight: 600; font-size: 0.95rem; margin-top: 0.15rem; }
+        .option-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .option-tab {
+            padding: 0.4rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--card-bg);
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: default;
+        }
+        .option-tab.recommended { border-color: #22c55e; background: var(--green-bg); }
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .header { padding: 1.25rem; }
+            .header h1 { font-size: 1.3rem; }
+            pre { font-size: 0.82rem; padding: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>🛠️ Personal Laptop Setup Guide</h1>
+    <p>Continue the SMB Automation project from your personal machine</p>
+</div>
+
+<!-- ===== PREREQUISITES ===== -->
+<h2>Step 1 — Install Prerequisites</h2>
+<p>You need three things. All free except Copilot (optional paid plan).</p>
+
+<div class="card">
+    <h3>1️⃣ Visual Studio Code <span class="badge badge-green">Free</span></h3>
+    <ul>
+        <li>Download from <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a></li>
+        <li>Install with default settings</li>
+        <li>Works on Windows, Mac, or Linux</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>2️⃣ Git <span class="badge badge-green">Free</span></h3>
+    <ul>
+        <li>Download from <a href="https://git-scm.com" target="_blank">git-scm.com</a></li>
+        <li>During install, accept all defaults</li>
+        <li>After install, open a terminal and set your identity:</li>
+    </ul>
+    <pre>git config --global user.name "Your Name"
+git config --global user.email "your-email@example.com"</pre>
+</div>
+
+<div class="card">
+    <h3>3️⃣ GitHub Copilot Extension <span class="badge badge-blue">In VS Code</span></h3>
+    <ul>
+        <li>Open VS Code</li>
+        <li>Go to Extensions (<code>Ctrl+Shift+X</code>)</li>
+        <li>Search for <strong>"GitHub Copilot"</strong></li>
+        <li>Click Install (it will also install "GitHub Copilot Chat")</li>
+        <li>Sign in with your GitHub account when prompted</li>
+    </ul>
+</div>
+
+<!-- ===== COPILOT PLANS ===== -->
+<h2>Step 2 — Pick a Copilot Plan</h2>
+
+<table>
+    <thead>
+        <tr><th>Plan</th><th>Price</th><th>What You Get</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Free</strong></td><td>$0/mo</td><td>2,000 code completions + 50 chat messages/month (limited models)</td></tr>
+        <tr style="background: var(--green-bg);"><td><strong>Pro ⭐</strong></td><td>$10/mo</td><td>Unlimited completions + unlimited chat (GPT-4o, Claude Sonnet)</td></tr>
+        <tr><td><strong>Pro+</strong></td><td>$39/mo</td><td>Everything in Pro + premium models (Claude Opus, etc.)</td></tr>
+    </tbody>
+</table>
+
+<div class="recommend">
+    💡 <strong>Recommendation:</strong> Start with <strong>Pro ($10/mo)</strong> — unlimited chat and completions is all you need. Upgrade to Pro+ later if you want the most advanced models.
+</div>
+
+<p>Sign up at <a href="https://github.com/features/copilot" target="_blank">github.com/features/copilot</a></p>
+
+<!-- ===== OPEN PROJECT ===== -->
+<h2>Step 3 — Open the Project</h2>
+<p>Pick whichever option is easier for you:</p>
+
+<div class="option-tabs">
+    <div class="option-tab recommended">Option A — OneDrive (Easiest)</div>
+    <div class="option-tab">Option B — Git Clone</div>
+</div>
+
+<div class="card">
+    <h3>Option A: OneDrive <span class="badge badge-green">Recommended</span></h3>
+    <p>The project folder is already on your personal OneDrive, so it syncs automatically:</p>
+    <div class="step"><span class="step-num">1</span><p>Sign into OneDrive on your personal laptop (if not already)</p></div>
+    <div class="step"><span class="step-num">2</span><p>Wait for sync to complete</p></div>
+    <div class="step"><span class="step-num">3</span><p>Open VS Code</p></div>
+    <div class="step"><span class="step-num">4</span><p><strong>File → Open Folder</strong> → navigate to:</p></div>
+    <pre>OneDrive\GitHub Copilot Fun Projects\Tim and Sunil building Stuff!</pre>
+    <div class="step"><span class="step-num">5</span><p>Done — all files including git history are already there</p></div>
+</div>
+
+<div class="card">
+    <h3>Option B: Git Clone</h3>
+    <p>If OneDrive isn't set up, clone fresh from GitHub:</p>
+    <pre>cd ~\Documents
+git clone https://github.com/sunilmsft/smb-automation.git
+cd smb-automation
+code .</pre>
+    <div class="note">
+        ℹ️ If this is a fresh clone, you'll need to authenticate with GitHub. Install <a href="https://cli.github.com" target="_blank">GitHub CLI</a> and run <code>gh auth login</code>.
+    </div>
+</div>
+
+<!-- ===== VERIFY ===== -->
+<h2>Step 4 — Verify Everything Works</h2>
+
+<div class="card">
+    <h3>✅ Check the file tree</h3>
+    <p>You should see these files:</p>
+    <ul>
+        <li><code>index.html</code> — the main dashboard (~2,000 lines)</li>
+        <li><code>context.md</code> — project context</li>
+        <li><code>memory.md</code> — conversation/decision log</li>
+        <li><code>.github/copilot-instructions.md</code> — Copilot reads this automatically</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>✅ Test Copilot Chat</h3>
+    <p>Press <code>Ctrl+Shift+I</code> (or click the Copilot icon in the sidebar)</p>
+    <p>Ask it: <strong>"What is this project about?"</strong></p>
+    <p>It should know the answer — because it reads <code>.github/copilot-instructions.md</code> automatically.</p>
+</div>
+
+<div class="card">
+    <h3>✅ Test Git</h3>
+    <p>Open the terminal in VS Code (<code>Ctrl+`</code>) and run:</p>
+    <pre>git status
+git log --oneline -5</pre>
+    <p>You should see recent commits.</p>
+</div>
+
+<!-- ===== PUSH ===== -->
+<h2>Step 5 — Push Changes to GitHub Pages</h2>
+
+<p>When you make edits and want them to go live:</p>
+<pre>git add -A
+git commit -m "Your commit message here"
+git push</pre>
+
+<div class="warn">
+    ⚠️ <code>git push</code> may show what looks like an error (exit code 1) — this is normal. It's stderr output, but the push still succeeds. Check <a href="https://sunilmsft.github.io/smb-automation/" target="_blank">the live site</a> to confirm.
+</div>
+
+<!-- ===== WHAT CARRIES OVER ===== -->
+<h2>What Carries Over vs. What Doesn't</h2>
+
+<table>
+    <thead>
+        <tr><th>Item</th><th>Carries Over?</th><th>How</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>All code (index.html, etc.)</td><td><span class="check">✅ Yes</span></td><td>OneDrive sync or git clone</td></tr>
+        <tr><td>Project context for Copilot</td><td><span class="check">✅ Yes</span></td><td><code>.github/copilot-instructions.md</code> — auto-read</td></tr>
+        <tr><td>Decision history</td><td><span class="check">✅ Yes</span></td><td><code>memory.md</code> and <code>context.md</code></td></tr>
+        <tr><td>Git history</td><td><span class="check">✅ Yes</span></td><td>Full commit history in the repo</td></tr>
+        <tr><td>Live site</td><td><span class="check">✅ Yes</span></td><td>GitHub Pages at the same URL</td></tr>
+        <tr><td>Chat conversation history</td><td><span class="cross">❌ No</span></td><td>Stored locally on work laptop</td></tr>
+        <tr><td>Copilot memory/preferences</td><td><span class="cross">❌ No</span></td><td>But <code>copilot-instructions.md</code> replaces most of this</td></tr>
+    </tbody>
+</table>
+
+<div class="note">
+    💡 <strong>Bottom line:</strong> The only thing you lose is the scrollback of past chat conversations. All decisions, code, and context are preserved in the repo. Copilot picks up the project context automatically.
+</div>
+
+<!-- ===== QUICK LINKS ===== -->
+<h2>Quick Links</h2>
+<div class="links-grid">
+    <a href="https://sunilmsft.github.io/smb-automation/" target="_blank" class="link-card">
+        <div class="link-label">Live Dashboard</div>
+        <div class="link-title">sunilmsft.github.io/smb-automation</div>
+    </a>
+    <a href="https://github.com/sunilmsft/smb-automation" target="_blank" class="link-card">
+        <div class="link-label">GitHub Repo</div>
+        <div class="link-title">github.com/sunilmsft/smb-automation</div>
+    </a>
+    <a href="https://code.visualstudio.com" target="_blank" class="link-card">
+        <div class="link-label">Download</div>
+        <div class="link-title">Visual Studio Code</div>
+    </a>
+    <a href="https://git-scm.com" target="_blank" class="link-card">
+        <div class="link-label">Download</div>
+        <div class="link-title">Git</div>
+    </a>
+    <a href="https://github.com/features/copilot" target="_blank" class="link-card">
+        <div class="link-label">Sign Up</div>
+        <div class="link-title">GitHub Copilot Plans</div>
+    </a>
+    <a href="https://cli.github.com" target="_blank" class="link-card">
+        <div class="link-label">Download</div>
+        <div class="link-title">GitHub CLI</div>
+    </a>
+</div>
+
+<p style="text-align: center; margin-top: 2.5rem; color: var(--text-muted); font-size: 0.82rem;">
+    Tim &amp; Sunil — SMB Automation Project · April 2026
+</p>
+
+</body>
+</html>

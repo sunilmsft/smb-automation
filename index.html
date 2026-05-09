@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMB Automation Project</title>
+    <title>AI Tools for Small Business</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -325,85 +325,112 @@
 <body>
 
 <div class="header">
-    <h1>SMB Automation Project</h1>
-    <p>Helping small businesses with simple automation &amp; AI</p>
-    <div class="last-updated">Last updated: April 28, 2026</div>
+    <h1>AI-Powered Tools for Small Business</h1>
+    <p>Simple, affordable AI that handles phones, texts, and marketing — so owners can focus on their craft</p>
+    <div class="last-updated">Last updated: May 9, 2026</div>
     <button onclick="location.reload()" style="margin-top: 0.75rem; padding: 0.4rem 1.2rem; border: 1px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.15); color: white; border-radius: 6px; cursor: pointer; font-size: 0.82rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">↻ Refresh</button>
 </div>
 
 <!-- Tab Navigation -->
 <nav class="tab-nav">
     <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
-    <button class="tab-btn" onclick="switchTab('ideas')">Core Ideas (5)</button>
-    <button class="tab-btn" onclick="switchTab('out-of-box')">Out-of-Box Ideas (6)</button>
-    <button class="tab-btn" onclick="switchTab('comparison')">Comparison Matrix</button>
+    <button class="tab-btn" onclick="switchTab('ideas')">Starter Ideas (5)</button>
+    <button class="tab-btn" onclick="switchTab('out-of-box')">Bigger Plays (6)</button>
+    <button class="tab-btn" onclick="switchTab('comparison')">Compare All</button>
     <button class="tab-btn" onclick="switchTab('deep-dives')">Deep Dives</button>
     <button class="tab-btn" onclick="switchTab('go-to-market')">Go-to-Market</button>
-    <button class="tab-btn" onclick="switchTab('two-week-plan')">2-Week Plan</button>
+    <button class="tab-btn" onclick="switchTab('two-week-plan')">Action Plan</button>
     <button class="tab-btn" onclick="switchTab('decision-log')">Decision Log</button>
-    <button class="tab-btn" onclick="switchTab('open-questions')">Open Questions</button>
+    <button class="tab-btn" onclick="switchTab('open-questions')">Open Items</button>
 </nav>
 
 <!-- ============================================ -->
 <!-- TAB: Overview -->
 <!-- ============================================ -->
 <div id="overview" class="tab-content active">
-    <h2 class="section-title">Project Overview</h2>
+    <h2 class="section-title">The Opportunity</h2>
 
-    <div class="card">
-        <h3><span class="emoji">🎯</span> Mission</h3>
-        <p>Find <strong>one real problem</strong> that small (mom-and-pop) businesses face and build a <strong>simple, affordable solution</strong> they will actually pay for.</p>
+    <div class="card" style="border-left: 4px solid var(--primary); background: linear-gradient(135deg, var(--blue-bg) 0%, #ffffff 100%);">
+        <h3><span class="emoji">🔥</span> The Problem</h3>
+        <p style="font-size: 1.05rem; line-height: 1.8;">There are <strong>33 million small businesses</strong> in the US. Most run on phone calls, paper, and gut instinct.</p>
+        <ul style="margin-left: 1.2rem; margin-top: 0.75rem; font-size: 0.95rem;">
+            <li><strong>62% of calls</strong> to small businesses go unanswered</li>
+            <li><strong>78% of consumers</strong> wish they could text a business — most can't</li>
+            <li>Their Instagram account died <strong>8 months ago</strong></li>
+            <li>A human receptionist costs <strong>$2,500–$4,000/mo</strong> — they can't afford one</li>
+            <li>Enterprise tools (HubSpot, Salesforce) cost <strong>$300–$1,000/mo</strong> and are too complex</li>
+        </ul>
+        <p style="margin-top: 0.75rem; font-size: 1rem;"><strong>Result:</strong> They're losing customers every day — and they know it, but have no affordable solution.</p>
     </div>
 
-    <div class="card">
-        <h3><span class="emoji">📋</span> Constraints</h3>
-        <ul style="margin-left: 1.2rem;">
-            <li>Keep it simple — no over-engineering</li>
-            <li>Low cost to build and operate</li>
-            <li>Test with 2–5 real businesses quickly</li>
-            <li>Not trying to build a big startup right away</li>
-            <li>Starting in <strong>Seattle</strong>, expand based on traction</li>
+    <div class="card" style="border-left: 4px solid var(--green);">
+        <h3><span class="emoji">⚡</span> Why Now</h3>
+        <p>AI crossed a <strong>cost and quality threshold</strong> in 2025–2026:</p>
+        <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
+            <li>Voice AI now sounds <strong>indistinguishable from human</strong> — a real receptionist in software</li>
+            <li>Text AI handles real two-way conversations (appointments, quotes, FAQs)</li>
+            <li>API costs dropped <strong>90%</strong> in 18 months — what cost $500/mo to run now costs $30</li>
+            <li>For the first time, a <strong>small team</strong> can build tools that compete with enterprise products — and sell them for <strong>$79–$399/mo</strong></li>
         </ul>
     </div>
 
     <div class="card">
-        <h3><span class="emoji">💡</span> Key Insight — Packaging Matters</h3>
-        <p>SMB owners don't buy features — they buy solutions. We need to either:</p>
-        <div class="option-grid">
+        <h3><span class="emoji">🗺️</span> What We've Found</h3>
+        <p>We explored <strong>11 product ideas</strong> across the SMB space and pressure-tested each one on build difficulty, sales ease, trust barrier, and revenue potential.</p>
+        <div class="table-wrap" style="margin-top: 1rem;">
+            <table>
+                <thead><tr><th>Category</th><th>Ideas</th><th>Price Range</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Starter Ideas</strong> (#1–#5)</td><td>Lead capture, restaurant tools, reviews, quotes, follow-ups</td><td>$49–$249/mo</td><td><span class="badge badge-green">Ready to build</span></td></tr>
+                    <tr><td><strong>Bigger Plays</strong> (#6–#8)</td><td>AI receptionist + texting + email, social media, permits</td><td>$39–$399/mo</td><td><span class="badge badge-green">Ready to build</span></td></tr>
+                    <tr><td><strong>Phase 2</strong> (#9–#11)</td><td>Bookkeeping, cash flow prediction, ghost kitchen</td><td>$49–$199/mo</td><td><span class="badge badge-yellow">Needs trust first</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--green); background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);">
+        <h3><span class="emoji">🏆</span> Top 3 Picks</h3>
+        <div class="option-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
             <div class="option-card recommended-opt">
-                <div class="opt-label">Option A</div>
-                <p>Bundle 3–4 features under <strong>one theme</strong> (e.g., "Never Lose a Customer Again") so it feels like a single solution, not a grab bag of tools.</p>
-                <span class="badge badge-green">Recommended</span>
+                <div class="opt-label">Top Pick — Fastest to Launch</div>
+                <p><strong>#1 "Never Miss a Lead"</strong></p>
+                <p style="font-size: 0.88rem;">Missed call → instant text back → AI follow-up → review requests. Built for home services (plumbers, HVAC, roofers).</p>
+                <p style="font-size: 0.85rem; margin-top: 0.25rem;"><strong>$79–$249/mo</strong> &bull; Build in 1–2 weeks</p>
+            </div>
+            <div class="option-card" style="border-color: var(--primary); background: var(--blue-bg);">
+                <div class="opt-label">Biggest Opportunity</div>
+                <p><strong>#6 AI Communications Hub</strong></p>
+                <p style="font-size: 0.88rem;">AI answers phone + texts + email 24/7 like a real receptionist. Works for any SMB. Subsumes #1.</p>
+                <p style="font-size: 0.85rem; margin-top: 0.25rem;"><strong>$199–$399/mo</strong> &bull; Build in 4–6 weeks</p>
             </div>
             <div class="option-card">
-                <div class="opt-label">Option B</div>
-                <p>Pick <strong>one very specific problem</strong> and absolutely nail it. Simpler to build and pitch, but harder to justify a monthly fee.</p>
-                <span class="badge badge-yellow">Viable</span>
+                <div class="opt-label">Strong Alternative</div>
+                <p><strong>#2 Restaurant Customer Engine</strong></p>
+                <p style="font-size: 0.88rem;">Review monitoring + auto-responses + AI follow-ups + loyalty nudges. Built for restaurant owners.</p>
+                <p style="font-size: 0.85rem; margin-top: 0.25rem;"><strong>$99–$179/mo</strong> &bull; Build in 2–3 weeks</p>
             </div>
         </div>
     </div>
 
     <div class="card">
-        <h3><span class="emoji">📍</span> Seattle-First Strategy</h3>
+        <h3><span class="emoji">📍</span> Go-to-Market: Seattle First</h3>
         <ul style="margin-left: 1.2rem;">
             <li><strong>In-person sales</strong> — walk in, shake hands, demo on a phone</li>
-            <li><strong>Target neighborhoods:</strong> Ballard, Capitol Hill, Fremont, Columbia City, University District</li>
-            <li><strong>Word of mouth</strong> travels fast in tight business communities</li>
-            <li><strong>Expansion path:</strong> Seattle → Eastside (Bellevue, Kirkland, Redmond) → Tacoma → Portland</li>
+            <li><strong>Target neighborhoods:</strong> Ballard, Capitol Hill, Fremont, Columbia City</li>
+            <li><strong>Goal:</strong> 5 paying customers in the first month</li>
+            <li><strong>Expansion:</strong> Seattle → Eastside → Tacoma → Portland</li>
         </ul>
+        <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-muted);">SMB owners buy from people they trust. You can't cold-email your way into this market — you show up, shake their hand, and demo it on your phone.</p>
     </div>
 
     <div class="card">
-        <h3><span class="emoji">🏆</span> Current Recommendation</h3>
-        <p><strong>Idea #1 — "Never Miss a Lead"</strong> for home service businesses is the top pick based on ease of build, ease of sale, and clear ROI story.</p>
-        <p style="margin-top:0.5rem;"><strong>Idea #2 — "Restaurant Customer Engine"</strong> is the strong alternative if you want a bigger long-term play in a market you're passionate about.</p>
-        <p style="margin-top:0.5rem;"><strong>NEW — AI Communications Hub (Phone + Text)</strong> is the biggest untapped opportunity. Subsumes Idea #1 and has a massive "holy shit" factor. Now includes two-way AI texting for the 78% of consumers who prefer text over calls.</p>
-        <p style="margin-top: 0.5rem; color: var(--text-muted); font-size: 0.88rem;"><em>Final decision pending team discussion.</em></p>
-    </div>
-
-    <div class="card">
-        <h3><span class="emoji">⚠️</span> Trust Barrier Note</h3>
-        <p>Ideas requiring <strong>bank account access</strong> (Invisible Bookkeeper, Cash Flow Crystal Ball) or <strong>operational control</strong> (Ghost Kitchen) need significant trust-building before SMBs will adopt. These are better as Phase 2/3 products once you have an established relationship with customers.</p>
+        <h3><span class="emoji">💡</span> Key Insight: Trust is the Filter</h3>
+        <p>We organized all 11 ideas by <strong>trust barrier</strong> — how much a business owner needs to trust you before they'll use the product.</p>
+        <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
+            <li><span class="badge badge-green">Low trust</span> &nbsp;Ideas #1–#8 — Just needs call forwarding or social media access. <em>"Try it free for 2 weeks."</em></li>
+            <li><span class="badge badge-yellow">High trust</span> &nbsp;Ideas #9–#11 — Needs bank account or kitchen access. Phase 2, after earning the relationship.</li>
+        </ul>
     </div>
 </div>
 
@@ -411,7 +438,8 @@
 <!-- TAB: Ideas (Top 5) -->
 <!-- ============================================ -->
 <div id="ideas" class="tab-content">
-    <h2 class="section-title">Top 5 Ideas</h2>
+    <h2 class="section-title">Starter Ideas</h2>
+    <p style="margin-bottom: 1rem; color: var(--text-muted);">Fast-to-build, easy-to-sell ideas targeting specific SMB pain points. Ordered by our overall rating.</p>
 
     <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.25rem;">
         <a href="#idea-1" onclick="document.getElementById('idea-1').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="padding:0.3rem 0.7rem;background:var(--green-bg);border:1px solid #bbf7d0;border-radius:6px;font-size:0.82rem;text-decoration:none;color:var(--text);">#1 Never Miss a Lead</a>
@@ -548,8 +576,8 @@
 <!-- TAB: Out-of-Box Ideas -->
 <!-- ============================================ -->
 <div id="out-of-box" class="tab-content">
-    <h2 class="section-title">Out-of-the-Box Ideas</h2>
-    <p style="margin-bottom: 1rem; color: var(--text-muted);">Bigger-swing ideas exploring untapped gaps in the SMB market. Ordered by opportunity size and feasibility.</p>
+    <h2 class="section-title">Bigger Plays</h2>
+    <p style="margin-bottom: 1rem; color: var(--text-muted);">Higher-upside ideas with bigger addressable markets. #6–#8 are ready to build now. #9–#11 need customer trust first (Phase 2).</p>
 
     <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.25rem;">
         <a href="#idea-6" onclick="document.getElementById('idea-6').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="padding:0.3rem 0.7rem;background:var(--green-bg);border:1px solid #bbf7d0;border-radius:6px;font-size:0.82rem;text-decoration:none;color:var(--text);">#6 AI Comm Hub</a>
@@ -584,18 +612,19 @@
 
     <!-- OOB Idea 1 -->
     <div id="idea-6" class="card idea-card recommended">
-        <h3><span class="emoji">🤖</span> #6 — AI Communications Hub (Phone + Text) <span class="badge badge-green">Biggest Opportunity</span></h3>
+        <h3><span class="emoji">🤖</span> #6 — AI Communications Hub (Phone + Text + Email) <span class="badge badge-green">Biggest Opportunity</span></h3>
         <p><strong>Target:</strong> Every small business — start with dental offices, auto shops, law offices, med spas (where a missed call = $500+ lost)</p>
         <p style="margin-top:0.5rem;"><strong>Problem:</strong> A human receptionist costs $2,500–$4,000/mo. Small businesses can't afford one. So the owner answers while on a job, or nobody answers. Meanwhile, customers are texting businesses too — and getting no reply for hours or days. AI voice quality in 2026 is now indistinguishable from human.</p>
         <p style="margin-top:0.5rem;"><strong>Solution — Voice:</strong> AI voice agent answers calls 24/7 — takes messages, answers FAQs ("What are your hours?", "Do you do free estimates?"), books appointments, routes urgent calls to owner's cell. English + Spanish.</p>
         <p style="margin-top:0.5rem;"><strong>Solution — Text:</strong> AI handles two-way SMS conversations. Customer texts "Do you have availability Saturday?" → AI checks calendar, responds instantly, books the appointment, sends confirmation. Handles quote requests, FAQs, and follow-ups — all via text.</p>
-        <p style="margin-top:0.5rem;"><strong>Sales pitch:</strong> <em>"We answer your phone AND your texts like a real receptionist, 24/7, for less than you spend on coffee for the office."</em></p>
+        <p style="margin-top:0.5rem;"><strong>Solution — Email:</strong> AI monitors the business inbox and drafts replies to common emails — appointment requests, quote inquiries, "are you open Sunday?" questions. Owner reviews and sends with one tap, or sets auto-send for routine replies. Turns a 20-email backlog into a 2-minute review.</p>
+        <p style="margin-top:0.5rem;"><strong>Sales pitch:</strong> <em>"We answer your phone, reply to your texts, and handle your email like a real receptionist — 24/7, for less than you spend on coffee for the office."</em></p>
         <div class="idea-meta">
             <div><div class="meta-label">Price (tiered)</div>
                 <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.4rem;margin-top:0.25rem;">
                     <span style="padding:0.2rem 0.5rem;background:var(--green-bg);border:1px solid #bbf7d0;border-radius:5px;font-size:0.82rem;">📞 <strong>Voice</strong> $199/mo</span>
                     <span style="padding:0.2rem 0.5rem;background:var(--blue-bg);border:1px solid #bfdbfe;border-radius:5px;font-size:0.82rem;">📞💬 <strong>Voice + Text</strong> $299/mo</span>
-                    <span style="padding:0.2rem 0.5rem;background:#f3e8ff;border:1px solid #d8b4fe;border-radius:5px;font-size:0.82rem;">📞💬📅 <strong>Full Suite</strong> $399/mo</span>
+                    <span style="padding:0.2rem 0.5rem;background:#f3e8ff;border:1px solid #d8b4fe;border-radius:5px;font-size:0.82rem;">📞💬��📅 <strong>Full Suite</strong> $399/mo</span>
                 </div>
             </div>
             <div><div class="meta-label">Market Size</div> 33 million US small businesses; &lt;5% can afford a receptionist</div>
@@ -613,11 +642,12 @@
                     <span style="padding:0.2rem 0.5rem;background:#f3e8ff;border:1px solid #d8b4fe;border-radius:5px;font-size:0.82rem;">📅 <strong>+Scheduling</strong> +2–3 weeks</span>
                 </div>
             </div>
-            <div><div class="meta-label">Competitors</div> Smith.ai, Ruby ($300–$700/mo, human). Bland.ai, Synthflow (dev tools, not plug-and-play). None combine voice + text AI for SMBs.</div>
+            <div><div class="meta-label">Competitors</div> Smith.ai, Ruby ($300–$700/mo, human). Bland.ai, Synthflow (dev tools, not plug-and-play). None combine voice + text + email AI for SMBs.</div>
             <div><div class="meta-label">Trust Barrier</div> <span class="badge badge-green">Low</span> — no bank access, no sensitive data</div>
         </div>
         <p style="margin-top: 1rem; padding: 0.75rem; background: #f0fdf4; border-radius: 8px; font-size: 0.9rem;"><strong>Why this is huge:</strong> The tech just crossed the threshold where this is possible for &lt;$200/mo. Nobody has made it dead-simple for a non-technical business owner. This also <strong>subsumes Idea #1</strong> — the receptionist answers the call instead of just texting back. It's strictly better.</p>
         <p style="margin-top: 0.5rem; padding: 0.75rem; background: var(--blue-bg); border-radius: 8px; font-size: 0.9rem;"><strong>💬 Why adding text matters:</strong> 78% of consumers wish they could text a business. SMS has a 98% open rate. 60% of customers under 45 prefer texting over calling. The text channel is what gets you from $199 → $299/mo and expands your addressable market to the "I don't like calling" crowd — which is most people under 45.</p>
+        <p style="margin-top: 0.5rem; padding: 0.75rem; background: #f3e8ff; border-radius: 8px; font-size: 0.9rem;"><strong>📧 Why email completes the picture:</strong> Small businesses get 20–50 emails/day — quote requests, appointment inquiries, vendor follow-ups. Most sit unanswered for hours or days. AI email monitoring + draft replies turns a full inbox into a one-tap review queue. Bundled into the Full Suite tier ($399/mo), it makes the AI Comms Hub a true "single pane of glass" for all customer communication.</p>
     </div>
 
     <!-- OOB Idea 2 -->
@@ -1978,7 +2008,7 @@
 <!-- JavaScript -->
 <!-- ============================================ -->
 <div class="footer">
-    SMB Automation Project &bull; Hosted on GitHub Pages
+    AI Tools for Small Business &bull; Hosted on GitHub Pages
 </div>
 
 <script>

@@ -52,33 +52,52 @@
         .tab-nav {
             display: flex;
             flex-wrap: wrap;
-            background: var(--card-bg);
-            border-bottom: 2px solid var(--border);
+            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+            border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.06);
+            padding: 0.25rem 0.5rem 0;
         }
         .tab-nav.pinned {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.15), 0 2px 6px rgba(0,0,0,0.08);
         }
         .tab-btn {
-            padding: 0.85rem 1.3rem;
-            border: none;
-            background: none;
+            padding: 0.7rem 1.1rem;
+            margin: 0.2rem 0.15rem 0;
+            border: 1px solid transparent;
+            border-bottom: none;
+            background: transparent;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
             color: var(--text-muted);
-            border-bottom: 3px solid transparent;
+            border-radius: 8px 8px 0 0;
             transition: all 0.2s;
             white-space: nowrap;
+            position: relative;
         }
-        .tab-btn:hover { color: var(--primary); background: var(--blue-bg); }
+        .tab-btn:hover {
+            color: var(--primary);
+            background: rgba(37, 99, 235, 0.06);
+            border-color: #e2e8f0 #e2e8f0 transparent;
+        }
         .tab-btn.active {
             color: var(--primary);
-            border-bottom-color: var(--primary);
-            background: var(--blue-bg);
+            font-weight: 600;
+            background: var(--card-bg);
+            border-color: var(--border) var(--border) transparent;
+            box-shadow: 0 -2px 8px rgba(37, 99, 235, 0.1);
+        }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--card-bg);
         }
 
         /* Tab Content */
@@ -312,7 +331,7 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .tab-btn { padding: 0.7rem 0.8rem; font-size: 0.8rem; }
+            .tab-btn { padding: 0.55rem 0.65rem; font-size: 0.78rem; margin: 0.15rem 0.1rem 0; }
             .tab-content { padding: 1.25rem; }
             .card { padding: 1.25rem; }
             .idea-meta { grid-template-columns: 1fr; }
@@ -451,7 +470,7 @@
 
     <!-- Quick Assessment -->
     <div class="card">
-        <h3><span class="emoji">🎯</span> Core Ideas — Quick Assessment</h3>
+        <h3><span class="emoji">🎯</span> Starter Ideas — At a Glance</h3>
         <div class="table-wrap">
             <table>
                 <thead>
@@ -590,7 +609,7 @@
 
     <!-- Quick Assessment -->
     <div class="card">
-        <h3><span class="emoji">🎯</span> Out-of-Box Ideas — Quick Assessment</h3>
+        <h3><span class="emoji">🎯</span> Bigger Plays — At a Glance</h3>
         <div class="table-wrap">
             <table>
                 <thead>
@@ -733,14 +752,14 @@
     <h2 class="section-title">Side-by-Side Comparison</h2>
 
     <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.25rem;">
-        <a href="#cmp-core" onclick="document.getElementById('cmp-core').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="padding:0.3rem 0.7rem;background:var(--blue-bg);border:1px solid #bfdbfe;border-radius:6px;font-size:0.82rem;text-decoration:none;color:var(--text);">📊 Core Ideas</a>
-        <a href="#cmp-oob" onclick="document.getElementById('cmp-oob').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="padding:0.3rem 0.7rem;background:#f3e8ff;border:1px solid #d8b4fe;border-radius:6px;font-size:0.82rem;text-decoration:none;color:var(--text);">🚀 Out-of-Box</a>
+        <a href="#cmp-core" onclick="document.getElementById('cmp-core').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="padding:0.3rem 0.7rem;background:var(--blue-bg);border:1px solid #bfdbfe;border-radius:6px;font-size:0.82rem;text-decoration:none;color:var(--text);">📊 Starter Ideas</a>
+        <a href="#cmp-oob" onclick="document.getElementById('cmp-oob').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="padding:0.3rem 0.7rem;background:#f3e8ff;border:1px solid #d8b4fe;border-radius:6px;font-size:0.82rem;text-decoration:none;color:var(--text);">🚀 Bigger Plays</a>
         <a href="#cmp-strategy" onclick="document.getElementById('cmp-strategy').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="padding:0.3rem 0.7rem;background:var(--green-bg);border:1px solid #bbf7d0;border-radius:6px;font-size:0.82rem;text-decoration:none;color:var(--text);">⚖️ Strategy & Bundles</a>
     </div>
 
     <!-- ===== SECTION 1: Core Ideas ===== -->
     <h3 id="cmp-core" style="font-size: 1.35rem; margin: 1.5rem 0 0.75rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--primary); color: var(--primary);">
-        📊 Core Ideas (#1–#5)
+        📊 Starter Ideas (#1–#5)
     </h3>
 
     <div class="card">
@@ -1003,7 +1022,7 @@
 
     <!-- ===== SECTION 2: Out-of-Box Ideas ===== -->
     <h3 id="cmp-oob" style="font-size: 1.35rem; margin: 2.5rem 0 0.75rem; padding-bottom: 0.5rem; border-bottom: 3px solid #8b5cf6; color: #8b5cf6;">
-        🚀 Out-of-Box Ideas (#6–#11)
+        🚀 Bigger Plays (#6–#11)
     </h3>
 
     <div class="card">

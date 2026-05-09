@@ -24,7 +24,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+        html { scroll-behavior: smooth; scroll-padding-top: 120px; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -98,6 +98,23 @@
             right: 0;
             height: 2px;
             background: var(--card-bg);
+        }
+
+        /* Sticky quick-nav within idea tabs */
+        .idea-quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.25rem;
+            position: sticky;
+            top: 52px;
+            z-index: 50;
+            background: var(--bg);
+            padding: 0.6rem 0.25rem;
+            margin-left: -0.25rem;
+            margin-right: -0.25rem;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
         /* Tab Content */
@@ -460,7 +477,7 @@
     <h2 class="section-title">Starter Ideas</h2>
     <p style="margin-bottom: 1rem; color: var(--text-muted);">Fast-to-build, easy-to-sell ideas targeting specific SMB pain points. Ordered by our overall rating.</p>
 
-    <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.25rem;">
+    <div class="idea-quick-nav">
         <a href="#idea-1" onclick="document.getElementById('idea-1').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="padding:0.3rem 0.7rem;background:var(--green-bg);border:1px solid #bbf7d0;border-radius:6px;font-size:0.82rem;text-decoration:none;color:var(--text);">#1 Never Miss a Lead</a>
         <a href="#idea-2" onclick="document.getElementById('idea-2').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="padding:0.3rem 0.7rem;background:var(--blue-bg);border:1px solid #bfdbfe;border-radius:6px;font-size:0.82rem;text-decoration:none;color:var(--text);">#2 Restaurant Engine</a>
         <a href="#idea-3" onclick="document.getElementById('idea-3').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="padding:0.3rem 0.7rem;background:var(--blue-bg);border:1px solid #bfdbfe;border-radius:6px;font-size:0.82rem;text-decoration:none;color:var(--text);">#3 Booked Solid</a>
@@ -598,7 +615,7 @@
     <h2 class="section-title">Bigger Plays</h2>
     <p style="margin-bottom: 1rem; color: var(--text-muted);">Higher-upside ideas with bigger addressable markets. #6–#8 are ready to build now. #9–#11 need customer trust first (Phase 2).</p>
 
-    <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.25rem;">
+    <div class="idea-quick-nav">
         <a href="#idea-6" onclick="document.getElementById('idea-6').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="padding:0.3rem 0.7rem;background:var(--green-bg);border:1px solid #bbf7d0;border-radius:6px;font-size:0.82rem;text-decoration:none;color:var(--text);">#6 AI Comm Hub</a>
         <a href="#idea-7" onclick="document.getElementById('idea-7').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="padding:0.3rem 0.7rem;background:var(--green-bg);border:1px solid #bbf7d0;border-radius:6px;font-size:0.82rem;text-decoration:none;color:var(--text);">#7 Social Media</a>
         <a href="#idea-8" onclick="document.getElementById('idea-8').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="padding:0.3rem 0.7rem;background:var(--green-bg);border:1px solid #bbf7d0;border-radius:6px;font-size:0.82rem;text-decoration:none;color:var(--text);">#8 Permit Autopilot</a>

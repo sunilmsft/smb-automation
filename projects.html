@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tim &amp; Sunil — Project Hub</title>
+    <script>
+      (() => {
+        const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+        const theme =
+          param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
+    <style>
+        :root {
+          color-scheme: light;
+          --cp-bg: #f7f4ef;
+          --cp-bg-elevated: #fcfbf8;
+          --cp-surface: #ffffff;
+          --cp-surface-soft: #f5f5f5;
+          --cp-border: #dedede;
+          --cp-border-strong: #919191;
+          --cp-text: #242424;
+          --cp-text-muted: #5c5c5c;
+          --cp-text-soft: #6f6f6f;
+          --cp-accent: #b11f4b;
+          --cp-accent-hover: #9a1a41;
+          --cp-accent-soft: rgba(177, 31, 75, 0.08);
+          --cp-accent-fg: #ffffff;
+          --cp-success: #16a34a;
+          --cp-danger: #dc2626;
+          --cp-warning: #f59e0b;
+          --cp-link: #0078d4;
+          --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+          --cp-overlay: rgba(255, 255, 255, 0.8);
+          --cp-panel: rgba(255, 255, 255, 0.86);
+          --cp-panel-strong: rgba(255, 255, 255, 0.96);
+          --cp-sheen: rgba(255, 255, 255, 0.55);
+          --cp-highlight: rgba(177, 31, 75, 0.12);
+        }
+        html[data-theme="dark"] {
+          color-scheme: dark;
+          --cp-bg: #3d3b3a;
+          --cp-bg-elevated: #343231;
+          --cp-surface: #292929;
+          --cp-surface-soft: #2e2e2e;
+          --cp-border: #474747;
+          --cp-border-strong: #5f5f5f;
+          --cp-text: #dedede;
+          --cp-text-muted: #919191;
+          --cp-text-soft: #b0b0b0;
+          --cp-accent: #fd8ea1;
+          --cp-accent-hover: #fb7b91;
+          --cp-accent-soft: rgba(253, 142, 161, 0.14);
+          --cp-accent-fg: #1a1a1a;
+          --cp-success: #4ade80;
+          --cp-danger: #f87171;
+          --cp-warning: #fbbf24;
+          --cp-link: #4da6ff;
+          --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+          --cp-overlay: rgba(41, 41, 41, 0.88);
+          --cp-panel: rgba(41, 41, 41, 0.72);
+          --cp-panel-strong: rgba(41, 41, 41, 0.96);
+          --cp-sheen: rgba(255, 255, 255, 0.04);
+          --cp-highlight: rgba(253, 142, 161, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--cp-bg);
+            color: var(--cp-text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: var(--cp-surface);
+            border-bottom: 1px solid var(--cp-border);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .header-meta {
+            font-size: 0.82rem;
+            color: var(--cp-text-muted);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .theme-toggle {
+            background: var(--cp-surface-soft);
+            border: 1px solid var(--cp-border);
+            border-radius: 0.625rem;
+            padding: 0.35rem 0.7rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--cp-text-muted);
+        }
+        .theme-toggle:hover { border-color: var(--cp-border-strong); }
+
+        .stats-bar {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1rem 2rem;
+            background: var(--cp-bg-elevated);
+            border-bottom: 1px solid var(--cp-border);
+        }
+        .stat {
+            display: flex;
+            align-items: baseline;
+            gap: 0.4rem;
+        }
+        .stat-num {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--cp-accent);
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--cp-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        .project-card {
+            background: var(--cp-surface);
+            border-radius: 16px;
+            border: 1px solid var(--cp-border);
+            overflow: hidden;
+            box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+            transition: border-color 0.2s;
+        }
+        .project-card:hover { border-color: var(--cp-border-strong); }
+
+        .card-top {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .card-status-strip {
+            width: 5px;
+            flex-shrink: 0;
+        }
+        .status-live { background: var(--cp-success); }
+        .status-mvp { background: var(--cp-warning); }
+        .status-building { background: var(--cp-accent); }
+
+        .card-main {
+            flex: 1;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .card-title-area { display: flex; flex-direction: column; gap: 0.25rem; }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: var(--cp-text-muted);
+        }
+        .status-badge {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .badge-live { background: rgba(22,163,74,0.12); color: var(--cp-success); }
+        .badge-mvp { background: rgba(245,158,11,0.12); color: var(--cp-warning); }
+        .badge-building { background: var(--cp-accent-soft); color: var(--cp-accent); }
+
+        .card-desc {
+            font-size: 0.92rem;
+            color: var(--cp-text-soft);
+            line-height: 1.6;
+        }
+
+        .card-built {
+            background: var(--cp-surface-soft);
+            border-radius: 0.625rem;
+            padding: 0.75rem 1rem;
+        }
+        .card-built-title {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--cp-text-muted);
+            margin-bottom: 0.4rem;
+        }
+        .card-built ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+        .card-built li {
+            font-size: 0.82rem;
+            color: var(--cp-text);
+            background: var(--cp-surface);
+            border: 1px solid var(--cp-border);
+            padding: 0.2rem 0.55rem;
+            border-radius: 6px;
+        }
+
+        .card-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+        .tech-pill {
+            font-size: 0.72rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            background: var(--cp-highlight);
+            color: var(--cp-accent);
+            font-family: Consolas, "Courier New", Courier, monospace;
+        }
+
+        .card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding-top: 0.25rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.625rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.15s;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: var(--cp-accent);
+            color: var(--cp-accent-fg);
+        }
+        .btn-primary:hover { background: var(--cp-accent-hover); }
+        .btn-secondary {
+            background: var(--cp-surface-soft);
+            color: var(--cp-text);
+            border: 1px solid var(--cp-border);
+        }
+        .btn-secondary:hover { border-color: var(--cp-border-strong); }
+        .btn-link {
+            background: none;
+            color: var(--cp-link);
+            padding: 0.5rem 0.5rem;
+        }
+        .btn-link:hover { text-decoration: underline; }
+
+        .btn-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        .section-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--cp-text-muted);
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .pricing-note {
+            font-size: 0.82rem;
+            color: var(--cp-text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        @media (max-width: 640px) {
+            .header { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+            .stats-bar { flex-wrap: wrap; }
+            .content { padding: 1rem; }
+            .card-header { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Tim &amp; Sunil — Project Hub</h1>
+        <div class="header-meta">
+            <span>SMB Automation Tools</span>
+            <span>Seattle / Eastside</span>
+            <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+        </div>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat">
+            <span class="stat-num">3</span>
+            <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat">
+            <span class="stat-num">1</span>
+            <span class="stat-label">Live</span>
+        </div>
+        <div class="stat">
+            <span class="stat-num">2</span>
+            <span class="stat-label">In Progress</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="section-title">Active Projects</div>
+        <div class="project-grid" id="project-grid"></div>
+    </div>
+
+    <script>
+    const PROJECTS = [
+        {
+            name: "FrontDesk AI",
+            icon: "🏪",
+            subtitle: "AI chat widget for local businesses",
+            status: "building",
+            statusLabel: "Building",
+            description: "Embeddable AI chatbot that answers customer questions 24/7 — menu, hours, reservations, etc. One script tag on any website. Powered by Claude. Demo business: The Plateau Kitchen (Sammamish farm-to-table restaurant).",
+            built: [
+                "Express server + Claude API",
+                "Embeddable JS chat widget",
+                "SQLite conversation tracking",
+                "Admin API (stats, conversations)",
+                "Plateau Kitchen demo prompt",
+                "Demo restaurant website"
+            ],
+            tech: ["Node.js", "Express", "Claude API", "SQLite", "Vanilla JS"],
+            pricing: "$199/mo (30-day free pilot)",
+            localPath: "c:\\Users\\sunilve\\OneDrive\\GitHub Copilot Fun Projects\\frontdesk-ai",
+            repoUrl: "https://github.com/sunilmsft/frontdesk-ai",
+            liveUrl: null,
+        },
+        {
+            name: "Swoop",
+            icon: "📱",
+            subtitle: "Never Miss a Lead — missed-call text-back",
+            status: "mvp",
+            statusLabel: "MVP Done",
+            description: "When a small business misses a call, Swoop instantly texts the caller back, starts a conversation, and follows up automatically. Handles review requests and lead tracking. Built on Twilio.",
+            built: [
+                "Twilio voice + SMS webhooks",
+                "Auto text-back on missed call",
+                "AI follow-up sequences (cron)",
+                "Lead tracking dashboard",
+                "Message thread viewer",
+                "Review request system",
+                "Business setup modal"
+            ],
+            tech: ["Node.js", "Express", "Twilio", "SQLite", "HTML/CSS/JS"],
+            pricing: "$79–$249/mo (tiered)",
+            localPath: "c:\\Users\\sunilve\\OneDrive\\GitHub Copilot Fun Projects\\swoop",
+            repoUrl: "https://github.com/sunilmsft/swoop",
+            liveUrl: null,
+        },
+        {
+            name: "SMB Dashboard",
+            icon: "📊",
+            subtitle: "Strategy & planning dashboard",
+            status: "live",
+            statusLabel: "Live",
+            description: "Multi-tab research dashboard with 11 business ideas, comparison matrices, deep dives, go-to-market strategy, 2-week plan, and decision log. The strategic brain behind all our projects.",
+            built: [
+                "9-tab dashboard (Overview → Open Questions)",
+                "11 idea cards with pitch stories",
+                "Comparison matrix (11 criteria)",
+                "6 bundle packages",
+                "Deep dive research cards",
+                "GTM strategy + 2-week plan",
+                "Scroll-aware quick-nav pills"
+            ],
+            tech: ["HTML", "CSS", "JavaScript", "Single-file app"],
+            pricing: "Internal tool",
+            localPath: "c:\\Users\\sunilve\\OneDrive\\GitHub Copilot Fun Projects\\Tim and Sunil building Stuff!",
+            repoUrl: "https://github.com/sunilmsft/smb-automation",
+            liveUrl: "https://sunilmsft.github.io/smb-automation/",
+        },
+    ];
+
+    function renderProjects() {
+        const grid = document.getElementById('project-grid');
+        grid.innerHTML = PROJECTS.map(p => `
+            <div class="project-card">
+                <div class="card-top">
+                    <div class="card-status-strip status-${p.status}"></div>
+                    <div class="card-main">
+                        <div class="card-header">
+                            <div class="card-title-area">
+                                <div class="card-title">${p.icon} ${escapeHtml(p.name)}</div>
+                                <div class="card-subtitle">${escapeHtml(p.subtitle)}</div>
+                            </div>
+                            <span class="status-badge badge-${p.status}">${p.statusLabel}</span>
+                        </div>
+                        <div class="card-desc">${escapeHtml(p.description)}</div>
+                        <div class="card-built">
+                            <div class="card-built-title">What's Built</div>
+                            <ul>${p.built.map(b => `<li>${escapeHtml(b)}</li>`).join('')}</ul>
+                        </div>
+                        <div class="card-tech">
+                            ${p.tech.map(t => `<span class="tech-pill">${escapeHtml(t)}</span>`).join('')}
+                        </div>
+                        <div class="pricing-note">
+                            ${p.pricing !== "Internal tool" ? "💰" : "🔒"} ${escapeHtml(p.pricing)}
+                        </div>
+                        <div class="card-actions">
+                            <a href="vscode://file/${encodeURI(p.localPath.replace(/\\\\/g, '/'))}"
+                               class="btn btn-primary"
+                               title="Open in VS Code">
+                                Open in VS Code
+                            </a>
+                            <a href="${p.repoUrl}" target="_blank" class="btn btn-secondary">
+                                GitHub Repo
+                            </a>
+                            ${p.liveUrl
+                                ? `<a href="${p.liveUrl}" target="_blank" class="btn btn-link">Live Site →</a>`
+                                : `<span class="btn btn-link" style="opacity:0.4;cursor:default;">Not deployed yet</span>`
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+    }
+
+    renderProjects();
+    </script>
+</body>
+</html>

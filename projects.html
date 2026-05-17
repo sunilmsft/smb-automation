@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sunil's Project Hub</title>
+    <title>Command Center — Sunil's Projects</title>
     <script>
       (() => {
         const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
@@ -69,775 +69,638 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--cp-bg);
-            color: var(--cp-text);
-            line-height: 1.6;
-            min-height: 100vh;
+            background: var(--cp-bg); color: var(--cp-text);
+            line-height: 1.6; height: 100vh; overflow: hidden;
+            display: flex; flex-direction: column;
         }
 
-        .header {
-            background: var(--cp-surface);
+        /* ── Top Bar ─────────────────────────────────── */
+        .topbar {
+            background: var(--cp-surface); border-bottom: 1px solid var(--cp-border);
+            padding: 0.55rem 1.25rem; display: flex; align-items: center;
+            justify-content: space-between; flex-shrink: 0; z-index: 200;
+        }
+        .topbar-left { display: flex; align-items: center; gap: 0.75rem; }
+        .topbar h1 { font-size: 1.05rem; font-weight: 700; }
+        .topbar-stats { display: flex; gap: 1rem; font-size: 0.75rem; color: var(--cp-text-muted); }
+        .topbar-stats .val { font-weight: 700; color: var(--cp-accent); }
+        .topbar-btn {
+            background: var(--cp-surface-soft); border: 1px solid var(--cp-border);
+            border-radius: 0.625rem; padding: 0.25rem 0.6rem; cursor: pointer;
+            font-size: 0.78rem; color: var(--cp-text-muted); font-family: inherit;
+        }
+        .topbar-btn:hover { border-color: var(--cp-border-strong); }
+
+        /* ── Layout ──────────────────────────────────── */
+        .layout { display: flex; flex: 1; overflow: hidden; }
+
+        /* ── Sidebar ─────────────────────────────────── */
+        .sidebar {
+            width: 220px; flex-shrink: 0; background: var(--cp-bg-elevated);
+            border-right: 1px solid var(--cp-border);
+            display: flex; flex-direction: column; overflow-y: auto;
+        }
+        .sidebar-section { padding: 0.6rem 0.4rem 0.2rem; }
+        .sidebar-label {
+            font-size: 0.65rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--cp-text-muted); padding: 0 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+        .sidebar-item {
+            display: flex; align-items: center; gap: 0.45rem;
+            padding: 0.35rem 0.55rem; border-radius: 0.625rem;
+            cursor: pointer; font-size: 0.82rem; color: var(--cp-text-soft);
+            transition: all 0.12s;
+        }
+        .sidebar-item:hover { background: var(--cp-surface); color: var(--cp-text); }
+        .sidebar-item.active {
+            background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 600;
+        }
+        .sidebar-icon { font-size: 0.95rem; width: 20px; text-align: center; flex-shrink: 0; }
+        .sidebar-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .sidebar-badge {
+            font-size: 0.62rem; background: var(--cp-surface-soft); border: 1px solid var(--cp-border);
+            border-radius: 999px; padding: 0.05rem 0.35rem; color: var(--cp-text-muted);
+        }
+        .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+        .dot-live { background: var(--cp-success); }
+        .dot-building { background: var(--cp-warning); }
+        .dot-complete { background: var(--cp-success); }
+        .dot-reference { background: var(--cp-border); }
+
+        /* ── Main ────────────────────────────────────── */
+        .main { flex: 1; overflow-y: auto; padding: 1.25rem 1.75rem; }
+
+        /* ── Dashboard Cards ─────────────────────────── */
+        .section-label {
+            font-size: 0.68rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--cp-text-muted);
+            margin: 1.25rem 0 0.5rem; padding-bottom: 0.25rem;
             border-bottom: 1px solid var(--cp-border);
-            padding: 1.5rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
-        .header h1 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .section-label:first-child { margin-top: 0; }
+        .dash-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 0.85rem; margin-bottom: 0.5rem;
         }
-        .header-meta {
-            font-size: 0.82rem;
-            color: var(--cp-text-muted);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        .dash-card {
+            background: var(--cp-surface); border: 1px solid var(--cp-border);
+            border-radius: 12px; padding: 1rem;
+            box-shadow: 0 0 2px rgba(0,0,0,0.08); cursor: pointer;
+            transition: border-color 0.15s;
         }
-        .theme-toggle {
-            background: var(--cp-surface-soft);
-            border: 1px solid var(--cp-border);
-            border-radius: 0.625rem;
-            padding: 0.35rem 0.7rem;
-            cursor: pointer;
-            font-size: 0.85rem;
-            color: var(--cp-text-muted);
-        }
-        .theme-toggle:hover { border-color: var(--cp-border-strong); }
-
-        .stats-bar {
-            display: flex;
-            gap: 1.5rem;
-            padding: 1rem 2rem;
-            background: var(--cp-bg-elevated);
-            border-bottom: 1px solid var(--cp-border);
-        }
-        .stat {
-            display: flex;
-            align-items: baseline;
-            gap: 0.4rem;
-        }
-        .stat-num {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--cp-accent);
-        }
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--cp-text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .content {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .project-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.25rem;
-        }
-
-        .project-card {
-            background: var(--cp-surface);
-            border-radius: 16px;
-            border: 1px solid var(--cp-border);
-            overflow: hidden;
-            box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
-            transition: border-color 0.2s;
-        }
-        .project-card:hover { border-color: var(--cp-border-strong); }
-
-        .card-top {
-            display: flex;
-            align-items: stretch;
-        }
-
-        .card-status-strip {
-            width: 5px;
-            flex-shrink: 0;
-        }
-        .status-live { background: var(--cp-success); }
-        .status-mvp { background: var(--cp-warning); }
-        .status-building { background: var(--cp-accent); }
-
-        .card-main {
-            flex: 1;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .card-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-        .card-title-area { display: flex; flex-direction: column; gap: 0.25rem; }
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .card-subtitle {
-            font-size: 0.85rem;
-            color: var(--cp-text-muted);
-        }
-        .status-badge {
-            font-size: 0.72rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 0.25rem 0.65rem;
-            border-radius: 999px;
-            white-space: nowrap;
-        }
-        .badge-live { background: rgba(22,163,74,0.12); color: var(--cp-success); }
-        .badge-mvp { background: rgba(245,158,11,0.12); color: var(--cp-warning); }
-        .badge-building { background: var(--cp-accent-soft); color: var(--cp-accent); }
-
-        .card-desc {
-            font-size: 0.92rem;
-            color: var(--cp-text-soft);
-            line-height: 1.6;
-        }
-
-        .card-built {
-            background: var(--cp-surface-soft);
-            border-radius: 0.625rem;
-            padding: 0.75rem 1rem;
-        }
-        .card-built-title {
-            font-size: 0.72rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--cp-text-muted);
-            margin-bottom: 0.4rem;
-        }
-        .card-built ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.3rem;
-        }
-        .card-built li {
-            font-size: 0.82rem;
-            color: var(--cp-text);
-            background: var(--cp-surface);
-            border: 1px solid var(--cp-border);
-            padding: 0.2rem 0.55rem;
-            border-radius: 6px;
-        }
-
-        .card-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.3rem;
-        }
+        .dash-card:hover { border-color: var(--cp-border-strong); }
+        .dash-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem; }
+        .dash-card-icon { font-size: 1.2rem; }
+        .dash-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.2rem; }
+        .dash-card p { font-size: 0.78rem; color: var(--cp-text-soft); line-height: 1.45; }
+        .dash-card-tech { display: flex; gap: 0.2rem; margin-top: 0.55rem; flex-wrap: wrap; }
         .tech-pill {
-            font-size: 0.72rem;
-            padding: 0.15rem 0.5rem;
-            border-radius: 4px;
-            background: var(--cp-highlight);
-            color: var(--cp-accent);
-            font-family: Consolas, "Courier New", Courier, monospace;
+            font-size: 0.65rem; padding: 0.1rem 0.4rem; border-radius: 4px;
+            background: var(--cp-highlight); color: var(--cp-accent);
+            font-family: Consolas, "Courier New", monospace;
         }
-
-        .card-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            padding-top: 0.25rem;
+        .pill {
+            font-size: 0.65rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.3px; padding: 0.15rem 0.5rem; border-radius: 999px;
         }
+        .pill-live { background: rgba(22,163,74,0.12); color: var(--cp-success); }
+        .pill-building { background: rgba(245,158,11,0.12); color: var(--cp-warning); }
+        .pill-complete { background: var(--cp-accent-soft); color: var(--cp-accent); }
+        .pill-reference { background: var(--cp-surface-soft); color: var(--cp-text-muted); }
 
+        /* ── Detail View ─────────────────────────────── */
+        .detail-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.25rem; gap: 1rem; flex-wrap: wrap; }
+        .detail-title { display: flex; align-items: center; gap: 0.5rem; }
+        .detail-title h2 { font-size: 1.4rem; font-weight: 700; }
+        .detail-title .icon { font-size: 1.6rem; }
+        .detail-sub { font-size: 0.85rem; color: var(--cp-text-muted); margin-top: 0.1rem; }
+        .detail-btns { display: flex; gap: 0.4rem; flex-wrap: wrap; }
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.5rem 1rem;
-            border-radius: 0.625rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            transition: all 0.15s;
-            font-family: inherit;
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            padding: 0.4rem 0.8rem; border-radius: 0.625rem;
+            font-size: 0.8rem; font-weight: 600; text-decoration: none;
+            cursor: pointer; border: none; transition: all 0.15s; font-family: inherit;
         }
-        .btn-primary {
-            background: var(--cp-accent);
-            color: var(--cp-accent-fg);
-        }
+        .btn-primary { background: var(--cp-accent); color: var(--cp-accent-fg); }
         .btn-primary:hover { background: var(--cp-accent-hover); }
-        .btn-secondary {
-            background: var(--cp-surface-soft);
-            color: var(--cp-text);
-            border: 1px solid var(--cp-border);
-        }
+        .btn-secondary { background: var(--cp-surface-soft); color: var(--cp-text); border: 1px solid var(--cp-border); }
         .btn-secondary:hover { border-color: var(--cp-border-strong); }
-        .btn-link {
-            background: none;
-            color: var(--cp-link);
-            padding: 0.5rem 0.5rem;
-        }
+        .btn-link { background: none; color: var(--cp-link); }
         .btn-link:hover { text-decoration: underline; }
 
-        .btn-icon {
-            width: 16px;
-            height: 16px;
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.85rem; margin-bottom: 1rem; }
+        .info-box { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 12px; padding: 1rem 1.1rem; }
+        .info-box-label {
+            font-size: 0.68rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.5px; color: var(--cp-text-muted); margin-bottom: 0.4rem;
+        }
+        .info-box ul { list-style: none; }
+        .info-box li { font-size: 0.82rem; padding: 0.15rem 0; display: flex; align-items: baseline; gap: 0.3rem; }
+        .info-box li::before { content: '›'; color: var(--cp-accent); font-weight: bold; }
+        .env-tag {
+            font-family: Consolas, "Courier New", monospace; font-size: 0.75rem;
+            background: var(--cp-surface-soft); padding: 0.08rem 0.3rem; border-radius: 4px;
         }
 
-        .section-title {
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--cp-text-muted);
-            margin-bottom: 1rem;
-            margin-top: 1.5rem;
+        /* ── Subscriptions ───────────────────────────── */
+        .sub-summary { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.85rem; margin-bottom: 1.25rem; }
+        .sub-stat {
+            background: var(--cp-surface); border: 1px solid var(--cp-border);
+            border-radius: 12px; padding: 0.85rem 1rem; text-align: center;
         }
+        .sub-stat .label { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--cp-text-muted); margin-bottom: 0.15rem; }
+        .sub-stat .val { font-size: 1.4rem; font-weight: 700; }
+        .sub-tbl { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+        .sub-tbl th {
+            text-align: left; font-size: 0.68rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.5px; color: var(--cp-text-muted); padding: 0.5rem 0.65rem;
+            border-bottom: 2px solid var(--cp-border);
+        }
+        .sub-tbl td { padding: 0.55rem 0.65rem; border-bottom: 1px solid var(--cp-border); }
+        .sub-tbl tr:hover td { background: var(--cp-surface-soft); }
+        .sub-badge { font-size: 0.65rem; font-weight: 600; padding: 0.12rem 0.45rem; border-radius: 999px; }
+        .sb-active { background: rgba(22,163,74,0.12); color: var(--cp-success); }
+        .sb-free { background: var(--cp-surface-soft); color: var(--cp-text-muted); }
+        .sb-trial { background: rgba(245,158,11,0.12); color: var(--cp-warning); }
 
-        .pricing-note {
-            font-size: 0.82rem;
-            color: var(--cp-text-muted);
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
+        .review-box {
+            margin-top: 1rem; padding: 0.85rem 1rem; background: var(--cp-surface);
+            border: 1px solid var(--cp-warning); border-radius: 12px;
         }
+        .review-box h4 { font-size: 0.85rem; color: var(--cp-warning); margin-bottom: 0.35rem; }
+        .review-box li { font-size: 0.82rem; padding: 0.2rem 0; list-style: none; }
 
-        /* Compact repo grid */
-        .repo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 1rem;
-        }
-        .repo-card {
-            background: var(--cp-surface);
-            border-radius: 12px;
-            border: 1px solid var(--cp-border);
-            padding: 1.25rem;
-            box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            transition: border-color 0.2s;
-        }
-        .repo-card:hover { border-color: var(--cp-border-strong); }
-        .repo-name {
-            font-size: 1rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .repo-desc {
-            font-size: 0.85rem;
-            color: var(--cp-text-soft);
-            line-height: 1.5;
-            flex: 1;
-        }
-        .repo-meta {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        .lang-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-        .lang-label {
-            font-size: 0.78rem;
-            color: var(--cp-text-muted);
-        }
-        .private-badge {
-            font-size: 0.68rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 0.15rem 0.5rem;
-            border-radius: 999px;
-            border: 1px solid var(--cp-border);
-            color: var(--cp-text-muted);
-        }
-        .updated-label {
-            font-size: 0.75rem;
-            color: var(--cp-text-muted);
-            margin-left: auto;
-        }
-        .repo-links {
-            display: flex;
-            gap: 0.5rem;
-            padding-top: 0.25rem;
-        }
-        .repo-links a {
-            font-size: 0.82rem;
-        }
+        .view-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.15rem; }
+        .view-sub { font-size: 0.82rem; color: var(--cp-text-muted); margin-bottom: 1rem; }
 
-        .section-divider {
-            border: none;
-            border-top: 1px solid var(--cp-border);
-            margin: 2rem 0 0.5rem;
-        }
-
-        .account-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            margin-top: 1.5rem;
-        }
-        .account-avatar {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: var(--cp-surface-soft);
-            border: 1px solid var(--cp-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-        }
-        .account-name {
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-        .account-count {
-            font-size: 0.78rem;
-            color: var(--cp-text-muted);
-            background: var(--cp-surface-soft);
-            padding: 0.1rem 0.5rem;
-            border-radius: 999px;
-        }
-
-        .filter-bar {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-        .filter-btn {
-            font-size: 0.8rem;
-            padding: 0.35rem 0.85rem;
-            border-radius: 999px;
-            border: 1px solid var(--cp-border);
-            background: var(--cp-surface);
-            color: var(--cp-text-muted);
-            cursor: pointer;
-            font-family: inherit;
-            transition: all 0.15s;
-        }
-        .filter-btn:hover { border-color: var(--cp-border-strong); }
-        .filter-btn.active {
-            background: var(--cp-accent);
-            color: var(--cp-accent-fg);
-            border-color: var(--cp-accent);
-        }
-
-        .search-box {
-            padding: 0.5rem 0.85rem;
-            border: 1px solid var(--cp-border);
-            border-radius: 0.625rem;
-            background: var(--cp-surface);
-            color: var(--cp-text);
-            font-size: 0.85rem;
-            font-family: inherit;
-            width: 100%;
-            max-width: 320px;
-            outline: none;
-            margin-bottom: 1rem;
-        }
-        .search-box:focus { border-color: var(--cp-accent); }
-
-        @media (max-width: 640px) {
-            .header { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
-            .stats-bar { flex-wrap: wrap; }
-            .content { padding: 1rem; }
-            .card-header { flex-direction: column; }
-            .repo-grid { grid-template-columns: 1fr; }
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main { padding: 0.75rem; }
+            .topbar-stats { display: none; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Sunil's Project Hub</h1>
-        <div class="header-meta">
-            <span id="header-count"></span>
-            <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <h1>Command Center</h1>
+        <div class="topbar-stats">
+            <span><span class="val" id="st-total">0</span> projects</span>
+            <span><span class="val" id="st-deployed">0</span> deployed</span>
+            <span><span class="val" id="st-cost">$0</span>/mo</span>
         </div>
     </div>
-
-    <div class="stats-bar" id="stats-bar"></div>
-
-    <div class="content">
-        <!-- Featured Projects (active side-hustle builds) -->
-        <div class="section-title">Featured Projects</div>
-        <div class="project-grid" id="featured-grid"></div>
-
-        <hr class="section-divider">
-
-        <!-- All Repos -->
-        <div class="account-header">
-            <div class="account-avatar">👤</div>
-            <span class="account-name">sunilmsft</span>
-            <span class="account-count" id="personal-count"></span>
-        </div>
-
-        <input type="text" class="search-box" id="search" placeholder="Search repos..." oninput="renderRepos()">
-
-        <div class="filter-bar" id="filter-bar"></div>
-
-        <div class="repo-grid" id="repo-grid"></div>
+    <div>
+        <button class="topbar-btn" onclick="toggleTheme()">Theme</button>
     </div>
+</div>
 
-    <script>
-    // ── Featured projects (detailed cards) ─────────────────────────────
-    const FEATURED = [
-        {
-            name: "FrontDesk AI",
-            icon: "🏪",
-            subtitle: "AI chat widget for local businesses",
-            status: "building",
-            statusLabel: "Building",
-            description: "Embeddable AI chatbot that answers customer questions 24/7 — menu, hours, reservations, etc. One script tag on any website. Powered by Claude. Demo: The Plateau Kitchen (Sammamish).",
-            built: ["Express + Claude API", "Embeddable JS widget", "SQLite conversations", "Admin API", "Demo restaurant site"],
-            tech: ["Node.js", "Express", "Claude API", "SQLite"],
-            pricing: "$199/mo (30-day free pilot)",
-            localPath: "c:\\Users\\sunilve\\OneDrive\\GitHub Copilot Fun Projects\\frontdesk-ai",
-            repoUrl: "https://github.com/sunilmsft/frontdesk-ai",
-            liveUrl: null,
-        },
-        {
-            name: "Swoop",
-            icon: "📱",
-            subtitle: "Never Miss a Lead — missed-call text-back",
-            status: "mvp",
-            statusLabel: "MVP Done",
-            description: "Missed a call? Swoop texts the caller back instantly, starts a conversation, follows up automatically. Lead tracking + review requests.",
-            built: ["Twilio voice + SMS webhooks", "Auto text-back", "Follow-up cron", "Lead dashboard", "Review requests"],
-            tech: ["Node.js", "Express", "Twilio", "SQLite"],
-            pricing: "$79–$249/mo (tiered)",
-            localPath: "c:\\Users\\sunilve\\OneDrive\\GitHub Copilot Fun Projects\\swoop",
-            repoUrl: "https://github.com/sunilmsft/swoop",
-            liveUrl: null,
-        },
-        {
-            name: "SMB Dashboard",
-            icon: "📊",
-            subtitle: "Strategy & planning dashboard",
-            status: "live",
-            statusLabel: "Live on GitHub Pages",
-            description: "9-tab research dashboard — 11 ideas, comparison matrices, deep dives, GTM strategy, decision log. The strategic brain behind all projects.",
-            built: ["9-tab dashboard", "11 idea cards", "Comparison matrix", "6 bundles", "GTM + 2-week plan"],
-            tech: ["HTML", "CSS", "JavaScript"],
-            pricing: "Internal tool",
-            localPath: "c:\\Users\\sunilve\\OneDrive\\GitHub Copilot Fun Projects\\Tim and Sunil building Stuff!",
-            repoUrl: "https://github.com/sunilmsft/smb-automation",
-            liveUrl: "https://sunilmsft.github.io/smb-automation/",
-        },
-    ];
+<div class="layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main" id="main"></main>
+</div>
 
-    // ── All personal repos ─────────────────────────────────────────────
-    const LANG_COLORS = {
-        HTML: '#e34c26',
-        JavaScript: '#f1e05a',
-        TypeScript: '#3178c6',
-        Python: '#3572A5',
-        CSS: '#563d7c',
+<script>
+// ═══════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════
+const P = [
+  {
+    id:'frontdesk-ai', name:'FrontDesk AI', icon:'🏪',
+    desc:'AI chat widget for local businesses — embeddable chatbot for menus, hours, reservations.',
+    status:'building', label:'Building',
+    tech:['Node.js','Express','Google Gemini','SQLite'],
+    deployed:false, liveUrl:null,
+    repoUrl:'https://github.com/sunilmsft/frontdesk-ai',
+    local:'c:/Users/sunilve/OneDrive/GitHub Copilot Fun Projects/frontdesk-ai',
+    built:['Chat API with Gemini integration','Embeddable JS widget (one script tag)','Demo site: The Plateau Kitchen','Admin dashboard + conversation viewer','Business onboarding page','Multi-business support via slug'],
+    env:['GEMINI_API_KEY','ALLOWED_ORIGINS'],
+    pricing:'$199/mo (30-day free pilot)',
+  },
+  {
+    id:'swoop', name:'Swoop', icon:'📱',
+    desc:'AI-powered missed-call text-back. Auto SMS, lead tracking, follow-ups, AI conversations.',
+    status:'building', label:'v0.2.5 Deployed',
+    tech:['Node.js','Express','Twilio','OpenAI','SQLite'],
+    deployed:true, liveUrl:null,
+    repoUrl:'https://github.com/sunilmsft/swoop',
+    local:'c:/Users/sunilve/OneDrive/GitHub Copilot Fun Projects/swoop',
+    built:['Missed call → auto SMS in 5 seconds','Lead logging + deduplication','Follow-up sequences (Day 1/3/7)','AI reply agent with guardrails + handoff','Conversation summaries + attention badges','Dashboard: stats, leads, detail modal','Google review request system','Manual SMS from dashboard','Landing page','Mobile-responsive admin'],
+    env:['TWILIO_ACCOUNT_SID','TWILIO_AUTH_TOKEN','TWILIO_PHONE_NUMBER','OPENAI_API_KEY'],
+    pricing:'$79–$249/mo (tiered)',
+  },
+  {
+    id:'kolo', name:'Kolo', icon:'👨‍👩‍👧‍👦',
+    desc:'Family accountability app — kids build habits through responsibilities, points, streaks.',
+    status:'building', label:'~80% MVP',
+    tech:['React 19','Vite','TypeScript','Tailwind','Supabase','PWA'],
+    deployed:false, liveUrl:null, repoUrl:null,
+    local:'c:/Users/sunilve/OneDrive/GitHub Copilot Fun Projects/Loopi',
+    built:['Email + password auth (Supabase)','Parent: Home, Insights, Manage, Review','Child: Today, Week, Me','Create/edit/delete responsibilities','Child marks done → parent confirms/rejects','Points system + weekly streaks','Role-based routing','6 Supabase SQL migrations'],
+    env:['VITE_SUPABASE_URL','VITE_SUPABASE_ANON_KEY'],
+    pricing:null,
+  },
+  {
+    id:'tuck', name:'Tuck', icon:'📌',
+    desc:'Save anything, find it later. PWA for capturing images, links, notes from phone share sheet.',
+    status:'live', label:'Live',
+    tech:['React 18','Vite','Express','Tailwind','Azure Blob','PWA'],
+    deployed:true, liveUrl:'https://tuck-red.vercel.app',
+    repoUrl:'https://github.com/sunilmsft/Tuck',
+    local:'c:/Users/sunilve/OneDrive/GitHub Copilot Fun Projects/Tuck',
+    built:['Phone share target → capture','Folder organization + item CRUD','Link unfurling (auto preview)','Image uploads','Trash / soft delete','Feedback system','Deployed: Vercel + Render'],
+    env:['AZURE_STORAGE_CONNECTION_STRING','USE_LOCAL_STORAGE'],
+    pricing:null,
+  },
+  {
+    id:'homeops', name:'HomeOps Hub', icon:'🏠',
+    desc:'Household operations dashboard — vehicles, appliances, bills, maintenance, calendar sync.',
+    status:'building', label:'Building',
+    tech:['Next.js 16','TypeScript','Tailwind','Prisma','PostgreSQL','NextAuth'],
+    deployed:false, liveUrl:null,
+    repoUrl:'https://github.com/sunilmsft/homeops-hub',
+    local:'c:/Users/sunilve/OneDrive/GitHub Copilot Fun Projects',
+    built:['Dashboard with collapsible sections','Vehicle / Appliance / Bill / Maintenance CRUD','Action Center (overdue items)','Google Calendar sync','Household sharing via invite code','Google + Azure AD OAuth','Prisma schema (10 models)'],
+    env:['DATABASE_URL','NEXTAUTH_SECRET','AUTH_GOOGLE_ID','AUTH_GOOGLE_SECRET'],
+    pricing:null,
+  },
+  {
+    id:'cushion', name:'Project Cushion', icon:'💰',
+    desc:'Local-first household expense analyzer — processes bank CSVs, finds savings. Zero cloud.',
+    status:'building', label:'Phases 1-3 Done',
+    tech:['TypeScript','Node.js CLI','Commander','csv-parse','Vitest'],
+    deployed:false, liveUrl:null, repoUrl:null,
+    local:'c:/Users/sunilve/OneDrive/GitHub Copilot Fun Projects/Project Cushion',
+    built:['CSV import + normalize + categorize','Privacy preflight verification','Monthly summary breakdown','Month-vs-month comparison','Recurring expense detection + HTML report','Savings opportunity finder','Family dashboard (HTML)','13 test files, extensive coverage'],
+    env:[],
+    pricing:null,
+  },
+  {
+    id:'smb-dashboard', name:'SMB Dashboard', icon:'📊',
+    desc:'9-tab strategy dashboard — 11 business ideas, comparisons, GTM plan, decision log.',
+    status:'live', label:'Live',
+    tech:['HTML','CSS','JavaScript'],
+    deployed:true, liveUrl:'https://sunilmsft.github.io/smb-automation/',
+    repoUrl:'https://github.com/sunilmsft/smb-automation',
+    local:'c:/Users/sunilve/OneDrive/GitHub Copilot Fun Projects/Tim and Sunil building Stuff!',
+    built:['9 tabs: Overview → Open Questions','11 idea cards with pitch stories','Comparison matrix (11 criteria)','6 bundle packages','Deep dive research cards','GTM strategy + 2-week plan','Scroll-aware quick-nav pills'],
+    env:[],
+    pricing:'Internal tool',
+  },
+  {
+    id:'lunch', name:'Lunch Menu Notifier', icon:'🍽️',
+    desc:'Daily 7 AM push notification with school lunch menus — Discovery Elementary + Pine Lake Middle.',
+    status:'complete', label:'Complete',
+    tech:['Python','GitHub Actions','Pushover API'],
+    deployed:true, liveUrl:null,
+    repoUrl:'https://github.com/sunilmsft/lunch-menu-notifier',
+    local:'c:/Users/sunilve/OneDrive/GitHub Copilot Fun Projects/School Projects/lunch-menu-notifier',
+    built:['Scrapes school lunch menus','Formatted push via Pushover','GitHub Actions cron (weekdays 7 AM PT)'],
+    env:['PUSHOVER_USER_KEY','PUSHOVER_API_TOKEN'],
+    pricing:null,
+  },
+  {
+    id:'ecom-voice', name:'eCommerce Voice AI', icon:'🎙️',
+    desc:'AI-powered voice agent prototype for Ask Microsoft eCommerce web chat.',
+    status:'building', label:'Prototype',
+    tech:['HTML','JavaScript'],
+    deployed:false, liveUrl:null,
+    repoUrl:'https://github.com/sunilmsft/ecommerce-voice-ai-prototype',
+    local:null,
+    built:['Voice agent prototype','Web chat interface'],
+    env:[],
+    pricing:null,
+  },
+  {
+    id:'consent-ux', name:'Consent UX Prototype', icon:'🔐',
+    desc:'Ask Microsoft — Consent & Identity UX Prototype for stakeholder review.',
+    status:'complete', label:'Complete',
+    tech:['HTML','CSS','JavaScript'],
+    deployed:false, liveUrl:null,
+    repoUrl:'https://github.com/sunilmsft/consent-ux-prototype',
+    local:null,
+    built:['Identity consent flow UX','Stakeholder review prototype'],
+    env:[],
+    pricing:null,
+  },
+  {
+    id:'site', name:'sunilvenugopal.com', icon:'🌐',
+    desc:'Personal website / portfolio.',
+    status:'live', label:'Live',
+    tech:['HTML','CSS'],
+    deployed:true, liveUrl:'https://sunilvenugopal-com.vercel.app',
+    repoUrl:'https://github.com/sunilmsft/sunilvenugopal.com',
+    local:null,
+    built:['Personal portfolio site'],
+    env:[],
+    pricing:null,
+  },
+  {
+    id:'ideas', name:'Side Project Ideas', icon:'💡',
+    desc:'Brainstorm workspace — 20+ ideas evaluated, shortlist dashboard, pitch docs.',
+    status:'reference', label:'Reference',
+    tech:['Markdown','HTML'],
+    deployed:false, liveUrl:null,
+    repoUrl:'https://github.com/sunilmsft/side-project-ideas',
+    local:'c:/Users/sunilve/OneDrive/GitHub Copilot Fun Projects/Exploring Side Projects',
+    built:['20+ ideas evaluated','Shortlist dashboard (HTML)','Pitch: Emotional Release App'],
+    env:[],
+    pricing:null,
+  },
+  {
+    id:'dev-setup', name:'Dev Setup Tips', icon:'⚙️',
+    desc:'Developer setup tips and configuration guides.',
+    status:'reference', label:'Reference',
+    tech:['HTML'],
+    deployed:false, liveUrl:null,
+    repoUrl:'https://github.com/sunilmsft/dev-setup-tips',
+    local:null,
+    built:['Setup guides and tips'],
+    env:[],
+    pricing:null,
+  },
+  {
+    id:'retirement', name:'MS Retirement Toolkit', icon:'📋',
+    desc:'Community toolkit for Microsoft employees navigating voluntary retirement.',
+    status:'complete', label:'Complete',
+    tech:['HTML','CSS','JavaScript'],
+    deployed:false, liveUrl:null,
+    repoUrl:'https://github.com/sunilmsft/ms-voluntary-retirement-toolkit',
+    local:null,
+    built:['Retirement planning toolkit','Interactive guides'],
+    env:[],
+    pricing:null,
+  },
+  {
+    id:'prep-life', name:'Prep Life After MS', icon:'🗺️',
+    desc:'Personal planning tool for life transition.',
+    status:'complete', label:'Complete',
+    tech:['HTML'],
+    deployed:false, liveUrl:null,
+    repoUrl:'https://github.com/sunilmsft/prep-life-after-ms',
+    local:null,
+    built:['Life transition planner'],
+    env:[],
+    pricing:null,
+  },
+  {
+    id:'ask-ms', name:'Ask Microsoft Redesign', icon:'🎨',
+    desc:'Ask Microsoft site redesign prototype.',
+    status:'complete', label:'Complete',
+    tech:['HTML','CSS','JavaScript'],
+    deployed:false, liveUrl:null,
+    repoUrl:'https://github.com/sunilmsft/ask-microsoft-redesign',
+    local:null,
+    built:['Site redesign prototype'],
+    env:[],
+    pricing:null,
+  },
+];
+
+const SUBS = [
+  { name:'Render', project:'Tuck', cost:7, cycle:'monthly', status:'active', note:'Starter plan — Tuck API backend (tuck-api.onrender.com)' },
+  { name:'Render', project:'Swoop', cost:0, cycle:'monthly', status:'free', note:'Free tier — Swoop backend' },
+  { name:'Twilio', project:'Swoop', cost:1, cycle:'monthly', status:'active', note:'Phone number ~$1/mo + per-message usage' },
+  { name:'OpenAI API', project:'Swoop', cost:0, cycle:'usage', status:'active', note:'GPT-4o-mini — usage-based billing' },
+  { name:'Google Gemini', project:'FrontDesk AI', cost:0, cycle:'usage', status:'free', note:'Free tier available' },
+  { name:'Supabase', project:'Kolo', cost:0, cycle:'monthly', status:'free', note:'Free tier — auth + Postgres DB' },
+  { name:'Vercel', project:'Tuck', cost:0, cycle:'monthly', status:'free', note:'Hobby plan — frontend hosting' },
+  { name:'Vercel', project:'sunilvenugopal.com', cost:0, cycle:'monthly', status:'free', note:'Personal site hosting' },
+  { name:'Namecheap', project:'Tuck', cost:12, cycle:'yearly', status:'active', note:'Domain: tuckapp.site' },
+  { name:'Cloudflare', project:'Tuck', cost:0, cycle:'monthly', status:'free', note:'DNS routing' },
+  { name:'GitHub Pages', project:'SMB Dashboard', cost:0, cycle:'monthly', status:'free', note:'Static hosting' },
+  { name:'GitHub Actions', project:'Lunch Notifier', cost:0, cycle:'monthly', status:'free', note:'Cron workflow — weekdays 7 AM' },
+  { name:'Pushover', project:'Lunch Notifier', cost:5, cycle:'one-time', status:'active', note:'$5 one-time (or 30-day trial)' },
+];
+
+// ═══════════════════════════════════════════════════════
+// ENGINE
+// ═══════════════════════════════════════════════════════
+let view = 'dashboard';
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function dotCls(s) { return 'dot dot-' + s; }
+function pillCls(s) { return 'pill pill-' + s; }
+function moTotal() {
+    let t = 0;
+    SUBS.forEach(s => {
+        if ((s.status === 'active' || s.status === 'trial') && s.cycle === 'monthly') t += s.cost;
+        if ((s.status === 'active' || s.status === 'trial') && s.cycle === 'yearly') t += s.cost / 12;
+    });
+    return Math.round(t);
+}
+
+function renderSidebar() {
+    const sb = document.getElementById('sidebar');
+    const a = id => view === id ? 'active' : '';
+    const groups = {
+        building: P.filter(p => p.status === 'building'),
+        live: P.filter(p => p.status === 'live'),
+        complete: P.filter(p => p.status === 'complete'),
+        reference: P.filter(p => p.status === 'reference'),
     };
+    const items = (arr) => arr.map(p => `
+        <div class="sidebar-item ${a(p.id)}" onclick="showProject('${p.id}')">
+            <span class="sidebar-icon">${p.icon}</span>
+            <span class="sidebar-name">${esc(p.name)}</span>
+            <span class="${dotCls(p.status)}"></span>
+        </div>
+    `).join('');
 
-    const REPOS = [
-        {
-            name: "frontdesk-ai",
-            desc: "AI-powered chat widget for local businesses. Embeddable on any website.",
-            url: "https://github.com/sunilmsft/frontdesk-ai",
-            priv: false, lang: "JavaScript",
-            updated: "2026-05-17",
-            live: null,
-            localPath: "c:\\Users\\sunilve\\OneDrive\\GitHub Copilot Fun Projects\\frontdesk-ai",
-        },
-        {
-            name: "smb-automation",
-            desc: "Tim and Sunil — SMB Automation & AI project dashboard.",
-            url: "https://github.com/sunilmsft/smb-automation",
-            priv: false, lang: "HTML",
-            updated: "2026-05-17",
-            live: "https://sunilmsft.github.io/smb-automation/",
-            localPath: "c:\\Users\\sunilve\\OneDrive\\GitHub Copilot Fun Projects\\Tim and Sunil building Stuff!",
-        },
-        {
-            name: "ecommerce-voice-ai-prototype",
-            desc: "AI-powered voice agent prototype for eCommerce web chat.",
-            url: "https://github.com/sunilmsft/ecommerce-voice-ai-prototype",
-            priv: false, lang: "HTML",
-            updated: "2026-05-17",
-            live: null,
-            localPath: null,
-        },
-        {
-            name: "consent-ux-prototype",
-            desc: "Ask Microsoft — Consent & Identity UX Prototype for stakeholder review.",
-            url: "https://github.com/sunilmsft/consent-ux-prototype",
-            priv: false, lang: "HTML",
-            updated: "2026-05-15",
-            live: null,
-            localPath: null,
-        },
-        {
-            name: "swoop",
-            desc: "Missed-call text-back MVP for small businesses. Auto follow-ups + lead tracking.",
-            url: "https://github.com/sunilmsft/swoop",
-            priv: false, lang: "HTML",
-            updated: "2026-05-12",
-            live: null,
-            localPath: "c:\\Users\\sunilve\\OneDrive\\GitHub Copilot Fun Projects\\swoop",
-        },
-        {
-            name: "Tuck",
-            desc: "Save anything, find it later. Personal bookmarking/save tool.",
-            url: "https://github.com/sunilmsft/Tuck",
-            priv: true, lang: "JavaScript",
-            updated: "2026-05-08",
-            live: "https://tuck-red.vercel.app",
-            localPath: null,
-        },
-        {
-            name: "sunilvenugopal.com",
-            desc: "Personal website / portfolio.",
-            url: "https://github.com/sunilmsft/sunilvenugopal.com",
-            priv: false, lang: "HTML",
-            updated: "2026-05-05",
-            live: "https://sunilvenugopal-com.vercel.app",
-            localPath: null,
-        },
-        {
-            name: "side-project-ideas",
-            desc: "Brainstorm ideas for side projects.",
-            url: "https://github.com/sunilmsft/side-project-ideas",
-            priv: false, lang: "HTML",
-            updated: "2026-05-04",
-            live: null,
-            localPath: null,
-        },
-        {
-            name: "lunch-menu-notifier",
-            desc: "Lunch menu notification tool.",
-            url: "https://github.com/sunilmsft/lunch-menu-notifier",
-            priv: true, lang: "Python",
-            updated: "2026-05-04",
-            live: null,
-            localPath: null,
-        },
-        {
-            name: "dev-setup-tips",
-            desc: "Developer setup tips and configuration guides.",
-            url: "https://github.com/sunilmsft/dev-setup-tips",
-            priv: false, lang: "HTML",
-            updated: "2026-04-30",
-            live: null,
-            localPath: null,
-        },
-        {
-            name: "ms-voluntary-retirement-toolkit",
-            desc: "Community toolkit for Microsoft employees navigating the voluntary retirement program.",
-            url: "https://github.com/sunilmsft/ms-voluntary-retirement-toolkit",
-            priv: false, lang: "HTML",
-            updated: "2026-04-29",
-            live: null,
-            localPath: null,
-        },
-        {
-            name: "prep-life-after-ms",
-            desc: "Personal planning tool for life transition.",
-            url: "https://github.com/sunilmsft/prep-life-after-ms",
-            priv: false, lang: "HTML",
-            updated: "2026-04-29",
-            live: null,
-            localPath: null,
-        },
-        {
-            name: "ask-microsoft-redesign",
-            desc: "Ask Microsoft site redesign prototype.",
-            url: "https://github.com/sunilmsft/ask-microsoft-redesign",
-            priv: false, lang: "HTML",
-            updated: "2026-04-22",
-            live: null,
-            localPath: null,
-        },
-        {
-            name: "homeops-hub",
-            desc: "Home operations dashboard.",
-            url: "https://github.com/sunilmsft/homeops-hub",
-            priv: false, lang: "TypeScript",
-            updated: "2026-03-17",
-            live: null,
-            localPath: null,
-        },
+    sb.innerHTML = `
+        <div class="sidebar-section">
+            <div class="sidebar-label">Views</div>
+            <div class="sidebar-item ${a('dashboard')}" onclick="showDash()">
+                <span class="sidebar-icon">📋</span><span class="sidebar-name">Dashboard</span>
+            </div>
+            <div class="sidebar-item ${a('subs')}" onclick="showSubs()">
+                <span class="sidebar-icon">💳</span><span class="sidebar-name">Subscriptions</span>
+                <span class="sidebar-badge">$${moTotal()}</span>
+            </div>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Building (${groups.building.length})</div>
+            ${items(groups.building)}
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Live (${groups.live.length})</div>
+            ${items(groups.live)}
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Complete (${groups.complete.length})</div>
+            ${items(groups.complete)}
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Reference (${groups.reference.length})</div>
+            ${items(groups.reference)}
+        </div>
+    `;
+}
+
+function stats() {
+    document.getElementById('st-total').textContent = P.length;
+    document.getElementById('st-deployed').textContent = P.filter(p => p.deployed).length;
+    document.getElementById('st-cost').textContent = '$' + moTotal();
+}
+
+// ── Dashboard ─────────────────────────────────────────
+function showDash() {
+    view = 'dashboard'; renderSidebar();
+    const m = document.getElementById('main');
+    const groups = [
+        ['Active Builds', P.filter(p => p.status === 'building')],
+        ['Live / Deployed', P.filter(p => p.status === 'live')],
+        ['Complete', P.filter(p => p.status === 'complete')],
+        ['Reference', P.filter(p => p.status === 'reference')],
     ];
-
-    // ── Render ──────────────────────────────────────────────────────────
-
-    function renderStats() {
-        const liveCount = REPOS.filter(r => r.live).length;
-        const privCount = REPOS.filter(r => r.priv).length;
-        const langs = [...new Set(REPOS.map(r => r.lang).filter(Boolean))];
-
-        document.getElementById('header-count').textContent = `${REPOS.length} repos across 1 account`;
-        document.getElementById('personal-count').textContent = `${REPOS.length} repos`;
-        document.getElementById('stats-bar').innerHTML = `
-            <div class="stat"><span class="stat-num">${REPOS.length}</span><span class="stat-label">Total Repos</span></div>
-            <div class="stat"><span class="stat-num">${REPOS.length - privCount}</span><span class="stat-label">Public</span></div>
-            <div class="stat"><span class="stat-num">${privCount}</span><span class="stat-label">Private</span></div>
-            <div class="stat"><span class="stat-num">${liveCount}</span><span class="stat-label">Live / Deployed</span></div>
-            <div class="stat"><span class="stat-num">${langs.length}</span><span class="stat-label">Languages</span></div>
-        `;
+    let h = '';
+    for (const [label, arr] of groups) {
+        if (!arr.length) continue;
+        h += `<div class="section-label">${label} (${arr.length})</div><div class="dash-grid">`;
+        h += arr.map(p => `
+            <div class="dash-card" onclick="showProject('${p.id}')">
+                <div class="dash-card-head">
+                    <span class="dash-card-icon">${p.icon}</span>
+                    <span class="${pillCls(p.status)}">${p.label}</span>
+                </div>
+                <h3>${esc(p.name)}</h3>
+                <p>${esc(p.desc)}</p>
+                <div class="dash-card-tech">${p.tech.slice(0,4).map(t=>`<span class="tech-pill">${esc(t)}</span>`).join('')}</div>
+            </div>
+        `).join('');
+        h += '</div>';
     }
+    m.innerHTML = h;
+}
 
-    let activeFilter = 'all';
+// ── Project Detail ────────────────────────────────────
+function showProject(id) {
+    const p = P.find(x => x.id === id);
+    if (!p) return;
+    view = id; renderSidebar();
+    const subs = SUBS.filter(s => s.project === p.name);
+    const m = document.getElementById('main');
 
-    function renderFilters() {
-        const langs = [...new Set(REPOS.map(r => r.lang).filter(Boolean))].sort();
-        const bar = document.getElementById('filter-bar');
-        bar.innerHTML = `
-            <button class="filter-btn ${activeFilter === 'all' ? 'active' : ''}" onclick="setFilter('all')">All</button>
-            <button class="filter-btn ${activeFilter === 'live' ? 'active' : ''}" onclick="setFilter('live')">Live</button>
-            <button class="filter-btn ${activeFilter === 'private' ? 'active' : ''}" onclick="setFilter('private')">Private</button>
-            ${langs.map(l => `<button class="filter-btn ${activeFilter === l ? 'active' : ''}" onclick="setFilter('${l}')">${l}</button>`).join('')}
-        `;
-    }
+    m.innerHTML = `
+        <div class="detail-head">
+            <div>
+                <div class="detail-title">
+                    <span class="icon">${p.icon}</span>
+                    <h2>${esc(p.name)}</h2>
+                    <span class="${pillCls(p.status)}">${p.label}</span>
+                </div>
+                <div class="detail-sub">${esc(p.desc)}</div>
+            </div>
+            <div class="detail-btns">
+                ${p.local ? `<a href="vscode://file/${encodeURI(p.local)}" class="btn btn-primary">Open in VS Code</a>` : ''}
+                ${p.repoUrl ? `<a href="${p.repoUrl}" target="_blank" class="btn btn-secondary">GitHub</a>` : ''}
+                ${p.liveUrl ? `<a href="${p.liveUrl}" target="_blank" class="btn btn-link">Live →</a>` : ''}
+            </div>
+        </div>
 
-    function setFilter(f) {
-        activeFilter = f;
-        renderFilters();
-        renderRepos();
-    }
-
-    function renderFeatured() {
-        const grid = document.getElementById('featured-grid');
-        grid.innerHTML = FEATURED.map(p => `
-            <div class="project-card">
-                <div class="card-top">
-                    <div class="card-status-strip status-${p.status}"></div>
-                    <div class="card-main">
-                        <div class="card-header">
-                            <div class="card-title-area">
-                                <div class="card-title">${p.icon} ${esc(p.name)}</div>
-                                <div class="card-subtitle">${esc(p.subtitle)}</div>
-                            </div>
-                            <span class="status-badge badge-${p.status}">${p.statusLabel}</span>
-                        </div>
-                        <div class="card-desc">${esc(p.description)}</div>
-                        <div class="card-built">
-                            <div class="card-built-title">What's Built</div>
-                            <ul>${p.built.map(b => `<li>${esc(b)}</li>`).join('')}</ul>
-                        </div>
-                        <div class="card-tech">
-                            ${p.tech.map(t => `<span class="tech-pill">${esc(t)}</span>`).join('')}
-                        </div>
-                        <div class="pricing-note">
-                            ${p.pricing !== "Internal tool" ? "💰" : "🔒"} ${esc(p.pricing)}
-                        </div>
-                        <div class="card-actions">
-                            <a href="vscode://file/${encodeURI(p.localPath.replace(/\\\\/g, '/'))}"
-                               class="btn btn-primary">Open in VS Code</a>
-                            <a href="${p.repoUrl}" target="_blank" class="btn btn-secondary">GitHub Repo</a>
-                            ${p.liveUrl
-                                ? `<a href="${p.liveUrl}" target="_blank" class="btn btn-link">Live Site →</a>`
-                                : ''}
-                        </div>
+        <div class="info-grid">
+            <div class="info-box">
+                <div class="info-box-label">What's Built (${p.built.length} items)</div>
+                <ul>${p.built.map(b => `<li>${esc(b)}</li>`).join('')}</ul>
+            </div>
+            <div class="info-box">
+                <div class="info-box-label">Tech Stack</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.3rem;margin-bottom:0.6rem;">
+                    ${p.tech.map(t => `<span class="tech-pill">${esc(t)}</span>`).join('')}
+                </div>
+                ${p.pricing ? `<div style="font-size:0.82rem;color:var(--cp-text-muted);margin-top:0.5rem;">💰 ${esc(p.pricing)}</div>` : ''}
+                ${p.env.length ? `
+                    <div class="info-box-label" style="margin-top:0.65rem;">Env Variables</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:0.25rem;">
+                        ${p.env.map(v => `<span class="env-tag">${esc(v)}</span>`).join('')}
                     </div>
-                </div>
+                ` : ''}
             </div>
-        `).join('');
-    }
+        </div>
 
-    function renderRepos() {
-        const query = document.getElementById('search').value.toLowerCase();
-        let filtered = REPOS;
-
-        if (query) {
-            filtered = filtered.filter(r =>
-                r.name.toLowerCase().includes(query) ||
-                r.desc.toLowerCase().includes(query) ||
-                (r.lang && r.lang.toLowerCase().includes(query))
-            );
-        }
-
-        if (activeFilter === 'live') filtered = filtered.filter(r => r.live);
-        else if (activeFilter === 'private') filtered = filtered.filter(r => r.priv);
-        else if (activeFilter !== 'all') filtered = filtered.filter(r => r.lang === activeFilter);
-
-        const grid = document.getElementById('repo-grid');
-        grid.innerHTML = filtered.map(r => `
-            <div class="repo-card">
-                <div class="repo-name">
-                    ${esc(r.name)}
-                    ${r.priv ? '<span class="private-badge">Private</span>' : ''}
-                </div>
-                <div class="repo-desc">${esc(r.desc)}</div>
-                <div class="repo-meta">
-                    ${r.lang ? `<span class="lang-dot" style="background:${LANG_COLORS[r.lang] || 'var(--cp-text-muted)'}"></span><span class="lang-label">${r.lang}</span>` : ''}
-                    <span class="updated-label">Updated ${formatDate(r.updated)}</span>
-                </div>
-                <div class="repo-links">
-                    ${r.localPath
-                        ? `<a href="vscode://file/${encodeURI(r.localPath.replace(/\\\\/g, '/'))}" class="btn btn-primary" style="padding:0.35rem 0.75rem;font-size:0.8rem;">VS Code</a>`
-                        : ''}
-                    <a href="${r.url}" target="_blank" class="btn btn-secondary" style="padding:0.35rem 0.75rem;font-size:0.8rem;">Repo</a>
-                    ${r.live
-                        ? `<a href="${r.live}" target="_blank" class="btn btn-link" style="font-size:0.8rem;">Live →</a>`
-                        : ''}
-                </div>
+        ${subs.length ? `
+            <div class="info-box">
+                <div class="info-box-label">Services & Subscriptions</div>
+                <table class="sub-tbl">
+                    <thead><tr><th>Service</th><th>Cost</th><th>Billing</th><th>Status</th><th>Notes</th></tr></thead>
+                    <tbody>${subs.map(s => `
+                        <tr>
+                            <td style="font-weight:600;">${esc(s.name)}</td>
+                            <td>${s.cost === 0 ? 'Free' : (s.cycle==='one-time' ? '$'+s.cost : '$'+s.cost+'/'+(s.cycle==='yearly'?'yr':'mo'))}</td>
+                            <td style="color:var(--cp-text-muted);font-size:0.78rem;">${s.cycle}</td>
+                            <td><span class="sub-badge sb-${s.status}">${s.status}</span></td>
+                            <td style="font-size:0.78rem;color:var(--cp-text-soft);">${esc(s.note)}</td>
+                        </tr>
+                    `).join('')}</tbody>
+                </table>
             </div>
-        `).join('');
+        ` : ''}
+    `;
+}
 
-        if (filtered.length === 0) {
-            grid.innerHTML = '<div style="color:var(--cp-text-muted);font-size:0.9rem;padding:2rem;text-align:center;">No repos match your search.</div>';
-        }
-    }
+// ── Subscriptions ─────────────────────────────────────
+function showSubs() {
+    view = 'subs'; renderSidebar();
+    const m = document.getElementById('main');
+    const mo = moTotal();
+    const paid = SUBS.filter(s => s.status === 'active' && s.cost > 0);
+    const free = SUBS.filter(s => s.status === 'free' || s.cost === 0);
 
-    function formatDate(d) {
-        const date = new Date(d);
-        const now = new Date();
-        const diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
-        if (diffDays === 0) return 'today';
-        if (diffDays === 1) return 'yesterday';
-        if (diffDays < 7) return `${diffDays}d ago`;
-        if (diffDays < 30) return `${Math.floor(diffDays / 7)}w ago`;
-        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    }
+    m.innerHTML = `
+        <div class="view-title">Subscriptions & Services</div>
+        <div class="view-sub">All paid services, free tiers, and API usage across ${P.length} projects.</div>
 
-    function esc(str) {
-        const div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML;
-    }
+        <div class="sub-summary">
+            <div class="sub-stat"><div class="label">Monthly</div><div class="val" style="color:var(--cp-accent);">$${mo}</div></div>
+            <div class="sub-stat"><div class="label">Yearly Est.</div><div class="val" style="color:var(--cp-warning);">$${mo*12}</div></div>
+            <div class="sub-stat"><div class="label">Paid</div><div class="val">${paid.length}</div></div>
+            <div class="sub-stat"><div class="label">Free</div><div class="val" style="color:var(--cp-success);">${free.length}</div></div>
+        </div>
 
-    function toggleTheme() {
-        const current = document.documentElement.getAttribute('data-theme');
-        document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
-    }
+        <div class="info-box">
+            <div class="info-box-label">All Services</div>
+            <table class="sub-tbl">
+                <thead><tr><th>Service</th><th>Project</th><th>Cost</th><th>Billing</th><th>Status</th><th>Notes</th></tr></thead>
+                <tbody>${SUBS.map(s => `
+                    <tr>
+                        <td style="font-weight:600;">${esc(s.name)}</td>
+                        <td><span style="cursor:pointer;color:var(--cp-link);" onclick="showByName('${esc(s.project)}')">${esc(s.project)}</span></td>
+                        <td>${s.cost === 0 ? 'Free' : (s.cycle==='one-time' ? '$'+s.cost+' once' : '$'+s.cost+'/'+(s.cycle==='yearly'?'yr':'mo'))}</td>
+                        <td style="color:var(--cp-text-muted);font-size:0.78rem;">${s.cycle}</td>
+                        <td><span class="sub-badge sb-${s.status}">${s.status}</span></td>
+                        <td style="font-size:0.78rem;color:var(--cp-text-soft);">${esc(s.note)}</td>
+                    </tr>
+                `).join('')}</tbody>
+            </table>
+        </div>
 
-    renderStats();
-    renderFeatured();
-    renderFilters();
-    renderRepos();
-    </script>
+        <div class="review-box">
+            <h4>⚠️ Worth Reviewing</h4>
+            <ul>
+                <li>• <strong>Render $7/mo</strong> (Tuck API) — Actively using Tuck? Could downgrade to free tier.</li>
+                <li>• <strong>Twilio ~$1/mo</strong> (Swoop) — Holding a phone number even without customers.</li>
+                <li>• <strong>Namecheap $12/yr</strong> (tuckapp.site) — Check renewal date. Cancel if unused.</li>
+                <li>• <strong>OpenAI API</strong> (Swoop) — Usage-based but check for unexpected charges.</li>
+                <li>• <strong>Pushover $5</strong> (Lunch Notifier) — Confirm purchase vs expired trial.</li>
+            </ul>
+        </div>
+    `;
+}
+
+function showByName(name) {
+    const p = P.find(x => x.name === name);
+    if (p) showProject(p.id);
+}
+
+function toggleTheme() {
+    const c = document.documentElement.getAttribute('data-theme');
+    document.documentElement.setAttribute('data-theme', c === 'dark' ? 'light' : 'dark');
+}
+
+// ── Init ──────────────────────────────────────────────
+stats(); showDash();
+</script>
 </body>
 </html>

@@ -696,18 +696,39 @@ function buildByServiceTable() {
 }
 
 function buildByProjectTable() {
-    return `<table class="sub-tbl">
-        <thead><tr><th>Service</th><th>Project</th><th>Cost</th><th>Billing</th><th>Status</th><th>Notes</th></tr></thead>
-        <tbody>${SUBS.map(s => `
-            <tr>
+    const grouped = {};
+    SUBS.forEach(s => {
+        if (!grouped[s.project]) grouped[s.project] = { subs: [], totalMo: 0 };
+        grouped[s.project].subs.push(s);
+        grouped[s.project].totalMo += moNorm(s);
+    });
+    const sorted = Object.entries(grouped).sort((a, b) => b[1].totalMo - a[1].totalMo);
+    let rows = '';
+    for (const [proj, g] of sorted) {
+        const hasPaid = g.subs.some(s => s.cost > 0);
+        const totalLabel = g.totalMo > 0 ? '$' + g.totalMo.toFixed(2) + '/mo' : 'Free';
+        const totalStyle = hasPaid ? 'font-weight:700;color:var(--cp-accent);' : 'color:var(--cp-text-muted);';
+        rows += `<tr>
+            <td style="font-weight:700;cursor:pointer;color:var(--cp-link);" rowspan="${g.subs.length}" onclick="showByName('${esc(proj)}')">${esc(proj)}</td>
+            <td style="font-weight:600;">${esc(g.subs[0].name)}</td>
+            <td>${costStr(g.subs[0])}</td>
+            <td><span class="sub-badge sb-${g.subs[0].status}">${g.subs[0].status}</span></td>
+            <td style="font-size:0.78rem;color:var(--cp-text-soft);">${esc(g.subs[0].note)}</td>
+            <td rowspan="${g.subs.length}" style="${totalStyle}">${totalLabel}</td>
+        </tr>`;
+        for (let i = 1; i < g.subs.length; i++) {
+            const s = g.subs[i];
+            rows += `<tr>
                 <td style="font-weight:600;">${esc(s.name)}</td>
-                <td><span style="cursor:pointer;color:var(--cp-link);" onclick="showByName('${esc(s.project)}')">${esc(s.project)}</span></td>
                 <td>${costStr(s)}</td>
-                <td style="color:var(--cp-text-muted);font-size:0.78rem;">${s.cycle}</td>
                 <td><span class="sub-badge sb-${s.status}">${s.status}</span></td>
                 <td style="font-size:0.78rem;color:var(--cp-text-soft);">${esc(s.note)}</td>
-            </tr>
-        `).join('')}</tbody>
+            </tr>`;
+        }
+    }
+    return `<table class="sub-tbl">
+        <thead><tr><th>Project</th><th>Service</th><th>Cost</th><th>Status</th><th>Notes</th><th>All-Up /mo</th></tr></thead>
+        <tbody>${rows}</tbody>
     </table>`;
 }
 

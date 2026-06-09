@@ -200,17 +200,17 @@
 <div class="card">
     <h3>1️⃣ Visual Studio Code <span class="badge badge-green">Free</span></h3>
     <ul>
-        <li>Download from <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a></li>
-        <li>Install with default settings</li>
+        <li><a href="https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user" target="_blank"><strong>⬇️ Download VS Code for Windows (64-bit)</strong></a></li>
+        <li>Install with default settings — check "Add to PATH" if prompted</li>
     </ul>
 </div>
 
 <div class="card">
     <h3>2️⃣ Git <span class="badge badge-green">Free</span></h3>
     <ul>
-        <li>Download from <a href="https://git-scm.com" target="_blank">git-scm.com</a></li>
+        <li><a href="https://git-scm.com/downloads/win" target="_blank"><strong>⬇️ Download Git for Windows</strong></a></li>
         <li>Accept all defaults during install</li>
-        <li>Then configure your identity:</li>
+        <li>Then open a terminal (PowerShell or VS Code terminal) and run:</li>
     </ul>
     <pre>git config --global user.name "Sunil Venugopal"
 git config --global user.email "sunil1308@gmail.com"</pre>
@@ -219,42 +219,47 @@ git config --global user.email "sunil1308@gmail.com"</pre>
 <div class="card">
     <h3>3️⃣ GitHub CLI <span class="badge badge-green">Free</span></h3>
     <ul>
-        <li>Download from <a href="https://cli.github.com" target="_blank">cli.github.com</a></li>
-        <li>After install, authenticate:</li>
+        <li><a href="https://github.com/cli/cli/releases/latest" target="_blank"><strong>⬇️ Download GitHub CLI (gh_*_windows_amd64.msi)</strong></a></li>
+        <li>After install, open terminal and authenticate:</li>
     </ul>
     <pre>gh auth login
-# Choose: GitHub.com → HTTPS → Login with browser</pre>
+# Choose: GitHub.com → HTTPS → Login with browser
+# This opens your browser — sign in as sunilmsft</pre>
 </div>
 
 <div class="card">
     <h3>4️⃣ Node.js (LTS) <span class="badge badge-green">Free</span></h3>
     <p>Required for: Swoop, FrontDesk AI, Tuck, HomeOps Hub, Kolo, Project Cushion</p>
     <ul>
-        <li>Download LTS from <a href="https://nodejs.org" target="_blank">nodejs.org</a></li>
+        <li><a href="https://nodejs.org/en/download/" target="_blank"><strong>⬇️ Download Node.js LTS for Windows</strong></a></li>
         <li>This also installs <code>npm</code> (package manager)</li>
         <li>Verify after install:</li>
     </ul>
-    <pre>node --version   # Should show v20+ or v22+
+    <pre>node --version   # Should show v22+
 npm --version    # Should show 10+</pre>
 </div>
 
 <div class="card">
     <h3>5️⃣ Python 3 <span class="badge badge-green">Free</span></h3>
-    <p>Required for: Lunch Menu Notifier</p>
+    <p>Required for: Lunch Menu Notifier (optional — skip if not using)</p>
     <ul>
-        <li>Download from <a href="https://python.org/downloads" target="_blank">python.org</a></li>
-        <li>✅ Check "Add Python to PATH" during install</li>
+        <li><a href="https://www.python.org/downloads/" target="_blank"><strong>⬇️ Download Python 3</strong></a></li>
+        <li>✅ IMPORTANT: Check <strong>"Add Python to PATH"</strong> on the first install screen</li>
         <li>Verify: <code>python --version</code></li>
     </ul>
 </div>
 
 <div class="card">
-    <h3>6️⃣ GitHub Copilot Extension <span class="badge badge-blue">In VS Code</span></h3>
+    <h3>6️⃣ GitHub Copilot <span class="badge badge-blue">Subscribe + Install Extension</span></h3>
     <ul>
-        <li>Open VS Code → Extensions (<code>Ctrl+Shift+X</code>)</li>
-        <li>Search <strong>"GitHub Copilot"</strong> → Install</li>
-        <li>Sign in with your GitHub account (<code>sunilmsft</code>)</li>
+        <li><a href="https://github.com/features/copilot/plans" target="_blank"><strong>🔑 Subscribe to Copilot Pro+ ($39/mo)</strong></a> — sign in as <code>sunilmsft</code></li>
+        <li>Then in VS Code: Extensions (<code>Ctrl+Shift+X</code>) → Search <strong>"GitHub Copilot"</strong> → Install</li>
+        <li>Sign in with your GitHub account when prompted</li>
+        <li>Test: Press <code>Ctrl+Shift+I</code> → type "hello" → should get a response</li>
     </ul>
+    <div class="recommend">
+        💡 <strong>Why Pro+ ($39/mo)?</strong> You currently have unlimited premium models (Claude Opus, etc.) through Microsoft. Pro+ is the closest match. You can downgrade to Pro ($10/mo) later if you don't need the premium models.
+    </div>
 </div>
 
 <!-- ===== COPILOT PLANS ===== -->

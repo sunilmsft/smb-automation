@@ -190,19 +190,18 @@
 
 <div class="header">
     <h1>🛠️ Personal Laptop Setup Guide</h1>
-    <p>Continue the SMB Automation project from your personal machine</p>
+    <p>Set up everything to work on ALL your projects from your personal machine</p>
 </div>
 
 <!-- ===== PREREQUISITES ===== -->
-<h2>Step 1 — Install Prerequisites</h2>
-<p>You need three things. All free except Copilot (optional paid plan).</p>
+<h2>Step 1 — Install Core Tools</h2>
+<p>These are needed for every project. All free.</p>
 
 <div class="card">
     <h3>1️⃣ Visual Studio Code <span class="badge badge-green">Free</span></h3>
     <ul>
         <li>Download from <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a></li>
         <li>Install with default settings</li>
-        <li>Works on Windows, Mac, or Linux</li>
     </ul>
 </div>
 
@@ -210,21 +209,51 @@
     <h3>2️⃣ Git <span class="badge badge-green">Free</span></h3>
     <ul>
         <li>Download from <a href="https://git-scm.com" target="_blank">git-scm.com</a></li>
-        <li>During install, accept all defaults</li>
-        <li>After install, open a terminal and set your identity:</li>
+        <li>Accept all defaults during install</li>
+        <li>Then configure your identity:</li>
     </ul>
-    <pre>git config --global user.name "Your Name"
-git config --global user.email "your-email@example.com"</pre>
+    <pre>git config --global user.name "Sunil Venugopal"
+git config --global user.email "sunil1308@gmail.com"</pre>
 </div>
 
 <div class="card">
-    <h3>3️⃣ GitHub Copilot Extension <span class="badge badge-blue">In VS Code</span></h3>
+    <h3>3️⃣ GitHub CLI <span class="badge badge-green">Free</span></h3>
     <ul>
-        <li>Open VS Code</li>
-        <li>Go to Extensions (<code>Ctrl+Shift+X</code>)</li>
-        <li>Search for <strong>"GitHub Copilot"</strong></li>
-        <li>Click Install (it will also install "GitHub Copilot Chat")</li>
-        <li>Sign in with your GitHub account when prompted</li>
+        <li>Download from <a href="https://cli.github.com" target="_blank">cli.github.com</a></li>
+        <li>After install, authenticate:</li>
+    </ul>
+    <pre>gh auth login
+# Choose: GitHub.com → HTTPS → Login with browser</pre>
+</div>
+
+<div class="card">
+    <h3>4️⃣ Node.js (LTS) <span class="badge badge-green">Free</span></h3>
+    <p>Required for: Swoop, FrontDesk AI, Tuck, HomeOps Hub, Kolo, Project Cushion</p>
+    <ul>
+        <li>Download LTS from <a href="https://nodejs.org" target="_blank">nodejs.org</a></li>
+        <li>This also installs <code>npm</code> (package manager)</li>
+        <li>Verify after install:</li>
+    </ul>
+    <pre>node --version   # Should show v20+ or v22+
+npm --version    # Should show 10+</pre>
+</div>
+
+<div class="card">
+    <h3>5️⃣ Python 3 <span class="badge badge-green">Free</span></h3>
+    <p>Required for: Lunch Menu Notifier</p>
+    <ul>
+        <li>Download from <a href="https://python.org/downloads" target="_blank">python.org</a></li>
+        <li>✅ Check "Add Python to PATH" during install</li>
+        <li>Verify: <code>python --version</code></li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>6️⃣ GitHub Copilot Extension <span class="badge badge-blue">In VS Code</span></h3>
+    <ul>
+        <li>Open VS Code → Extensions (<code>Ctrl+Shift+X</code>)</li>
+        <li>Search <strong>"GitHub Copilot"</strong> → Install</li>
+        <li>Sign in with your GitHub account (<code>sunilmsft</code>)</li>
     </ul>
 </div>
 
@@ -243,82 +272,199 @@ git config --global user.email "your-email@example.com"</pre>
 </table>
 
 <div class="recommend">
-    💡 <strong>Recommendation:</strong> Start with <strong>Pro ($10/mo)</strong> — unlimited chat and completions is all you need. Upgrade to Pro+ later if you want the most advanced models.
+    💡 <strong>Recommendation:</strong> Start with <strong>Pro ($10/mo)</strong> — unlimited chat and completions is all you need.
 </div>
 
 <p>Sign up at <a href="https://github.com/features/copilot" target="_blank">github.com/features/copilot</a></p>
 
-<!-- ===== OPEN PROJECT ===== -->
-<h2>Step 3 — Open the Project</h2>
-<p>Pick whichever option is easier for you:</p>
-
-<div class="option-tabs">
-    <div class="option-tab recommended">Option A — OneDrive (Easiest)</div>
-    <div class="option-tab">Option B — Git Clone</div>
-</div>
+<!-- ===== GET ALL PROJECTS ===== -->
+<h2>Step 3 — Get All Projects</h2>
+<p>All projects live in OneDrive. If that's synced, you already have everything. Otherwise, clone from GitHub.</p>
 
 <div class="card">
-    <h3>Option A: OneDrive <span class="badge badge-green">Recommended</span></h3>
-    <p>The project folder is already on your personal OneDrive, so it syncs automatically:</p>
-    <div class="step"><span class="step-num">1</span><p>Sign into OneDrive on your personal laptop (if not already)</p></div>
+    <h3>Option A: OneDrive Sync <span class="badge badge-green">Recommended</span></h3>
+    <div class="step"><span class="step-num">1</span><p>Sign into OneDrive on your personal laptop</p></div>
     <div class="step"><span class="step-num">2</span><p>Wait for sync to complete</p></div>
-    <div class="step"><span class="step-num">3</span><p>Open VS Code</p></div>
-    <div class="step"><span class="step-num">4</span><p><strong>File → Open Folder</strong> → navigate to:</p></div>
-    <pre>OneDrive\GitHub Copilot Fun Projects\Tim and Sunil building Stuff!</pre>
-    <div class="step"><span class="step-num">5</span><p>Done — all files including git history are already there</p></div>
+    <div class="step"><span class="step-num">3</span><p>All project folders are under:</p></div>
+    <pre>OneDrive\GitHub Copilot Fun Projects\</pre>
+    <p>This includes: frontdesk-ai, swoop, Loopi (Kolo), Tuck, Project Cushion, Tim and Sunil building Stuff!, School Projects/lunch-menu-notifier, and more.</p>
 </div>
 
 <div class="card">
-    <h3>Option B: Git Clone</h3>
-    <p>If OneDrive isn't set up, clone fresh from GitHub:</p>
-    <pre>cd ~\Documents
-git clone https://github.com/sunilmsft/smb-automation.git
-cd smb-automation
-code .</pre>
+    <h3>Option B: Clone from GitHub</h3>
+    <p>If OneDrive isn't available, clone the repos you need:</p>
+    <pre>cd ~\Projects
+gh repo clone sunilmsft/smb-automation
+gh repo clone sunilmsft/frontdesk-ai
+gh repo clone sunilmsft/swoop
+gh repo clone sunilmsft/Tuck
+gh repo clone sunilmsft/homeops-hub
+gh repo clone sunilmsft/lunch-menu-notifier</pre>
     <div class="note">
-        ℹ️ If this is a fresh clone, you'll need to authenticate with GitHub. Install <a href="https://cli.github.com" target="_blank">GitHub CLI</a> and run <code>gh auth login</code>.
+        ℹ️ Not all projects are on GitHub yet (Kolo, Project Cushion are local/OneDrive only).
     </div>
 </div>
 
-<!-- ===== VERIFY ===== -->
-<h2>Step 4 — Verify Everything Works</h2>
+<!-- ===== PER-PROJECT SETUP ===== -->
+<h2>Step 4 — Per-Project Setup</h2>
+<p>Each project has different dependencies. Run <code>npm install</code> in each project folder that has a <code>package.json</code>.</p>
 
 <div class="card">
-    <h3>✅ Check the file tree</h3>
-    <p>You should see these files:</p>
-    <ul>
-        <li><code>index.html</code> — the main dashboard (~2,000 lines)</li>
-        <li><code>context.md</code> — project context</li>
-        <li><code>memory.md</code> — conversation/decision log</li>
-        <li><code>.github/copilot-instructions.md</code> — Copilot reads this automatically</li>
-    </ul>
+    <h3>📱 Swoop <span class="badge badge-yellow">Node.js</span></h3>
+    <pre>cd "OneDrive\GitHub Copilot Fun Projects\swoop"
+npm install</pre>
+    <p>Env vars needed in <code>.env</code>:</p>
+    <pre>TWILIO_ACCOUNT_SID=your_sid
+TWILIO_AUTH_TOKEN=your_token
+TWILIO_PHONE_NUMBER=+1xxxxxxxxxx
+OPENAI_API_KEY=sk-...</pre>
+    <p>Run: <code>node server.js</code></p>
+</div>
+
+<div class="card">
+    <h3>🏪 FrontDesk AI <span class="badge badge-yellow">Node.js</span></h3>
+    <pre>cd "OneDrive\GitHub Copilot Fun Projects\frontdesk-ai"
+npm install</pre>
+    <p>Env vars needed in <code>.env</code>:</p>
+    <pre>GEMINI_API_KEY=your_gemini_key
+ALLOWED_ORIGINS=http://localhost:3000</pre>
+    <p>Run: <code>node server/index.js</code></p>
+</div>
+
+<div class="card">
+    <h3>👨‍👩‍👧‍👦 Kolo <span class="badge badge-yellow">React + Vite</span></h3>
+    <pre>cd "OneDrive\GitHub Copilot Fun Projects\Loopi"
+npm install</pre>
+    <p>Env vars needed in <code>.env</code>:</p>
+    <pre>VITE_SUPABASE_URL=https://xxx.supabase.co
+VITE_SUPABASE_ANON_KEY=your_anon_key</pre>
+    <p>Run: <code>npm run dev</code></p>
+</div>
+
+<div class="card">
+    <h3>📌 Tuck <span class="badge badge-yellow">React + Express</span></h3>
+    <pre>cd "OneDrive\GitHub Copilot Fun Projects\Tuck"
+npm install</pre>
+    <p>Env vars needed in <code>.env</code>:</p>
+    <pre>AZURE_STORAGE_CONNECTION_STRING=your_connection_string
+USE_LOCAL_STORAGE=true   # for local dev without Azure</pre>
+    <p>Run: <code>npm run dev</code></p>
+</div>
+
+<div class="card">
+    <h3>🏠 HomeOps Hub <span class="badge badge-yellow">Next.js + Prisma</span></h3>
+    <pre>cd "OneDrive\GitHub Copilot Fun Projects"   # root-level homeops
+npm install</pre>
+    <p>Env vars needed in <code>.env</code>:</p>
+    <pre>DATABASE_URL=postgresql://...
+NEXTAUTH_SECRET=any_random_string
+AUTH_GOOGLE_ID=your_google_client_id
+AUTH_GOOGLE_SECRET=your_google_secret</pre>
+    <p>Then run migrations and start:</p>
+    <pre>npx prisma migrate dev
+npm run dev</pre>
+</div>
+
+<div class="card">
+    <h3>💰 Project Cushion <span class="badge badge-yellow">TypeScript CLI</span></h3>
+    <pre>cd "OneDrive\GitHub Copilot Fun Projects\Project Cushion"
+npm install</pre>
+    <p>No env vars needed (100% local, zero cloud). Run tests:</p>
+    <pre>npm test</pre>
+</div>
+
+<div class="card">
+    <h3>🍽️ Lunch Menu Notifier <span class="badge badge-blue">Python</span></h3>
+    <pre>cd "OneDrive\GitHub Copilot Fun Projects\School Projects\lunch-menu-notifier"
+pip install -r requirements.txt</pre>
+    <p>Env vars (set in GitHub Actions secrets, not needed locally unless testing):</p>
+    <pre>PUSHOVER_USER_KEY=your_key
+PUSHOVER_API_TOKEN=your_token</pre>
+</div>
+
+<div class="card">
+    <h3>📊 SMB Dashboard / Command Center <span class="badge badge-green">No setup needed</span></h3>
+    <pre>cd "OneDrive\GitHub Copilot Fun Projects\Tim and Sunil building Stuff!"</pre>
+    <p>Pure HTML — just open <code>index.html</code> or <code>projects.html</code> in a browser. No npm, no build.</p>
+</div>
+
+<!-- ===== VERIFY ===== -->
+<h2>Step 5 — Verify Everything Works</h2>
+
+<div class="card">
+    <h3>✅ Check Git identity and auth</h3>
+    <pre>git config --global user.name    # Should show your name
+git config --global user.email   # Should show your email
+gh auth status                   # Should show logged in as sunilmsft</pre>
+</div>
+
+<div class="card">
+    <h3>✅ Test one project</h3>
+    <p>Pick any project folder and verify:</p>
+    <pre>cd "OneDrive\GitHub Copilot Fun Projects\swoop"
+git status         # Should show clean or modified files
+git log --oneline -3  # Should show recent commits
+npm install        # Should complete without errors
+node server.js     # Should start (Ctrl+C to stop)</pre>
 </div>
 
 <div class="card">
     <h3>✅ Test Copilot Chat</h3>
-    <p>Press <code>Ctrl+Shift+I</code> (or click the Copilot icon in the sidebar)</p>
-    <p>Ask it: <strong>"What is this project about?"</strong></p>
-    <p>It should know the answer — because it reads <code>.github/copilot-instructions.md</code> automatically.</p>
+    <p>Open the SMB Dashboard folder in VS Code, then press <code>Ctrl+Shift+I</code></p>
+    <p>Ask: <strong>"What is this project about?"</strong></p>
+    <p>It should know — because it reads <code>.github/copilot-instructions.md</code> automatically.</p>
 </div>
 
 <div class="card">
-    <h3>✅ Test Git</h3>
-    <p>Open the terminal in VS Code (<code>Ctrl+`</code>) and run:</p>
-    <pre>git status
-git log --oneline -5</pre>
-    <p>You should see recent commits.</p>
+    <h3>✅ Test push to GitHub</h3>
+    <pre>cd "OneDrive\GitHub Copilot Fun Projects\Tim and Sunil building Stuff!"
+echo "test" >> test.txt
+git add test.txt
+git commit -m "test push from personal laptop"
+git push
+# Then delete: git rm test.txt && git commit -m "cleanup" && git push</pre>
+    <div class="warn">
+        ⚠️ <code>git push</code> shows stderr (exit code 1) — this is normal. The push succeeds.
+    </div>
 </div>
 
-<!-- ===== PUSH ===== -->
-<h2>Step 5 — Push Changes to GitHub Pages</h2>
+<!-- ===== SUBSCRIPTIONS ===== -->
+<h2>Step 6 — Subscriptions & Accounts You Need</h2>
+<p>Here's every service across all your projects. Log in to each and verify access.</p>
 
-<p>When you make edits and want them to go live:</p>
-<pre>git add -A
-git commit -m "Your commit message here"
-git push</pre>
+<h3>💳 Paid Subscriptions (currently ~$9/mo)</h3>
+<table>
+    <thead>
+        <tr><th>Service</th><th>Cost</th><th>For</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>GitHub Copilot Pro</strong></td><td>$10/mo</td><td>All projects</td><td><a href="https://github.com/features/copilot" target="_blank">Verify subscription</a></td></tr>
+        <tr><td><strong>Render</strong></td><td>$7/mo</td><td>Tuck API backend</td><td><a href="https://dashboard.render.com" target="_blank">Log in</a></td></tr>
+        <tr><td><strong>Twilio</strong></td><td>~$1/mo</td><td>Swoop phone number</td><td><a href="https://console.twilio.com" target="_blank">Log in</a> — get SID/Token</td></tr>
+        <tr><td><strong>Cloudflare</strong></td><td>$10.46/yr</td><td>sunilvenugopal.com domain</td><td><a href="https://dash.cloudflare.com" target="_blank">Log in</a> — renews May 2027</td></tr>
+        <tr><td><strong>Namecheap</strong></td><td>$1.18/yr</td><td>tuckapp.site domain</td><td><a href="https://www.namecheap.com" target="_blank">Log in</a> — expires Apr 2027, auto-renew OFF!</td></tr>
+    </tbody>
+</table>
 
-<div class="warn">
-    ⚠️ <code>git push</code> may show what looks like an error (exit code 1) — this is normal. It's stderr output, but the push still succeeds. Check <a href="https://sunilmsft.github.io/smb-automation/" target="_blank">the live site</a> to confirm.
+<h3>🆓 Free Tier Accounts (verify login)</h3>
+<table>
+    <thead>
+        <tr><th>Service</th><th>For</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>OpenAI API</strong></td><td>Swoop (GPT-4o-mini)</td><td><a href="https://platform.openai.com" target="_blank">Log in</a> — get API key</td></tr>
+        <tr><td><strong>Google AI Studio</strong></td><td>FrontDesk AI (Gemini)</td><td><a href="https://aistudio.google.com" target="_blank">Log in</a> — get Gemini API key</td></tr>
+        <tr><td><strong>Supabase</strong></td><td>Kolo (auth + DB)</td><td><a href="https://supabase.com/dashboard" target="_blank">Log in</a> — get URL + anon key</td></tr>
+        <tr><td><strong>Vercel</strong></td><td>Tuck frontend + personal site</td><td><a href="https://vercel.com/dashboard" target="_blank">Log in</a></td></tr>
+        <tr><td><strong>Render</strong></td><td>Swoop backend (free tier)</td><td>Same account as above</td></tr>
+        <tr><td><strong>Cloudflare</strong></td><td>Tuck DNS routing</td><td>Same account as above</td></tr>
+        <tr><td><strong>GitHub</strong></td><td>All repos, Pages, Actions</td><td>Account: <code>sunilmsft</code></td></tr>
+        <tr><td><strong>Pushover</strong></td><td>Lunch Notifier</td><td><a href="https://pushover.net" target="_blank">Log in</a> — $5 one-time (already paid)</td></tr>
+    </tbody>
+</table>
+
+<div class="recommend">
+    💡 <strong>Tip:</strong> Gather all your API keys into a secure note (1Password, Bitwarden, etc.) so you can quickly create <code>.env</code> files in each project folder.
 </div>
 
 <!-- ===== WHAT CARRIES OVER ===== -->
@@ -329,51 +475,80 @@ git push</pre>
         <tr><th>Item</th><th>Carries Over?</th><th>How</th></tr>
     </thead>
     <tbody>
-        <tr><td>All code (index.html, etc.)</td><td><span class="check">✅ Yes</span></td><td>OneDrive sync or git clone</td></tr>
-        <tr><td>Project context for Copilot</td><td><span class="check">✅ Yes</span></td><td><code>.github/copilot-instructions.md</code> — auto-read</td></tr>
-        <tr><td>Decision history</td><td><span class="check">✅ Yes</span></td><td><code>memory.md</code> and <code>context.md</code></td></tr>
-        <tr><td>Git history</td><td><span class="check">✅ Yes</span></td><td>Full commit history in the repo</td></tr>
-        <tr><td>Live site</td><td><span class="check">✅ Yes</span></td><td>GitHub Pages at the same URL</td></tr>
+        <tr><td>All source code</td><td><span class="check">✅ Yes</span></td><td>OneDrive sync or git clone</td></tr>
+        <tr><td>Project context for Copilot</td><td><span class="check">✅ Yes</span></td><td><code>.github/copilot-instructions.md</code> per repo</td></tr>
+        <tr><td>Decision history</td><td><span class="check">✅ Yes</span></td><td><code>memory.md</code>, <code>context.md</code></td></tr>
+        <tr><td>Git history</td><td><span class="check">✅ Yes</span></td><td>Full commit log in each repo</td></tr>
+        <tr><td>Live sites</td><td><span class="check">✅ Yes</span></td><td>GitHub Pages, Vercel, Render — unchanged</td></tr>
+        <tr><td>Environment variables</td><td><span class="cross">❌ No</span></td><td>.env files are gitignored — recreate from your password manager</td></tr>
+        <tr><td>node_modules</td><td><span class="cross">❌ No</span></td><td>Run <code>npm install</code> in each project</td></tr>
         <tr><td>Chat conversation history</td><td><span class="cross">❌ No</span></td><td>Stored locally on work laptop</td></tr>
-        <tr><td>Copilot memory/preferences</td><td><span class="cross">❌ No</span></td><td>But <code>copilot-instructions.md</code> replaces most of this</td></tr>
+        <tr><td>Copilot memory/preferences</td><td><span class="cross">❌ No</span></td><td><code>copilot-instructions.md</code> covers most context</td></tr>
     </tbody>
 </table>
 
 <div class="note">
-    💡 <strong>Bottom line:</strong> The only thing you lose is the scrollback of past chat conversations. All decisions, code, and context are preserved in the repo. Copilot picks up the project context automatically.
+    💡 <strong>Bottom line:</strong> Code + git history + project context all carry over. You only need to recreate <code>.env</code> files and run <code>npm install</code>.
 </div>
+
+<!-- ===== QUICK REFERENCE ===== -->
+<h2>Quick Reference — All Projects</h2>
+
+<table>
+    <thead>
+        <tr><th>Project</th><th>Local Folder</th><th>Run Command</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>📱 Swoop</td><td>swoop/</td><td><code>node server.js</code></td><td><span class="badge badge-yellow">Building</span></td></tr>
+        <tr><td>🏪 FrontDesk AI</td><td>frontdesk-ai/</td><td><code>node server/index.js</code></td><td><span class="badge badge-yellow">Building</span></td></tr>
+        <tr><td>👨‍👩‍👧‍👦 Kolo</td><td>Loopi/</td><td><code>npm run dev</code></td><td><span class="badge badge-yellow">Building</span></td></tr>
+        <tr><td>📌 Tuck</td><td>Tuck/</td><td><code>npm run dev</code></td><td><span class="badge badge-green">Live</span></td></tr>
+        <tr><td>🏠 HomeOps Hub</td><td>(root level)</td><td><code>npm run dev</code></td><td><span class="badge badge-yellow">Building</span></td></tr>
+        <tr><td>💰 Project Cushion</td><td>Project Cushion/</td><td><code>npm test</code></td><td><span class="badge badge-yellow">Building</span></td></tr>
+        <tr><td>📊 SMB Dashboard</td><td>Tim and Sunil building Stuff!/</td><td>Open HTML in browser</td><td><span class="badge badge-green">Live</span></td></tr>
+        <tr><td>🍽️ Lunch Notifier</td><td>School Projects/lunch-menu-notifier/</td><td><code>python main.py</code></td><td><span class="badge badge-green">Complete</span></td></tr>
+    </tbody>
+</table>
 
 <!-- ===== QUICK LINKS ===== -->
 <h2>Quick Links</h2>
 <div class="links-grid">
-    <a href="https://sunilmsft.github.io/smb-automation/" target="_blank" class="link-card">
-        <div class="link-label">Live Dashboard</div>
-        <div class="link-title">sunilmsft.github.io/smb-automation</div>
+    <a href="https://sunilmsft.github.io/smb-automation/projects.html" target="_blank" class="link-card">
+        <div class="link-label">Command Center</div>
+        <div class="link-title">All Projects Dashboard</div>
     </a>
-    <a href="https://github.com/sunilmsft/smb-automation" target="_blank" class="link-card">
-        <div class="link-label">GitHub Repo</div>
-        <div class="link-title">github.com/sunilmsft/smb-automation</div>
+    <a href="https://sunilmsft.github.io/smb-automation/" target="_blank" class="link-card">
+        <div class="link-label">Live</div>
+        <div class="link-title">SMB Strategy Dashboard</div>
+    </a>
+    <a href="https://github.com/sunilmsft" target="_blank" class="link-card">
+        <div class="link-label">GitHub</div>
+        <div class="link-title">github.com/sunilmsft</div>
     </a>
     <a href="https://code.visualstudio.com" target="_blank" class="link-card">
         <div class="link-label">Download</div>
         <div class="link-title">Visual Studio Code</div>
     </a>
+    <a href="https://nodejs.org" target="_blank" class="link-card">
+        <div class="link-label">Download</div>
+        <div class="link-title">Node.js (LTS)</div>
+    </a>
     <a href="https://git-scm.com" target="_blank" class="link-card">
         <div class="link-label">Download</div>
         <div class="link-title">Git</div>
-    </a>
-    <a href="https://github.com/features/copilot" target="_blank" class="link-card">
-        <div class="link-label">Sign Up</div>
-        <div class="link-title">GitHub Copilot Plans</div>
     </a>
     <a href="https://cli.github.com" target="_blank" class="link-card">
         <div class="link-label">Download</div>
         <div class="link-title">GitHub CLI</div>
     </a>
+    <a href="https://github.com/features/copilot" target="_blank" class="link-card">
+        <div class="link-label">Sign Up</div>
+        <div class="link-title">GitHub Copilot Plans</div>
+    </a>
 </div>
 
 <p style="text-align: center; margin-top: 2.5rem; color: var(--text-muted); font-size: 0.82rem;">
-    Tim &amp; Sunil — SMB Automation Project · April 2026
+    Sunil Venugopal — Personal Laptop Setup · June 2026
 </p>
 
 </body>
